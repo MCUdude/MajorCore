@@ -1,0 +1,205 @@
+##########################################
+## This file is created by MCUdude 
+## for use with 8051core
+## https://github.com/MCUdude/8051core	
+##
+## This is the file where fuse settings,
+## BOD options, pinouts, clock frequencies
+## and compiler flags are located.
+##
+## Run ./makeall to build all bootloaders
+##########################################
+
+# Menu options
+menu.clock=Clock
+menu.BOD=BOD
+menu.LTO=Compiler LTO
+
+
+####################
+#### ATmega162  ####
+####################
+
+162.name=ATmega162
+162.upload.tool=avrdude
+162.upload.protocol=arduino
+162.upload.maximum_size=15872
+162.upload.maximum_data_size=1024
+
+162.bootloader.tool=arduino:avrdude
+162.bootloader.unlock_bits=0x3f
+162.bootloader.lock_bits=0x0f
+
+162.build.mcu=atmega162
+162.build.core=8051core
+162.build.board=AVR_ATmega162
+162.build.variant=standard
+
+
+# Brown out detection
+162.menu.BOD.2v7=2.7v
+162.menu.BOD.2v7.bootloader.extended_fuses=0xfb
+162.menu.BOD.4v3=4.3v
+162.menu.BOD.4v3.bootloader.extended_fuses=0xf9
+162.menu.BOD.1v8=1.8v
+162.menu.BOD.1v8.bootloader.extended_fuses=0xfd
+162.menu.BOD.disabled=Disabled
+162.menu.BOD.disabled.bootloader.extended_fuses=0xff
+
+# Compiler link time optimization
+162.menu.LTO.Os=Disabled (default)
+162.menu.LTO.Os.compiler.c.extra_flags=
+162.menu.LTO.Os.compiler.c.elf.extra_flags=
+162.menu.LTO.Os.compiler.cpp.extra_flags=
+162.menu.LTO.Os.ltoarcmd=avr-ar
+
+162.menu.LTO.Os_flto=Enabled
+162.menu.LTO.Os_flto.compiler.c.extra_flags=-Wextra -flto
+162.menu.LTO.Os_flto.compiler.c.elf.extra_flags=-w -flto
+162.menu.LTO.Os_flto.compiler.cpp.extra_flags=-Wextra -flto
+162.menu.LTO.Os_flto.ltoarcmd=avr-gcc-ar
+
+# Clock frequencies
+#make atmega162 AVR_FREQ=16000000L BAUD_RATE=115200 UART=0 LED=B0 LED_START_FLASHES=2
+162.menu.clock.16MHz_external=16 MHz external
+162.menu.clock.16MHz_external.upload.speed=115200
+162.menu.clock.16MHz_external.bootloader.low_fuses=0xf7
+162.menu.clock.16MHz_external.bootloader.high_fuses=0xd4
+162.menu.clock.16MHz_external.bootloader.file=optiboot_flash/{build.mcu}/optiboot_flash_{build.mcu}_{upload.speed}_{build.f_cpu}.hex
+162.menu.clock.16MHz_external.build.f_cpu=16000000L
+
+#make atmega162 AVR_FREQ=20000000L BAUD_RATE=115200 UART=0 LED=B0 LED_START_FLASHES=2
+162.menu.clock.20MHz_external=20 MHz external
+162.menu.clock.20MHz_external.upload.speed=115200
+162.menu.clock.20MHz_external.bootloader.low_fuses=0xf7
+162.menu.clock.20MHz_external.bootloader.high_fuses=0xd4
+162.menu.clock.20MHz_external.bootloader.file=optiboot_flash/{build.mcu}/optiboot_flash_{build.mcu}_{upload.speed}_{build.f_cpu}.hex
+162.menu.clock.20MHz_external.build.f_cpu=20000000L
+
+#make atmega162 AVR_FREQ=12000000L BAUD_RATE=57600 UART=0 LED=B0 LED_START_FLASHES=2
+162.menu.clock.12MHz_external=12 MHz external
+162.menu.clock.12MHz_external.upload.speed=57600
+162.menu.clock.12MHz_external.bootloader.low_fuses=0xf7
+162.menu.clock.12MHz_external.bootloader.high_fuses=0xd4
+162.menu.clock.12MHz_external.bootloader.file=optiboot_flash/{build.mcu}/optiboot_flash_{build.mcu}_{upload.speed}_{build.f_cpu}.hex
+162.menu.clock.12MHz_external.build.f_cpu=12000000L
+
+#make atmega162 AVR_FREQ=8000000L BAUD_RATE=115200 UART=0 LED=B0 LED_START_FLASHES=2
+#make atmega162 AVR_FREQ=8000000L BAUD_RATE=57600 UART=0 LED=B0 LED_START_FLASHES=2
+162.menu.clock.8MHz_external=8 MHz external
+162.menu.clock.8MHz_external.upload.speed=57600
+162.menu.clock.8MHz_external.bootloader.low_fuses=0xf7
+162.menu.clock.8MHz_external.bootloader.high_fuses=0xd4
+162.menu.clock.8MHz_external.bootloader.file=optiboot_flash/{build.mcu}/optiboot_flash_{build.mcu}_{upload.speed}_{build.f_cpu}.hex
+162.menu.clock.8MHz_external.build.f_cpu=8000000L
+
+#make atmega162 AVR_FREQ=8000000L BAUD_RATE=38400 UART=0 LED=B0 LED_START_FLASHES=2
+#make atmega162 AVR_FREQ=8000000L BAUD_RATE=19200 UART=0 LED=B0 LED_START_FLASHES=2
+162.menu.clock.8MHz_internal=8 MHz internal
+162.menu.clock.8MHz_internal.upload.speed=38400
+162.menu.clock.8MHz_internal.bootloader.low_fuses=0xe2
+162.menu.clock.8MHz_internal.bootloader.high_fuses=0xd4
+162.menu.clock.8MHz_internal.bootloader.file=optiboot_flash/{build.mcu}/optiboot_flash_{build.mcu}_{upload.speed}_{build.f_cpu}.hex
+162.menu.clock.8MHz_internal.build.f_cpu=8000000L
+
+#make atmega162 AVR_FREQ=1000000L BAUD_RATE=9600 UART=0 LED=B0 LED_START_FLASHES=2
+162.menu.clock.1MHz_internal=1 MHz internal
+162.menu.clock.1MHz_internal.upload.speed=9600
+162.menu.clock.1MHz_internal.bootloader.low_fuses=0x62
+162.menu.clock.1MHz_internal.bootloader.high_fuses=0xd4
+162.menu.clock.1MHz_internal.bootloader.file=optiboot_flash/{build.mcu}/optiboot_flash_{build.mcu}_{upload.speed}_{build.f_cpu}.hex
+162.menu.clock.1MHz_internal.build.f_cpu=1000000L
+
+
+
+#####################
+#### ATmega8515  ####
+#####################
+
+8515.name=ATmega8515
+8515.upload.tool=avrdude
+8515.upload.protocol=arduino
+8515.upload.maximum_size=7680
+8515.upload.maximum_data_size=512
+
+8515.bootloader.tool=avrdude
+8515.bootloader.unlock_bits=0x3f
+8515.bootloader.lock_bits=0x0f
+8515.bootloader.low_fuses=0b{bootloader.bod_bits}{bootloader.sut_cksel_bits}
+
+8515.build.mcu=atmega8515
+8515.build.core=8051core
+8515.build.board=AVR_ATmega8515
+8515.build.variant=standard
+
+# Brown out detection - This is the first part of the low fuse bit concatenation
+8515.menu.BOD.2v7=2.7v
+8515.menu.BOD.2v7.bootloader.bod_bits=10
+8515.menu.BOD.4v0=4.0v
+8515.menu.BOD.4v0.bootloader.bod_bits=00
+8515.menu.BOD.disabled=Disabled
+8515.menu.BOD.disabled.bootloader.bod_bits=11
+
+# Compiler link time optimization
+8515.menu.LTO.Os=Disabled (default)
+8515.menu.LTO.Os.compiler.c.extra_flags=
+8515.menu.LTO.Os.compiler.c.elf.extra_flags=
+8515.menu.LTO.Os.compiler.cpp.extra_flags=
+8515.menu.LTO.Os.ltoarcmd=avr-ar
+
+8515.menu.LTO.Os_flto=Enabled
+8515.menu.LTO.Os_flto.compiler.c.extra_flags=-Wextra -flto
+8515.menu.LTO.Os_flto.compiler.c.elf.extra_flags=-w -flto
+8515.menu.LTO.Os_flto.compiler.cpp.extra_flags=-Wextra -flto
+8515.menu.LTO.Os_flto.ltoarcmd=avr-gcc-ar
+
+# Clock frequencies - This is the second part of the low fuse bit concatenation
+#make atmega8515 AVR_FREQ=16000000L BAUD_RATE=115200 UART=0 LED=B0 LED_START_FLASHES=2
+8515.menu.clock.16MHz_external=16 MHz external
+8515.menu.clock.16MHz_external.upload.speed=115200
+8515.menu.clock.16MHz_external.bootloader.sut_cksel_bits=111111
+8515.menu.clock.16MHz_external.bootloader.high_fuses=0xd4
+8515.menu.clock.16MHz_external.bootloader.file=optiboot_flash/{build.mcu}/optiboot_flash_{build.mcu}_{upload.speed}_{build.f_cpu}.hex
+8515.menu.clock.16MHz_external.build.f_cpu=16000000L
+
+#make atmega8515 AVR_FREQ=20000000L BAUD_RATE=115200 UART=0 LED=B0 LED_START_FLASHES=2
+8515.menu.clock.20MHz_external=20 MHz external
+8515.menu.clock.20MHz_external.upload.speed=115200
+8515.menu.clock.20MHz_external.bootloader.sut_cksel_bits=111111
+8515.menu.clock.20MHz_external.bootloader.high_fuses=0xd4
+8515.menu.clock.20MHz_external.bootloader.file=optiboot_flash/{build.mcu}/optiboot_flash_{build.mcu}_{upload.speed}_{build.f_cpu}.hex
+8515.menu.clock.20MHz_external.build.f_cpu=20000000L
+
+#make atmega8515 AVR_FREQ=12000000L BAUD_RATE=57600 UART=0 LED=B0 LED_START_FLASHES=2
+8515.menu.clock.12MHz_external=12 MHz external
+8515.menu.clock.12MHz_external.upload.speed=57600
+8515.menu.clock.12MHz_external.bootloader.sut_cksel_bits=111111
+8515.menu.clock.12MHz_external.bootloader.high_fuses=0xd4
+8515.menu.clock.12MHz_external.bootloader.file=optiboot_flash/{build.mcu}/optiboot_flash_{build.mcu}_{upload.speed}_{build.f_cpu}.hex
+8515.menu.clock.12MHz_external.build.f_cpu=12000000L
+
+#make atmega8515 AVR_FREQ=8000000L BAUD_RATE=115200 UART=0 LED=B0 LED_START_FLASHES=2
+#make atmega8515 AVR_FREQ=8000000L BAUD_RATE=57600 UART=0 LED=B0 LED_START_FLASHES=2
+8515.menu.clock.8MHz_external=8 MHz external
+8515.menu.clock.8MHz_external.upload.speed=115200
+8515.menu.clock.8MHz_external.bootloader.sut_cksel_bits=111111
+8515.menu.clock.8MHz_external.bootloader.high_fuses=0xd4
+8515.menu.clock.8MHz_external.bootloader.file=optiboot_flash/{build.mcu}/optiboot_flash_{build.mcu}_{upload.speed}_{build.f_cpu}.hex
+8515.menu.clock.8MHz_external.build.f_cpu=8000000L
+
+#make atmega8515 AVR_FREQ=8000000L BAUD_RATE=38400 UART=0 LED=B0 LED_START_FLASHES=2
+#make atmega8515 AVR_FREQ=8000000L BAUD_RATE=19200 UART=0 LED=B0 LED_START_FLASHES=2
+8515.menu.clock.8MHz_internal=8 MHz internal
+8515.menu.clock.8MHz_internal.upload.speed=38400
+8515.menu.clock.8MHz_internal.bootloader.sut_cksel_bits=100100
+8515.menu.clock.8MHz_internal.bootloader.high_fuses=0xd4
+8515.menu.clock.8MHz_internal.bootloader.file=optiboot_flash/{build.mcu}/optiboot_flash_{build.mcu}_{upload.speed}_{build.f_cpu}.hex
+8515.menu.clock.8MHz_internal.build.f_cpu=8000000L
+
+#make atmega8515 AVR_FREQ=1000000L BAUD_RATE=9600 UART=0 LED=B0 LED_START_FLASHES=2
+8515.menu.clock.1MHz_internal=1 MHz internal
+8515.menu.clock.1MHz_internal.upload.speed=9600
+8515.menu.clock.1MHz_internal.bootloader.sut_cksel_bits=100001
+8515.menu.clock.1MHz_internal.bootloader.high_fuses=0xd4
+8515.menu.clock.1MHz_internal.bootloader.file=optiboot_flash/{build.mcu}/optiboot_flash_{build.mcu}_{upload.speed}_{build.f_cpu}.hex
+8515.menu.clock.1MHz_internal.build.f_cpu=1000000L
