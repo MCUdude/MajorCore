@@ -129,11 +129,12 @@ static void initISR(timer16_Sequence_t timer)
     TCCR1B = _BV(CS11);     // set prescaler of 8
     TCNT1 = 0;              // clear the timer count
 #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega8535__) || defined(__AVR_ATmega16__) \
-|| defined(__AVR_ATmega32__) || defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
+|| defined(__AVR_ATmega32__) || defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)  \
+|| defined(__AVR_ATmega8515__) || defined(__AVR_ATmega162__)
     TIFR |= _BV(OCF1A);      // clear any pending interrupts;
     TIMSK |=  _BV(OCIE1A) ;  // enable the output compare interrupt
 #else
-    // here if not ATmega8/8535/16/32/64/128
+    // here if not ATmega8/8535/16/32/64/128/8515/162
     TIFR1 |= _BV(OCF1A);     // clear any pending interrupts;
     TIMSK1 |=  _BV(OCIE1A) ; // enable the output compare interrupt
 #endif
