@@ -74,6 +74,7 @@ static const uint8_t SCK  = 7;
 #define PB 2
 #define PC 3
 #define PD 4
+#undef PE
 #define PE 5
 
 // these arrays map port names (e.g. port B) to the

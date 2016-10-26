@@ -182,27 +182,6 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 
 #define NOT_AN_INTERRUPT -1
 
-#ifdef ARDUINO_MAIN
-#define PA 1
-#define PB 2
-#define PC 3
-#define PD 4
-
-
-// This fixes compiler warnings for ATmega8535/16/32
-#if defined(__AVR_ATmega8535__) || defined(__AVR_ATmega16__) || defined(__AVR_ATmega32__)	
-#else 
-#define PE 5	
-#endif
-
-#define PF 6
-#define PG 7
-#define PH 8
-#define PJ 10
-#define PK 11
-#define PL 12
-#endif
-
 #define NOT_ON_TIMER 0
 #define TIMER0  1
 #define TIMER0A 2
