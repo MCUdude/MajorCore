@@ -24,4 +24,4 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-This version is modified for compatibility with "8051core" (Changes to Sd2PinMap.h)
+This version is modified for compatibility with MajorCore (Changes to Sd2PinMap.h)

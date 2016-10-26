@@ -1,4 +1,4 @@
-/*------------- Optiboot flasher example for the 8051core ------------------|
+/*------------- Optiboot flasher example for the MajorCore -----------------|
  |                                                                          |
  | Created May 2016 by MCUdude, https://github.com/MCUdude                  |
  | Based on the work done by Marek Wodzinski, https://github.com/majekw     |

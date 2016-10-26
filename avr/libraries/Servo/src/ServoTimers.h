@@ -32,7 +32,7 @@
 
 // Say which 16 bit timers can be used and in what order
 
-//8051core
+// MajorCore
 #if defined(__AVR_ATmega8515__)
 #define _useTimer1
 typedef enum { _timer1, _Nbr_16timers } timer16_Sequence_t ;

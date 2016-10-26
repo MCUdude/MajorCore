@@ -3,7 +3,7 @@
 
    This sketch demonstrates the usage of events,
    and that they got diffrent IDs.
-   Works great with 8051core!
+   Works great with MajorCore!
 */
 
 #include "Timer.h"

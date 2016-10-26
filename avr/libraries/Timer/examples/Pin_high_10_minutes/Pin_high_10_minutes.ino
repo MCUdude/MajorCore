@@ -5,7 +5,7 @@
    the usage of the "pulseImmediate" method and
    how can turn on an LED for ten minutes without
    the use if delay().
-   Works great with 8051core!
+   Works great with MajorCore!
 */
 
 #include "Timer.h"

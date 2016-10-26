@@ -3,7 +3,7 @@
 || @url            http://wiring.org.co/
 || @contribution   Hernando Barragan <b@wiring.org.co>
 ||
-|| Modified by MCUdude to work with 8051core
+|| Modified by MCUdude to work with MajorCore
 ||
 */
 

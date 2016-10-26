@@ -40,15 +40,15 @@ http://arduiniana.org.
 * Hardware detection
 ******************************************************************************/
 
-//8051core
+// MajorCore
 #elif defined(__AVR_ATmega8515__)
   #error "ATmega8515 doesn't support SoftSerial!"
 
-//MegaCore
+// MegaCore
 #elif defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
   #error "ATmega64 and ATmega128 doesn't support SoftSerial!"
 
-//MightyCore
+// MightyCore
 #elif defined(__AVR_ATmega32__) || defined(__AVR_ATmega16__) || defined(__AVR_ATmega8535__)
   #error "ATmega8535, ATmega16 and ATmega32 doesn't support SoftSerial!"
 #endif

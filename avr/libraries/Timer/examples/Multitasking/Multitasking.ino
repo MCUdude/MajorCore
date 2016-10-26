@@ -5,7 +5,7 @@
    "every" method. This method let you run code
    every second, every millisecond or any other
    specified delay. It's like multitasking!
-   Works great with 8051core!
+   Works great with MajorCore!
 */
 
 #include "Timer.h"

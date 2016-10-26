@@ -1,5 +1,5 @@
 ## **EEPROM Library V2.0** for Arduino
-## This version is modified for compatibility with the "8051core"
+## This version is modified for compatibility with the "MajorCore"
 
 **Written by:** _Christopher Andrews_.  
 

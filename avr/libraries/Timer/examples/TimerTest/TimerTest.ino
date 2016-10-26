@@ -3,7 +3,7 @@
    
    This is a simple test sketch that demonstrates the
    oscillate, pulse and pulseImmediate methods.
-   Works great with 8051core!
+   Works great with MajorCore!
 */
 
 #include "Timer.h"

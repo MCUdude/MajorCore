@@ -48,7 +48,7 @@ struct pin_map_t {
 };
 //------------------------------------------------------------------------------
 
-//8051core pinout
+//MajorCore pinout
 #elif defined(__AVR_ATmega8515__) || defined(__AVR_ATmega162__)
 
 // SPI port

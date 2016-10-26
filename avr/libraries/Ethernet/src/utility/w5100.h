@@ -332,7 +332,7 @@ private:
       inline static void setSS()     { PORTB &= ~_BV(4); };
       inline static void resetSS()   { PORTB |=  _BV(4); };
       
-    // 8051core  
+    // MajorCore  
     #elif defined(__AVR_ATmega8515__) || defined(__AVR_ATmega162__)
       inline static void initSS()    { DDRB  |=  _BV(4); };
       inline static void setSS()     { PORTB &= ~_BV(4); };

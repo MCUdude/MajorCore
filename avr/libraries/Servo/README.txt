@@ -1,5 +1,5 @@
 = Servo Library for Arduino =
-This version is modified for compatibility with "8051core" (Changes to ServoTimers.h)
+This version is modified for compatibility with MajorCore (Changes to ServoTimers.h)
 
 This library allows an Arduino board to control RC (hobby) servo motors.
 

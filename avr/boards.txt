@@ -1,7 +1,7 @@
 ##########################################
 ## This file is created by MCUdude 
-## for use with 8051core
-## https://github.com/MCUdude/8051core	
+## for use with MajorCore
+## https://github.com/MCUdude/MajorCore	
 ##
 ## This is the file where fuse settings,
 ## BOD options, pinouts, clock frequencies
@@ -31,7 +31,7 @@ menu.LTO=Compiler LTO
 162.bootloader.lock_bits=0x0f
 
 162.build.mcu=atmega162
-162.build.core=8051core
+162.build.core=majorcore
 162.build.board=AVR_ATmega162
 162.build.variant=standard
 
@@ -128,7 +128,7 @@ menu.LTO=Compiler LTO
 8515.bootloader.low_fuses=0b{bootloader.bod_bits}{bootloader.sut_cksel_bits}
 
 8515.build.mcu=atmega8515
-8515.build.core=8051core
+8515.build.core=majorcore
 8515.build.board=AVR_ATmega8515
 8515.build.variant=standard
 
