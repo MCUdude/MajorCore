@@ -41,8 +41,6 @@ void takeReading(void* context)
   int val = (int)context; //convert the passed value to an integer
   Serial.print("Value passed to the takeReading method: ");
   Serial.println(val);
-  Serial.print("AnalogRead value: ");
-  Serial.println(analogRead(0));
 }
 
 void toggle(void* context) {
