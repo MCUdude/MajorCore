@@ -1,4 +1,4 @@
-#MajorCore (work in progress title - please help me come up with a better name)
+#MajorCore
 An Arduino core for large, 8051 pin compatible, breadboard friendly AVRs, all running [Optiboot 6](https://github.com/Optiboot/optiboot). Major libraries such as SD, Servo, and SPI are modified to work with this core. Still, a large amount of third-party libraries often works without any modifications. 
 <br/> <br/>
 This core requires at least Arduino IDE v1.6, where v1.6.11+ is recommended.
