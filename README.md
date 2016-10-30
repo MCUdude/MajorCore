@@ -11,14 +11,14 @@ If you're into "pure" AVR programming, I'm happy to tell you that all relevant k
 * [Supported clock frequencies](#supported-clock-frequencies)
 * [BOD option](#bod-option)
 * [Link time optimization / LTO](#link-time-optimization--lto)
-* **[Pinout](#pinout)**
 * [Write to own flash](#write-to-own-flash)
 * **[How to install](#how-to-install)**
 	- [Boards Manager Installation](#boards-manager-installation)
 	- [Manual Installation](#manual-installation)
 	- [PlatformIO](#platformio)
 * **[Getting started with MajorCore](#getting-started-with-majorcore)**
-* [Wiring reference](#wiring-reference)	
+* [Wiring reference](#wiring-reference)
+* **[Pinout](#pinout)**
 * **[Minimal setup](#minimal-setup)**
 
 
@@ -67,10 +67,6 @@ Here's some numbers to convince you. These sketches were compiled for an **ATmeg
 | **LTO enabled** | 286 bytes     | 766 bytes | 916 bytes  | 3172 bytes      |
 | **LTO disabled**| 302 bytes     | 908 bytes | 1088 bytes | 3732 bytes      |
 | **Reduction**   | 5.3%          | 16.9%     | 15.8%      | 15.0%           |
-
-
-##Pinout
-Since there are no standarized Arduino pinout for the ATmega8515 and ATmega162, I had to create my own. I'm working on a pinout diagram, but for now you can find the pinout in the [pins_arduino.h](https://github.com/MCUdude/MajorCore/blob/master/avr/variants/standard/pins_arduino.h) file.
 
 
 ##Write to own flash
@@ -128,6 +124,13 @@ I hope you find this useful, because they really are!
 * disablePower()
 
 ###For further information please view the [Wiring reference page](https://github.com/MCUdude/MajorCore/blob/master/Wiring_reference.md)!
+
+
+##Pinout
+Since there are no standarized Arduino pinout for the ATmega8515 and ATmega162, I had to create my own. You can find the current pinout below. 
+<b>Click to enlarge:</b> 
+</br> </br>
+<img src="http://i.imgur.com/7Y4nGJo.jpg" width="800">
 
 
 ##Minimal setup
