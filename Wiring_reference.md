@@ -29,6 +29,7 @@ portMode(portNumber, value)
 | 1           | PORTB         |
 | 2           | PORTC         |
 | 3           | PORTD         |
+| 4           | PORTE         |
 
 ####Returns
 `none`
@@ -70,6 +71,7 @@ portRead(portNumber)
 | 1           | PORTB         |
 | 2           | PORTC         |
 | 3           | PORTD         |
+| 4           | PORTE         |
 
 ####Returns
 `byte/uint8_t`
@@ -111,6 +113,8 @@ portWrite(portNumber, value)
 | 1           | PORTB         |
 | 2           | PORTC         |
 | 3           | PORTD         |
+| 4           | PORTE         |
+
 
 ####Returns
 `none`
