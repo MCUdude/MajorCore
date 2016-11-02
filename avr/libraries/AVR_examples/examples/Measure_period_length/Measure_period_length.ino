@@ -4,7 +4,7 @@
  on the serial monitor. The measurement starts and stops
  on rising edge.
  The timer is being clocked by F_CPU/8 (16MHz / 8 = 2MHz).
- This means that for every milliusecons that has elapsed,
+ This means that for every milliseconds that has elapsed,
  2000 counts have occured. Dividinng the counts by 2000
  produces the actual number of milliseconds in the measurement
  period.
@@ -24,17 +24,11 @@ int main(void)
 {
   Serial.begin(115200);
 
-  PORTD |= 0x40; // Enable pullup on PD6, Input Capture Pin 1 (ICP1)
+  PORTE |= 0x01; // Enable pullup on PE0, Input Capture Pin (ICP / ICP1)
   TCCR1A = 0;    // Disable all waveform functions
   TCCR1B = 0xC2; // Timer1 input to clock/8, enable rising edge input capture and noise canceler
-  
-  #if defined(__AVR_ATmega8535__) || defined(__AVR_ATmega16__)|| defined(__AVR_ATmega32__) 
-    TIMSK = 0x24;  // Unmask Timer1 overflow and capture interrupts
-  #elif defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324P__) \
-  || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284P__)
-    TIMSK1 = 0x24;  // Unmask Timer1 overflow and capture interrupts
-  #endif  
-  
+  TIMSK = 0x24;  // Unmask Timer1 overflow and capture interrupts
+    
   sei(); // Enable global interrupts
 
   while(1); //infinite loop, waiting for interrupt
