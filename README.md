@@ -18,6 +18,7 @@ If you're into "pure" AVR programming, I'm happy to tell you that all relevant k
 	- [PlatformIO](#platformio)
 * **[Getting started with MajorCore](#getting-started-with-majorcore)**
 * [Wiring reference](#wiring-reference)
+* **[Development board](#majorcore-development-board)**
 * **[Pinout](#pinout)**
 * **[Minimal setup](#minimal-setup)**
 
@@ -123,16 +124,23 @@ I hope you find this useful, because they really are!
 * enablePower()	
 * disablePower()
 
-###For further information please view the [Wiring reference page](https://github.com/MCUdude/MajorCore/blob/master/Wiring_reference.md)!
+###For further information please view the [Wiring reference page](https://github.com/MCUdude/MajorCore/blob/master/docs/Wiring_reference.md)!
+
+
+##MajorCore development board
+If you want to play around with this Arduino core and you don't have any hardware, you can use a development board instead of wiring up the microcontroller on a breadboard. There are may development boards available, both cheap and expensive ones.
+If you're interested, you should have a look at the *MajorCore development guide*; where you can find some detailed information. Link down below!
+
+### [MajorCore development board guide](https://github.com/MCUdude/MajorCore/blob/master/docs/development_boards.md)!
 
 
 ##Pinout
 Since there are no standarized Arduino pinout for the ATmega8515 and ATmega162, I had to create my own. You can find the current pinout below. 
 <b>Click to enlarge:</b> 
 </br> </br>
-<img src="http://i.imgur.com/7Y4nGJo.jpg" width="800">
+<img src="https://github.com/MCUdude/MajorCore/blob/master/images/MajorCore_pinout.png" width="800">
 
 
 ##Minimal setup
 Here is a simple schematic showing a minimal setup using an external crystal. Skip the crystal and the two capacitors if you're using the internal oscillator. <br/>
-<img src="http://i.imgur.com/y2cHhH9.png" width="750">
+<img src="https://github.com/MCUdude/MajorCore/blob/master/images/MajorCore_minimal_setup.png" width="750">
