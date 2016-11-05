@@ -138,7 +138,7 @@ If you're interested, you should have a look at the *MajorCore development guide
 Since there are no standarized Arduino pinout for the ATmega8515 and ATmega162, I had to create my own. You can find the current pinout below. 
 <b>Click to enlarge:</b> 
 </br> </br>
-<img src="https://github.com/MCUdude/MajorCore/blob/master/images/MajorCore_pinout.png" width="800">
+<img src="https://github.com/MCUdude/MajorCore/blob/master/images/MajorCore_pinout.jpg" width="800">
 
 
 ##Minimal setup
