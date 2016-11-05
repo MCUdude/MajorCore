@@ -9,14 +9,14 @@
 ##########################################
 
 
-stk500.name=STK500 as ISP (MightyCore)
+stk500.name=STK500 as ISP
 stk500.communication=serial
 stk500.protocol=stk500
 stk500.program.protocol=stk500
 stk500.program.tool=avrdude
 stk500.program.extra_params= -P {serial.port}
 
-# STK500 HVPP doen’t work because of a bug in Avrdude (lock bit error)
+# STK500 HVPP doen’t work because of a bug in avrdude (lock bit error)
 #stk500hvpp.name=STK500 as HVPP
 #stk500hvpp.communication=serial
 #stk500hvpp.protocol=stk500pp
