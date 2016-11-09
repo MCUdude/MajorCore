@@ -1,0 +1,31 @@
+{
+  "packages": [
+    {
+      "name": "MajorCore",
+      "maintainer": "MCUdude",
+      "websiteURL": "https://github.com/MCUdude/MajorCore",
+      "email": "",
+      "help": {
+        "online": ""
+      },
+      "platforms": [
+        {
+          "name": "MajorCore",
+          "architecture": "avr",
+          "version": "1.0.0",
+          "category": "Contributed",
+          "url": "https://MCUdude.github.io/MajorCore/MajorCore-1.0.0.tar.bz2",
+          "archiveFileName": "MajorCore-1.0.0.tar.bz2",
+          "checksum": "SHA-256:77df4c10b8a5e1d9b754c3d53d902381e0cd72db458ae1ed0d72346331d4efa7",
+          "size": "14305116",
+          "boards": [
+            {"name": "ATmega162"},
+            {"name": "ATmega8515"}
+          ],
+          "toolsDependencies": []
+        }
+      ],
+      "tools": []
+    }
+  ]
+}
