@@ -17,7 +17,7 @@ The [STK500 development board](http://www.atmel.com/webdoc/stk500/index.html) wa
 Let's prepare the STK500 for some bootloader action! 
 * Insert your microcontroller (ATmega8515 or ATmega162) in the socket called `SCKT3000D3`, and make sure it's installed the correct way. 
 * Insert a crystal in the crystal socket if you're not using the internal oscillator. 
-* Make sure the `XTAL1` jumper is connected, that the `OSCSEL` is connected between pin 2 and three as shown in the picture below, and that the `RESET` jumper is connected.
+* Make sure the `XTAL1` jumper is connected, that the `OSCSEL` is connected between pin 2 and three as shown in the picture below.
 * Connect the 6 pin cable between the `ISP6PIN` and the `SPROG3` connector. This will connect the stk500 programmer to the microcontroller.
 * Connect the 10 pin cable between the `PORTB` and `LEDS` header (optional but recommended).
 * Connect the 2 pin cable between the `RS232 SPARE` and the `PORTD` connector. The _RXD_ pin should be connected to `PD0`, and the _TXD_ pin should be connected to `PD1`.
@@ -45,7 +45,7 @@ Flip your board around and locate the `RS232 SPARE` connector. Solder a **100 nF
 <br/>
 
 To prevent damage to the _RESET_ pin caused by undervoltage from the RS-232 interface, a diode needs to be solder between ground and _RESET_. I soldered a 1N4007 SMD diode near the `EXPAND0` connector. <br/>
-The last thing on the list is to disconnect the `RESET` jumper marked in red on the first picture. If not, auto reset will not work.
+Then you have to disconnect the `RESET` jumper marked in red on the first picture. If not, auto reset will not work. The last thing on the list is to remove the 6 pin connector.
 <br/>
 <br/>
 Now open Arduino IDE, select the correct clock frequency and serial port, and simply hit _Upload_. Your code should now be running on the microcontroller!

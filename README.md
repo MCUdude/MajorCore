@@ -16,7 +16,6 @@ If you're into "pure" AVR programming, I'm happy to tell you that all relevant k
 * **[How to install](#how-to-install)**
 	- [Boards Manager Installation](#boards-manager-installation)
 	- [Manual Installation](#manual-installation)
-	- [PlatformIO](#platformio)
 * **[Getting started with MajorCore](#getting-started-with-majorcore)**
 * [Wiring reference](#wiring-reference)
 * **[Development board](#majorcore-development-board)**
