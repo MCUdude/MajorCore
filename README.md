@@ -6,6 +6,7 @@ This core requires at least Arduino IDE v1.6, where v1.6.11+ is recommended.
 If you're into "pure" AVR programming, I'm happy to tell you that all relevant keywords are being highlighted by the IDE through a separate keywords file. Make sure to test the [example files](https://github.com/MCUdude/MajorCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
 <br/> <br/>
 
+
 #Table of contents
 * [Supported microcontrollers](#supported-microcontrollers)
 * [Supported clock frequencies](#supported-clock-frequencies)
@@ -29,17 +30,24 @@ If you're into "pure" AVR programming, I'm happy to tell you that all relevant k
 
 
 ##Supported clock frequencies
-* 20 MHz external oscillator
 * 16 MHz external oscillator (default)
+* 20 MHz external oscillator
+* 18.432 MHz external oscillator
 * 12 MHz external oscillator
 * 8 MHz external oscillator
-* 8 MHz internal oscillator <b>*</b>
+* 8 MHz internal oscillator <b>**</b>
 * 1 MHz internal oscillator 
  
 Select your microcontroller in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses and upload the correct bootloader. <br/>
 Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu. For time critical operations an external oscillator is recommended. 
 </br></br>
-<b>*</b> There might be some issues related to the internal oscillator. It's factory calibrated, but may be a little "off" depending on the calibration, ambient temperature and operating voltage. If uploading failes while using the 8 MHz internal oscillator you have three options:
+
+<b>*</b> When using the 18.432 MHz option (or any frequency by which 64 cannot be divided evenly), micros() is 4-5 times slower (~110 clocks). It reports the time at the point when it was called, not the end.
+This clock frequency is not recommended if your application relies on accurate timing, but is [superb for UART communication](http://wormfood.net/avrbaudcalc.php?bitrate=300%2C600%2C1200%2C2400%2C4800%2C9600%2C14.4k%2C19.2k%2C28.8k%2C38.4k%2C57.6k%2C76.8k%2C115.2k%2C230.4k%2C250k%2C.5m%2C1m&clock=18.432&databits=8). 
+Millis() is not effected, only micros() and delay(). Micros() executes equally fast at all clock speeds, but returns wrong values with anything that 64 doesn't divide evenly by.
+<br/>
+
+<b>**</b> There might be some issues related to the internal oscillator. It's factory calibrated, but may be a little "off" depending on the calibration, ambient temperature and operating voltage. If uploading failes while using the 8 MHz internal oscillator you have three options:
 * Edit the baudrate line in the [boards.txt](https://github.com/MCUdude/MajorCore/blob/034ddfe8fb9b95178c07c723c98fc90dfdf3c89c/avr/boards.txt#L99) file, and choose either 115200, 57600, 38400 or 19200 baud.
 * Upload the code using a programmer (USBasp, USBtinyISP etc.) and skip the bootloader
 * Use the 1 MHz option instead
