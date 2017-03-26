@@ -30,6 +30,7 @@ Let's prepare the STK500 for some bootloader action!
 If everything is allright, `LED0` should now flash twice every second.
 
 <br/>
+
 ![STK500 top view](http://i.imgur.com/R4X7UXs.jpg)
 
 
@@ -61,6 +62,7 @@ Now open Arduino IDE, select the correct clock frequency and serial port, and si
 The [ReadyAVR-40 development board](http://logifind.com/avr-xmega-avr32/development-boards/avr-development-board-readyavr-40-atmega16-bootloader-1126.html) is combined development board that supports both MajorCore and MightyCore compatible microcontrollers. The board has a built in CP2102 USB to serial converter, so it's more convinient than the STK500 if you're planning to use the serial interface. Just make sure the _PD0_ and _PD1_ jumpers are connected.
 
 <br/>
+
 ![ReadyAVR](http://i.imgur.com/3CjuJwT.jpg)
 
 <br/>
