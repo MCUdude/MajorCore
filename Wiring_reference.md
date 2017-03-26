@@ -1,7 +1,7 @@
-#Wiring reference
+# Wiring reference
 To extend this core's functionality a bit futher, I've added a few missing Wiring functions. As many of you know Arduino is based on Wiring, but that doesn't mean the Wiring development isnt active. These functions is used as "regular" Arduino functions, and there's no need to include an external library.
 
-##Content
+## Content
 * [portMode](#portmode)()
 * [portRead](#portread)()
 * [portWrite](#portwrite)()
@@ -11,15 +11,15 @@ To extend this core's functionality a bit futher, I've added a few missing Wirin
 * [enablePower](#enablepower)()	
 * [disablepower](#disablePower)()
 
-##portMode()
+## portMode()
 The <b>portMode()</b> method sets a specified digital I/O port as INPUT or OUTPUT. A digital I/O port is a group of 8 pins. By writing 0 to a port it will set individually each of the 8 pins to 0 (LOW). Possible values range from 0 to 255. It possible to read or write a value of a digital I/O port by using the <b>[portRead()](#portread)</b> and <b>[portWrite()](#portwrite)</b> methods.
 
-###Syntax
+### Syntax
 ``` c++
 portMode(portNumber, value)
 ```
 
-####Parameters
+#### Parameters
 `portNumber` - <i>byte/uint8_t</i> <br/>
 `value` - <i>byte/uint8_t</i>
 
@@ -31,11 +31,11 @@ portMode(portNumber, value)
 | 3           | PORTD         |
 | 4           | PORTE         |
 
-####Returns
+#### Returns
 `none`
 <br/>
 
-###Example
+### Example
 ``` c++
 byte portNumber = 1; // Use port B
 byte val = 0;
@@ -54,15 +54,15 @@ void loop() {
 
 
 
-##portRead()
+## portRead()
 The <b>portRead()</b> method reads the value of the digital input port specified.
 
-###Syntax
+### Syntax
 ``` c++
 portRead(portNumber)
 ```
 
-####Parameters
+#### Parameters
 `portNumber` - <i>byte/uint8_t</i> <br/>
 
 | PortNumber  | Physical port |
@@ -73,11 +73,11 @@ portRead(portNumber)
 | 3           | PORTD         |
 | 4           | PORTE         |
 
-####Returns
+#### Returns
 `byte/uint8_t`
 <br/>
 
-###Example
+### Example
 ``` c++
 byte inport = 1;
 byte val = 0;
@@ -95,15 +95,15 @@ void loop() {
 
 
 
-##portWrite()
+## portWrite()
 The <b>portWrite()</b> method writes a value to the digital output port specified.
 
-###Syntax
+### Syntax
 ``` c++
 portWrite(portNumber, value)
 ```
 
-####Parameters
+#### Parameters
 `portNumber` - <i>byte/uint8_t</i> <br/>
 `value` - <i>byte/uint8_t</i>
 
@@ -116,11 +116,11 @@ portWrite(portNumber, value)
 | 4           | PORTE         |
 
 
-####Returns
+#### Returns
 `none`
 <br/>
 
-###Example
+### Example
 ``` c++
 byte outport = 1;
 byte val = 0;
@@ -139,7 +139,7 @@ void loop() {
 
 
 
-##sleepMode()
+## sleepMode()
 Sleep modes enable the application to shut down unused modules in the microcontroller, thereby saving power. The default mode is SLEEP_IDLE. Different AVR devices provides various sleep modes allowing the user to tailor the power consumption to the application's requirements. There are six sleep modes set by the sleepMode() command. <br/>
 <b>SLEEP_IDLE:</b> makes the MCU enter Idle mode, stopping the CPU but allowing the SPI, Serial, Analog Comparator, ADC, Wire, Timer/Counters and the interrupt system to continue operating. This mode enables the microcontroller to wake up from external triggered interrupts as well as internal ones like the Timer Overflow and Serial Transmit Complete interrupts.
 SLEEP_ADC: makes the microcontroller enter ADC Noise Reduction mode, stopping the CPU but allowing the ADC, the external interrupts, Wire Serial Interface address match and Timer/Counter2. This improves the noise environment for the ADC, enabling higher resolution measurements. If the ADC is enabled, a conversion starts automatically when this mode is entered. Only an External Reset, a Wire serial interface interrupt, a Timer/Counter2 interrupt, an SPM/EEPROM ready interrupt, an external level interrupt on INT7:4 or a pin change interrupt can wakeup the microcontroller from ADC Noise Reduction mode.<br/>
@@ -148,12 +148,12 @@ SLEEP_ADC: makes the microcontroller enter ADC Noise Reduction mode, stopping th
 <b>SLEEP_STANDBY:</b> This mode is identical to SLEEP_POWER_SAVE mode with the exception that the Oscillator is kept running.<br/>
 <b>SLEEP_EXTENDED_STANDBY:</b> This mode is identical to SLEEP_POWER_SAVE mode with the exception that the Oscillator is kept running. From SLEEP_EXTENDED_STANDBY mode, the device wakes up in six clock cycles.<br/>
 
-###Syntax
+### Syntax
 ``` c++
 sleepMode(mode)
 ```
 
-####Parameters
+#### Parameters
 `mode` - <i>byte/uint8_t</i> <br/>
 
 | mode                   |
@@ -165,11 +165,11 @@ sleepMode(mode)
 | SLEEP_STANDBY          |
 | SLEEP_EXTENDED_STANDBY |
 
-####Returns
+#### Returns
 `none`
 <br/>
 
-###Example
+### Example
 ``` c++
 // ...
 
@@ -184,18 +184,18 @@ if(some_condition)
 // ...
 ```
 
-##sleep()
+## sleep()
 the <b>sleep()</b> command can allow an application to reduce its power comsumption considerably. Sleep modes enable the application to shut down unused modules in the microcontroller, thereby saving power. The default mode is SLEEP_IDLE. Different AVR devices provides various sleep modes allowing the user to tailor the power consumption to the application's requirements. There are six sleep modes set by the [sleepMode()](#sleepmode) command.
 
-###Syntax
+### Syntax
 ``` c++
 sleep()
 ```
 
-####Returns
+#### Returns
 `none`
 
-###Example
+### Example
 ``` c++
 // ...
 
@@ -212,18 +212,18 @@ if(some_condition)
 
 
 
-##noSleep()
+## noSleep()
 the <b>noSleep()</b> command wakes up the microcontroller from a previous [sleep()](#sleep). Sleep modes enable the application to shut down unused modules in the microcontroller, thereby saving power. The default mode is SLEEP_IDLE. Different AVR devices provides various sleep modes allowing the user to tailor the power consumption to the application's requirements. There are six sleep modes set by the [sleepMode()](#sleepmode) command.
 
-###Syntax
+### Syntax
 ``` c++
 noSleep()
 ```
 
-####Returns
+#### Returns
 `none`
 
-###Example
+### Example
 ``` c++
 // ...
 
@@ -240,15 +240,15 @@ if(some_condition)
 
 
 
-##enablePower()
+## enablePower()
 The <b>enablePower()</b> and [disablePower()](#disablepower) methods enable and disable power to specific devices or sections of the Wiring hardware. By default power is enabled in all sections on the Wiring board. Note that the Wiring functionality regarding a specific section will stop by disabling power. These methods are useful to do efficient power management in conditions where power is very limited or has to be very efficient. The methods are provided for advanced users who know exactly what they are doing. Sections / features are encapsulated by constants as follow: POWER_ADC (analog input), POWER_SPI (SPI), POWER_WIRE (Wire), POWER_TIMER0 (Timer0, disbling this will stop all Wiring activity), POWER_TIMER1 (Timer1), POWER_TIMER2 (Timer2), POWER_TIMER3 (Timer3), POWER_SERIAL0 (Serial), POWER_SERIAL1 (Serial1) and POWER_ALL (all the above). The power management functions provide a method to stop the clock to individual peripherals to reduce power consumption. Note: calling enablePower() or disablePower() commands might have no effect on ATmega32, ATmega16 and ATmega8535.
 
-###Syntax
+### Syntax
 ``` c++
 enablePower(section)
 ```
 
-####Parameters
+#### Parameters
 `section` - <i>byte/uint8_t</i> <br/>
 
 | section       |
@@ -264,11 +264,11 @@ enablePower(section)
 | POWER_SERIAL1 |
 | POWER_ALL     |
 
-####Returns
+#### Returns
 `none`
 <br/>
 
-###Example
+### Example
 ``` c++
 // ...
 
@@ -286,15 +286,15 @@ enablePower(POWER_ALL);
 
 
 
-##disablePower()
+## disablePower()
 The [enablePower()](#enablepower) and <b>disablePower()</b> methods enable and disable power to specific devices or sections of the Wiring hardware. By default power is enabled in all sections on the Wiring board. Note that the Wiring functionality regarding a specific section will stop by disabling power. These methods are useful to do efficient power management in conditions where power is very limited or has to be very efficient. The methods are provided for advanced users who know exactly what they are doing. Sections / features are encapsulated by constants as follow: POWER_ADC (analog input), POWER_SPI (SPI), POWER_WIRE (Wire), POWER_TIMER0 (Timer0, disbling this will stop all Wiring activity), POWER_TIMER1 (Timer1), POWER_TIMER2 (Timer2), POWER_TIMER3 (Timer3), POWER_SERIAL0 (Serial), POWER_SERIAL1 (Serial1) and POWER_ALL (all the above). The power management functions provide a method to stop the clock to individual peripherals to reduce power consumption. Note: calling enablePower() or disablePower() commands might have no effect on ATmega32, ATmega16 and ATmega8535.
 
-###Syntax
+### Syntax
 ``` c++
 disablePower(section)
 ```
 
-####Parameters
+#### Parameters
 `section` - <i>byte/uint8_t</i> <br/>
 
 | section       |
@@ -314,7 +314,7 @@ disablePower(section)
 `none`
 <br/>
 
-###Example
+### Example
 ``` c++
 // ...
 
