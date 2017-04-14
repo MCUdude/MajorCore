@@ -310,7 +310,7 @@ disablePower(section)
 | POWER_SERIAL1 |
 | POWER_ALL     |
 
-####Returns
+#### Returns
 `none`
 <br/>
 
