@@ -37,7 +37,7 @@
 #define STANDARD_PINOUT
 #define NUM_DIGITAL_PINS            35
 #define NUM_ANALOG_INPUTS           0
-#define EXTERNAL_NUM_INTERRUPTS     2
+#define EXTERNAL_NUM_INTERRUPTS     3
 #define analogInputToDigitalPin(p)  (-1)
 #define analogPinToChannel(p)       (-1)
 #define digitalPinToInterrupt(p)    ((p) == 10 ? 0 : ((p) == 11 ? 1 : ((p) == 32 ? 2 : NOT_AN_INTERRUPT)))
