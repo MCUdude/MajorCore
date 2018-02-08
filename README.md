@@ -1,9 +1,9 @@
 # MajorCore
-An Arduino core for large, 8051 pin compatible, breadboard friendly AVRs, all running [Optiboot 6](https://github.com/Optiboot/optiboot). Major libraries such as SD, Servo, and SPI are modified to work with this core. Still, a large amount of third-party libraries often works without any modifications. 
+An Arduino core for large, 8051 pin compatible, breadboard friendly AVRs, all running a [custom version of Optiboot](https://github.com/Optiboot/optiboot). Major libraries such as SD, Servo, and SPI are modified to work with this core. Still, a large amount of third-party libraries often works without any modifications. 
 <br/> <br/>
 This core requires at least Arduino IDE v1.6, where v1.6.11+ is recommended.
 <br/> <br/>
-If you're into "pure" AVR programming, I'm happy to tell you that all relevant keywords are being highlighted by the IDE through a separate keywords file. Make sure to test the [example files](https://github.com/MCUdude/MajorCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
+If you're into "generic" AVR programming, I'm happy to tell you that all relevant keywords are being highlighted by the IDE through a separate keywords file. Make sure to test the [example files](https://github.com/MCUdude/MajorCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
 <br/> <br/>
 
 
@@ -74,12 +74,12 @@ Here's some numbers to convince you. These sketches were compiled for an **ATmeg
 |-----------------|---------------|-----------|------------|-----------------|
 | **LTO enabled** | 286 bytes     | 766 bytes | 916 bytes  | 3172 bytes      |
 | **LTO disabled**| 302 bytes     | 908 bytes | 1088 bytes | 3732 bytes      |
-| **Reduction**   | 5.3%          | 16.9%     | 15.8%      | 15.0%           |
+| **Reduction**   | -5.3%         | -16.9%    | -15.8%     | -15.0%          |
 
 
 ## Write to own flash
-A while ago [@majekw](https://github.com/majekw) announced that he'd [successfully modified the Optiboot bootloader](http://forum.arduino.cc/index.php?topic=332191.0) to let the running program permanently store content in the flash memory.
-The flash memory is much faster than the EEPROM, and can handle about 10 000 write cycles. Simply hit "Burn Bootloader", and it's done! <br/>
+MiniCore implements [@majekw](https://github.com/majekw) fork of Optiboot, which enables flash writing functionality within the running application. This means that content from e.g. a sensor can be stored in the flash memory directly, without the need of external memory. Flash memory is much faster than EEPROM, and can handle about 10 000 write cycles.
+To enable this feature your original bootloader needs to be replaced by the new one. Simply hit "Burn Bootloader", and it's done!  
 Please check out the [Optiboot flasher example](https://github.com/MCUdude/MajorCore/blob/master/avr/libraries/Optiboot_flasher/examples/SerialReadWrite/SerialReadWrite.ino) for more info about how this feature works, and how you can try it on your MajorCore compatible microcontroller.
 
 
