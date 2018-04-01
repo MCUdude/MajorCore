@@ -1,6 +1,8 @@
 #######################################
 # Syntax Coloring Map for SoftwareSerial
 # (formerly NewSoftSerial)
+# This version supports MCUs without
+# PCINTs, by using regular interrupts instead
 #######################################
 
 #######################################
