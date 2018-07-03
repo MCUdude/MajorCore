@@ -198,8 +198,9 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
 
 // ATmega164A/P, ATmega324A/P/PA, ATmega644/P, ATmega1284/P      
       #elif defined(__AVR_ATmega164A__) || defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324A__) \
-      || defined(__AVR_ATmega324P__) || defined(__AVR_ATmega324PA__) || defined(__AVR_ATmega644__)    \
-      || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__)
+      || defined(__AVR_ATmega324P__) || defined(__AVR_ATmega324PA__) || defined(__AVR_ATmega324PB__) \
+      || defined(__AVR_ATmega644__) || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284__) \
+      || defined(__AVR_ATmega1284P__)
         case 0:
           EICRA = (EICRA & ~((1 << ISC00) | (1 << ISC01))) | (mode << ISC00);
           EIMSK |= (1 << INT0);
@@ -213,10 +214,11 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
           EIMSK |= (1 << INT2);
           break;
 
-// ATmega48/P, ATmega88/P, ATmega168/P, ATmega328/P
-      #elif defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__) || defined(__AVR_ATmega88__) \
-      || defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) \
-      || defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
+// ATmega48/P/PB, ATmega88/P/PB, ATmega168/P/PB, ATmega328/P/PB
+      #elif defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__) || defined(__AVR_ATmega48PB__) \
+      || defined(__AVR_ATmega88__)  || defined(__AVR_ATmega88P__)  || defined(__AVR_ATmega88PB__)  \
+      || defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega168PB__) \
+      || defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328PB__)
         case 0:
           EICRA = (EICRA & ~((1 << ISC00) | (1 << ISC01))) | (mode << ISC00);
           EIMSK |= (1 << INT0);
@@ -335,10 +337,11 @@ void detachInterrupt(uint8_t interruptNum)
           #endif  
           break;
 
-// ATmega164A/P, ATmega324A/P/PA, ATmega644/P, ATmega1284/P          
+// ATmega164A/P, ATmega324A/P/PA/PB, ATmega644/P, ATmega1284/P          
       #elif defined(__AVR_ATmega164A__) || defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324A__) \
-      || defined(__AVR_ATmega324P__) || defined(__AVR_ATmega324PA__) || defined(__AVR_ATmega644__)    \
-      || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__)
+      || defined(__AVR_ATmega324P__) || defined(__AVR_ATmega324PA__) || defined(__AVR_ATmega324PB__) \
+      || defined(__AVR_ATmega644__)  || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284__) \
+      || defined(__AVR_ATmega1284P__)
         case 0:
           EIMSK &= ~(1 << INT0);
           break;
@@ -349,10 +352,11 @@ void detachInterrupt(uint8_t interruptNum)
           EIMSK &= ~(1 << INT2);
           break; 
 
-// ATmega48/P, ATmega88/P, ATmega168/P, ATmega328/P
-      #elif defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__) || defined(__AVR_ATmega88__) \
-      || defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) \
-      || defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
+// ATmega48/P/PB, ATmega88/P/PB, ATmega168/P/PB, ATmega328/P/PB
+      #elif defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__) || defined(__AVR_ATmega48PB__) \
+      || defined(__AVR_ATmega88__)  || defined(__AVR_ATmega88P__)  || defined(__AVR_ATmega88PB__)  \
+      || defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega168PB__) \
+      || defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328PB__)
         case 0:
           EIMSK &= ~(1 << INT0);
           break;
@@ -414,18 +418,20 @@ void detachInterrupt(uint8_t interruptNum)
   IMPLEMENT_ISR(INT2_vect, EXTERNAL_INT_2)
   #endif  
 
-// ATmega164A/P, ATmega324A/P/PA, ATmega644/P, ATmega1284/P    
+// ATmega164A/P, ATmega324A/P/PA/PB, ATmega644/P, ATmega1284/P    
 #elif defined(__AVR_ATmega164A__) || defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324A__) \
-|| defined(__AVR_ATmega324P__) || defined(__AVR_ATmega324PA__) || defined(__AVR_ATmega644__)    \
-|| defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__)
+|| defined(__AVR_ATmega324P__) || defined(__AVR_ATmega324PA__) || defined(__AVR_ATmega324PB__) \
+|| defined(__AVR_ATmega644__) || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284__) \
+|| defined(__AVR_ATmega1284P__)
   IMPLEMENT_ISR(INT0_vect, EXTERNAL_INT_0)
   IMPLEMENT_ISR(INT1_vect, EXTERNAL_INT_1)
   IMPLEMENT_ISR(INT2_vect, EXTERNAL_INT_2)  
 
-// ATmega48/P, ATmega88/P, ATmega168/P, ATmega328/P
-#elif defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__) || defined(__AVR_ATmega88__) \
-|| defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) \
-|| defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
+// ATmega48/P/PB, ATmega88/P/PB, ATmega168/P/PB, ATmega328/P/PB
+#elif defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__) || defined(__AVR_ATmega48PB__) \
+|| defined(__AVR_ATmega88__)  || defined(__AVR_ATmega88P__)  || defined(__AVR_ATmega88PB__)  \
+|| defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega168PB__) \
+|| defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328PB__)
   IMPLEMENT_ISR(INT0_vect, EXTERNAL_INT_0)
   IMPLEMENT_ISR(INT1_vect, EXTERNAL_INT_1)
 

@@ -72,10 +72,11 @@ void yield(void);
   #define INTERNAL2V56 3
   #define INTERNAL 3
   
-// ATmega48/P, ATmega88/P, ATmega168/P, ATmega328/P
-#elif defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__) || defined(__AVR_ATmega88__)  \
-|| defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__)  \
-|| defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
+// ATmega48/P/PB, ATmega88/P/PB, ATmega168/P/PB, ATmega328/P/PB
+#elif defined(__AVR_ATmega48__) || defined(__AVR_ATmega48P__) || defined(__AVR_ATmega48PB__) \
+|| defined(__AVR_ATmega88__)  || defined(__AVR_ATmega88P__)  || defined(__AVR_ATmega88PB__)  \
+|| defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega168PB__) \
+|| defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328PB__)
   #define EXTERNAL 0
   #define DEFAULT 1 // Default -> AVCC with external capacitor at AREF pin
   #define INTERNAL1V1 3
@@ -224,7 +225,7 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega8535__) || defined(__AVR_ATmega16__) \
 || defined(__AVR_ATmega32__) || defined(__AVR_ATmega8515__)
 #else 
-#define PE 5	
+#define PE 5
 #endif
 
 #define PF 6
