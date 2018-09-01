@@ -31,7 +31,7 @@ If you're into "generic" AVR programming, I'm happy to tell you that all relevan
 ## Supported clock frequencies
 * 16 MHz external oscillator (default)
 * 20 MHz external oscillator
-* 18.432 MHz external oscillator
+* 18.432 MHz external oscillator<b>*</b>
 * 12 MHz external oscillator
 * 8 MHz external oscillator
 * 8 MHz internal oscillator <b>**</b>
