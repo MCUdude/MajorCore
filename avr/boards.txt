@@ -70,9 +70,9 @@ menu.LTO=Compiler LTO
 162.menu.LTO.Os.ltoarcmd=avr-ar
 
 162.menu.LTO.Os_flto=Enabled
-162.menu.LTO.Os_flto.compiler.c.extra_flags=-Wextra -flto
-162.menu.LTO.Os_flto.compiler.c.elf.extra_flags=-w -flto
-162.menu.LTO.Os_flto.compiler.cpp.extra_flags=-Wextra -flto
+162.menu.LTO.Os_flto.compiler.c.extra_flags=-Wextra -flto -g
+162.menu.LTO.Os_flto.compiler.c.elf.extra_flags=-w -flto -g
+162.menu.LTO.Os_flto.compiler.cpp.extra_flags=-Wextra -flto -g
 162.menu.LTO.Os_flto.ltoarcmd=avr-gcc-ar
 
 # Clock frequencies
@@ -170,9 +170,9 @@ menu.LTO=Compiler LTO
 8515.menu.LTO.Os.ltoarcmd=avr-ar
 
 8515.menu.LTO.Os_flto=Enabled
-8515.menu.LTO.Os_flto.compiler.c.extra_flags=-Wextra -flto
-8515.menu.LTO.Os_flto.compiler.c.elf.extra_flags=-w -flto
-8515.menu.LTO.Os_flto.compiler.cpp.extra_flags=-Wextra -flto
+8515.menu.LTO.Os_flto.compiler.c.extra_flags=-Wextra -flto -g
+8515.menu.LTO.Os_flto.compiler.c.elf.extra_flags=-w -flto -g
+8515.menu.LTO.Os_flto.compiler.cpp.extra_flags=-Wextra -flto -g
 8515.menu.LTO.Os_flto.ltoarcmd=avr-gcc-ar
 
 # Clock frequencies - This is the second part of the low fuse bit concatenation
