@@ -10,6 +10,7 @@ If you're into "generic" AVR programming, I'm happy to tell you that all relevan
 # Table of contents
 * [Supported microcontrollers](#supported-microcontrollers)
 * [Supported clock frequencies](#supported-clock-frequencies)
+* [Bootloader option](#bootloader-option)
 * [BOD option](#bod-option)
 * [Link time optimization / LTO](#link-time-optimization--lto)
 * [Write to own flash](#write-to-own-flash)
@@ -50,6 +51,14 @@ Millis() is not effected, only micros() and delay(). Micros() executes equally f
 * Edit the baudrate line in the [boards.txt](https://github.com/MCUdude/MajorCore/blob/034ddfe8fb9b95178c07c723c98fc90dfdf3c89c/avr/boards.txt#L99) file, and choose either 115200, 57600, 38400 or 19200 baud.
 * Upload the code using a programmer (USBasp, USBtinyISP etc.) and skip the bootloader
 * Use the 1 MHz option instead
+
+
+## Bootloader option
+If your application doesn't need or require a bootloader for uploading code, you can choose to disable this.
+This free 512 bytes of the flash memory, which is significant if you're working with a small microcontroller like ATmega8515.  
+
+Note that you need to select **Bootloader: "No"** and actually hit **Burn bootloader** in order to set the correct fuse bits. Now you're no longer able to upload using serial, until you select *Bootloader: "Yes"* and burn the bootloader again.
+
 
 
 ## BOD option
