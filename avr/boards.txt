@@ -141,6 +141,7 @@ menu.LTO=Compiler LTO
 8515.bootloader.unlock_bits=0x3f
 8515.bootloader.lock_bits=0x0f
 8515.bootloader.low_fuses=0b{bootloader.bod_bits}{bootloader.sut_cksel_bits}
+8515.bootloader.high_fuses=0b110{bootloader.ckopt_bit}010{bootloader.bootrst_bit}
 8515.build.core=MCUdude_corefiles
 8515.build.variant=standard
 8515.build.board=AVR_ATmega8515
@@ -150,12 +151,12 @@ menu.LTO=Compiler LTO
 8515.menu.bootloader.true=Yes
 8515.menu.bootloader.true.upload.maximum_size=7680
 8515.menu.bootloader.true.upload.protocol=arduino
-8515.menu.bootloader.true.bootloader.high_fuses=0xd4
+8515.menu.bootloader.true.bootloader.bootrst_bit=0
 8515.menu.bootloader.true.bootloader.file=optiboot_flash/bootloaders/{build.mcu}/{build.f_cpu}/optiboot_flash_{build.mcu}_{upload.port}_{upload.speed}_{build.f_cpu}.hex
 
 8515.menu.bootloader.false=No
 8515.menu.bootloader.false.upload.maximum_size=8192
-8515.menu.bootloader.false.bootloader.high_fuses=0xd5
+8515.menu.bootloader.false.bootloader.bootrst_bit=1
 8515.menu.bootloader.false.bootloader.file=empty/empty.hex
 
 # Brown out detection - This is the first part of the low fuse bit concatenation
@@ -184,40 +185,47 @@ menu.LTO=Compiler LTO
 8515.menu.clock.16MHz_external.upload.port=UART0
 8515.menu.clock.16MHz_external.upload.speed=115200
 8515.menu.clock.16MHz_external.bootloader.sut_cksel_bits=111111
+8515.menu.clock.16MHz_external.bootloader.ckopt_bit=0
 8515.menu.clock.16MHz_external.build.f_cpu=16000000L
 
 8515.menu.clock.20MHz_external=20 MHz external
 8515.menu.clock.20MHz_external.upload.port=UART0
 8515.menu.clock.20MHz_external.upload.speed=115200
 8515.menu.clock.20MHz_external.bootloader.sut_cksel_bits=111111
+8515.menu.clock.20MHz_external.bootloader.ckopt_bit=0
 8515.menu.clock.20MHz_external.build.f_cpu=20000000L
 
 8515.menu.clock.18_432MHz_external=18.432 MHz external
 8515.menu.clock.18_432MHz_external.upload.port=UART0
 8515.menu.clock.18_432MHz_external.upload.speed=115200
 8515.menu.clock.18_432MHz_external.bootloader.sut_cksel_bits=111111
+8515.menu.clock.18_432MHz_external.bootloader.ckopt_bit=0
 8515.menu.clock.18_432MHz_external.build.f_cpu=18432000L
 
 8515.menu.clock.12MHz_external=12 MHz external
 8515.menu.clock.12MHz_external.upload.port=UART0
 8515.menu.clock.12MHz_external.upload.speed=57600
 8515.menu.clock.12MHz_external.bootloader.sut_cksel_bits=111111
+8515.menu.clock.12MHz_external.bootloader.ckopt_bit=0
 8515.menu.clock.12MHz_external.build.f_cpu=12000000L
 
 8515.menu.clock.8MHz_external=8 MHz external
 8515.menu.clock.8MHz_external.upload.port=UART0
 8515.menu.clock.8MHz_external.upload.speed=115200
 8515.menu.clock.8MHz_external.bootloader.sut_cksel_bits=111111
+8515.menu.clock.8MHz_external.bootloader.ckopt_bit=0
 8515.menu.clock.8MHz_external.build.f_cpu=8000000L
 
 8515.menu.clock.8MHz_internal=8 MHz internal
 8515.menu.clock.8MHz_internal.upload.port=UART0
 8515.menu.clock.8MHz_internal.upload.speed=38400
 8515.menu.clock.8MHz_internal.bootloader.sut_cksel_bits=100100
+8515.menu.clock.8MHz_internal.bootloader.ckopt_bit=1
 8515.menu.clock.8MHz_internal.build.f_cpu=8000000L
 
 8515.menu.clock.1MHz_internal=1 MHz internal
 8515.menu.clock.1MHz_internal.upload.port=UART0
 8515.menu.clock.1MHz_internal.upload.speed=9600
 8515.menu.clock.1MHz_internal.bootloader.sut_cksel_bits=100001
+8515.menu.clock.1MHz_internal.bootloader.ckopt_bit=1
 8515.menu.clock.1MHz_internal.build.f_cpu=1000000L
