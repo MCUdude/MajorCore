@@ -34,39 +34,50 @@
 
 */
 
+// Current pinout
 #define STANDARD_PINOUT
-#define NUM_DIGITAL_PINS            35
-#define NUM_ANALOG_INPUTS           0
-#define EXTERNAL_NUM_INTERRUPTS     3
-#define analogInputToDigitalPin(p)  (-1)
-#define analogPinToChannel(p)       (-1)
-#define digitalPinToInterrupt(p)    ((p) == 10 ? 0 : ((p) == 11 ? 1 : ((p) == 32 ? 2 : NOT_AN_INTERRUPT)))
 
+
+// Digital pins
+#define NUM_DIGITAL_PINS            (35)
+
+// PWM pins
 #if defined(__AVR_ATmega8515__)
 #define digitalPinHasPWM(p)         ((p) == 0 || (p) == 13 || (p) == 34)
-
 #elif defined(__AVR_ATmega162__)
 #define digitalPinHasPWM(p)         ((p) == 0 || (p) == 1 || (p) == 4 || (p) == 12 || (p) == 13 || (p) == 34)
 #endif
 
+// Builtin LED
+#define LED_BUILTIN   (0)
+static const uint8_t LED = LED_BUILTIN;
 
-static const uint8_t LED = 0;
-#define LED_BUILTIN 0
+// Analog pins
+#define NUM_ANALOG_INPUTS           0
+#define analogInputToDigitalPin(p)  (-1)
+#define analogPinToChannel(p)       (-1)
 
-static const uint8_t SS   = 4;
-static const uint8_t MOSI = 5;
-static const uint8_t MISO = 6;
-static const uint8_t SCK  = 7;
+// SPI
+#define PIN_SPI_SS    (4)
+#define PIN_SPI_MOSI  (5)
+#define PIN_SPI_MISO  (6)
+#define PIN_SPI_SCK   (7)
+static const uint8_t SS   = PIN_SPI_SS;
+static const uint8_t MOSI = PIN_SPI_MOSI;
+static const uint8_t MISO = PIN_SPI_MISO;
+static const uint8_t SCK  = PIN_SPI_SCK;
 
+// Interrupts
+#define EXTERNAL_NUM_INTERRUPTS     3
+#define digitalPinToInterrupt(p)    ((p) == 10 ? 0 : ((p) == 11 ? 1 : ((p) == 32 ? 2 : NOT_AN_INTERRUPT)))
 
+// PCINT
 #if defined(__AVR_ATmega162__)
 #define digitalPinToPCICR(p)    (0)
 #define digitalPinToPCICRbit(p) (0)
 #define digitalPinToPCMSK(p)    (((p) >= 24 && (p) <= 31) ? &PCMSK0 : ((p) >= 16 && (p) <= 32) ? &PCMSK1 : 0)
 #define digitalPinToPCMSKbit(p) ((p) % 8)
 #endif
-
-
 
 
 #ifdef ARDUINO_MAIN
@@ -189,7 +200,6 @@ const uint8_t PROGMEM digital_pin_to_bit_mask_PGM[] =
 	_BV(2)
 };
 
-
 #if defined(__AVR_ATmega8515__)
 const uint8_t PROGMEM digital_pin_to_timer_PGM[] =
 {
@@ -229,7 +239,6 @@ const uint8_t PROGMEM digital_pin_to_timer_PGM[] =
 	NOT_ON_TIMER,   /* D33 - PE1 */
 	TIMER1B         /* D34 - PE2 */
 };
-
 
 #elif defined(__AVR_ATmega162__)
 const uint8_t PROGMEM digital_pin_to_timer_PGM[] =
@@ -276,5 +285,3 @@ const uint8_t PROGMEM digital_pin_to_timer_PGM[] =
 #endif // ARDUINO_MAIN
 
 #endif // Pins_Arduino_h
-
-// vim:ai:cin:sts=2 sw=2 ft=cpp
