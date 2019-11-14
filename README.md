@@ -13,6 +13,7 @@ If you're into "generic" AVR programming, I'm happy to tell you that all relevan
 * [Bootloader option](#bootloader-option)
 * [BOD option](#bod-option)
 * [Link time optimization / LTO](#link-time-optimization--lto)
+* [Printf support](#printf-support)
 * [Write to own flash](#write-to-own-flash)
 * **[How to install](#how-to-install)**
 	- [Boards Manager Installation](#boards-manager-installation)
@@ -66,23 +67,20 @@ Brown out detection, or BOD for short lets the microcontroller sense the input v
 
 | ATmega162 | ATmega8515 |
 |-----------|------------|
-| 4.3v      | 4.0v       |
-| 2.7v      | 2.7v       |
-| 1.8v      | -          |
+| 4.3V      | 4.0V       |
+| 2.7V      | 2.7V       |
+| 1.8V      | -          |
 | Disabled  | Disabled   |
 
 ## Link time optimization / LTO
-After Arduino IDE 1.6.11 where released, There have been support for link time optimization or LTO for short. The LTO optimizes the code at link time, making the code (often) significantly smaller without making it "slower". In Arduino IDE 1.6.11 and newer LTO is enabled by default. I've chosen to disable this by default to make sure the core keep its backwards compatibility. Enabling LTO in IDE 1.6.10 and older will return an error. 
-I encourage you to try the new LTO option and see how much smaller your code gets! Note that you don't need to hit "Burn Bootloader" in order to enable LTO. Simply enable it in the "Tools" menu, and your code is ready for compilation. If you want to read more about LTO and GCC flags in general, head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html)!
-<br/> <br/>
-Here's some numbers to convince you. These sketches were compiled for an **ATmega8515** using **Arduino IDE 1.6.12 (avr-gcc 4.9.2)**. Impressing, right?
-<br/>
+After Arduino IDE 1.6.11 where released, There have been support for link time optimization or LTO for short. The LTO optimizes the code at link time, making the code (often) significantly smaller without making it slower. In Arduino IDE 1.6.11 and newer LTO is enabled by default. I've chosen to disable this by default to make sure the core keep its backwards compatibility. Enabling LTO in IDE 1.6.10 and older will return an error. 
+Note that you don't need to hit "Burn Bootloader" in order to enable LTO. Simply enable it in the "Tools" menu, and your code is ready for compilation. If you want to read more about LTO and GCC flags in general, head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html)!
 
-|                 | Blank sketch  | Blink.ino | Fade.ino   | StringToInt.ino |
-|-----------------|---------------|-----------|------------|-----------------|
-| **LTO enabled** | 286 bytes     | 766 bytes | 916 bytes  | 3172 bytes      |
-| **LTO disabled**| 302 bytes     | 908 bytes | 1088 bytes | 3732 bytes      |
-| **Reduction**   | -5.3%         | -16.9%    | -15.8%     | -15.0%          |
+
+## Printf support
+Unlike the official Arduino cores, MajorCore has printf support out of the box. If you're not familiar with printf you should probably [read this first](https://www.tutorialspoint.com/c_standard_library/c_function_printf.htm). It's added to the Print class and will work with all libraries that inherit Print. Printf is a standard C function that lets you format text much easier than using Arduino's built-in print and println. Note that this implementation of printf will NOT print floats or doubles. This is a limitation of the avr-libc printf implementation on AVR microcontrollers, and nothing I can easily fix.
+
+If you're using a serial port, simply use `Serial.printf("Milliseconds since start: %ld\n", millis());`. Other libraries that inherit the Print class (and thus supports printf) are SoftwareSerial, the LiquidCrystal LCD library and the U8G2 graphical LCD library.
 
 
 ## Write to own flash
