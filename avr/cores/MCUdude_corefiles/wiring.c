@@ -24,21 +24,31 @@
 
 // the prescaler is set so that timer0 ticks every 64 clock cycles, and the
 // the overflow handler is called every 256 ticks.
+// 24MHz: An overflow happens every 682.67 microseconds ---> 0.04167, so this results in 682 
+// 20MHz: An overflow happens every 819.2 microseconds ---> 0,05 (time of a cycle in micros) * 64 (timer0 tick) * 256 (every 256 ticks timer0 overflows), so this results in 819
+// 16MHz: An overflow happens every 1024 microseconds
 #define MICROSECONDS_PER_TIMER0_OVERFLOW (clockCyclesToMicroseconds(64 * 256))
 
 // the whole number of milliseconds per timer0 overflow
+// For 20MHz this would be 0 (because of 819)
+// For 16MHz this would be 1 (because of 1024)
 #define MILLIS_INC (MICROSECONDS_PER_TIMER0_OVERFLOW / 1000)
 
 // the fractional number of milliseconds per timer0 overflow. we shift right
 // by three to fit these numbers into a byte. (for the clock speeds we care
 // about - 8 and 16 MHz - this doesn't lose precision.)
+// For 16 MHz: 24 (1024 % 1000) gets shifted right by 3 which results in 3   (precision was lost)
+// For 20 MHz: 819 (819 % 1000) gets shifted right by 3 which results in 102 (precision was lost)
+// For 24 MHz: 682 (682 % 1000) gets shifted right by 3 which results in 
 #define FRACT_INC ((MICROSECONDS_PER_TIMER0_OVERFLOW % 1000) >> 3)
+// Shift right by 3 to fit in a byte (results in 125)
 #define FRACT_MAX (1000 >> 3)
 
 volatile unsigned long timer0_overflow_count = 0;
 volatile unsigned long timer0_millis = 0;
 static unsigned char timer0_fract = 0;
 
+// timer0 interrupt routine ,- is called every time timer0 overflows
 #if defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
 ISR(TIM0_OVF_vect)
 #else
@@ -46,7 +56,7 @@ ISR(TIMER0_OVF_vect)
 #endif
 {
   // copy these to local variables so they can be stored in registers
-  // (volatile variables must be read from memory on every access)
+  // (volatile variables must be read from memory on every access, so this saves time)
   unsigned long m = timer0_millis;
   unsigned char f = timer0_fract;
 
@@ -78,10 +88,15 @@ unsigned long millis()
 
 unsigned long micros() {
   unsigned long m;
-  uint8_t oldSREG = SREG, t;
-  
+  uint8_t oldSREG = SREG;
+  // t will be the number where the timer0 counter stopped
+  uint8_t t;
+
+  // Stop all interrupts
   cli();
   m = timer0_overflow_count;
+
+  // TCNT0 : The Timer Counter Register
 #if defined(TCNT0)
   t = TCNT0;
 #elif defined(TCNT0L)
@@ -90,6 +105,7 @@ unsigned long micros() {
   #error TIMER 0 not defined
 #endif
 
+  // Timer0 Interrupt Flag Register
 #ifdef TIFR0
   if ((TIFR0 & _BV(TOV0)) && (t < 255))
     m++;
@@ -97,10 +113,61 @@ unsigned long micros() {
   if ((TIFR & _BV(TOV0)) && (t < 255))
     m++;
 #endif
-
+  // Restore SREG
   SREG = oldSREG;
-  
+
+#if F_CPU >= 24000000L && F_CPU < 32000000L
+  // m needs to be multiplied by 682.67
+  // and t by 2.67
+  m = (m << 8) + t;
+  return (m << 1) + (m >> 1) + (m >> 3) + (m >> 4); // Multiply by 2.6875
+#elif F_CPU >= 20000000L
+  // m needs to be multiplied by 819.2 
+  // t needs to be multiplied by 3.2
+  m = (m << 8) + t;
+  return m + (m << 1) + (m >> 2) - (m >> 4); // Multiply by 3.1875
+#elif F_CPU >= 18432000L
+  // m needs to be multiplied by 888.88
+  // and t by 3.47
+  m = (m << 8) + t;
+  return m + (m << 1) + (m >> 1); // Multiply by 3.5
+#elif F_CPU >= 14745600L && F_CPU != 16000000L
+  // m needs to be multiplied by 1111.1
+  // and t by 4.34
+  m = (m << 8) + t;
+  return (m << 2) + (m >> 1) - (m >> 3) - (m >> 4); // Multiply by 4.3125
+#elif F_CPU >= 12000000L && F_CPU != 16000000L
+  // m needs to be multiplied by 1365.33
+  // and t by 5.33
+  m = (m << 8) + t;
+  return m + (m << 2) + (m >> 2) + (m >> 3) - (m >> 4) + (m >> 5); // Multiply by 5.3437
+#elif F_CPU >= 11059200L && F_CPU != 16000000L
+  // m needs to be multiplied by 1481.48
+  // and t by 5.78
+  m = (m << 8) + t;
+  return (m << 2) + (m << 1) - (m >> 2) + (m >> 5); // Multiply by 5.78125
+#elif F_CPU == 7372800L
+  // m needs to be multiplied by 2222.22
+  // and t by 8.68
+  m = (m << 8) + t;
+  return (m << 3) + m - (m >> 2) - (m >> 3); // Multiply by 8.625
+#elif F_CPU == 3686400L
+  // m needs to be multiplied by 4444.44
+  // and t by 17.36
+  m = (m << 8) + t;
+  return (m << 4) + m + (m >> 1) - (m >> 3) - (m >> 6); // Multiply by 17.359375
+#elif F_CPU == 1843200L
+  // m needs to be multiplied by 8888.88
+  // and t by 34.72
+  m = (m << 8) + t;
+  return (m << 5) + (m << 1) + (m >> 1) + (m >> 2); // Multiply by 34.75
+#else
+  // 32 MHz, 24 MHz, 16 MHz, 8 MHz, 4 MHz, 1 MHz
+  // Shift by 8 to the left (multiply by 256) so t (which is 1 byte in size) can fit in 
+  // m & t are multiplied by 4 (since it was already multiplied by 256)
+  // t is multiplied by 4
   return ((m << 8) + t) * (64 / clockCyclesPerMicrosecond());
+#endif
 }
 
 void delay(unsigned long ms)
@@ -116,7 +183,7 @@ void delay(unsigned long ms)
   }
 }
 
-/* Delay for the given number of microseconds.  Assumes a 1, 8, 12, 16, 20 or 24 MHz clock. */
+/* Delay for the given number of microseconds.  Assumes a 1, 8, 12, 16, 18.432, 20, 24 or 32 MHz clock. */
 void delayMicroseconds(unsigned int us)
 {
   // call = 4 cycles + 2 to 4 cycles to init us(2 for constant delay, 4 for variable)
@@ -124,9 +191,21 @@ void delayMicroseconds(unsigned int us)
   // calling avrlib's delay_us() function with low values (e.g. 1 or
   // 2 microseconds) gives delays longer than desired.
   //delay_us(us);
-#if F_CPU >= 24000000L
-  // for the 24 MHz clock for the aventurous ones, trying to overclock
+#if F_CPU >= 32000000L
+  // zero delay fix
+  if (!us) return; //  = 3 cycles, (4 when true)
 
+  // the following loop takes a 1/8 of a microsecond (4 cycles)
+  // per iteration, so execute it eight times for each microsecond of
+  // delay requested.
+  us <<= 3; // x8 us, = 6 cycles
+
+  // account for the time taken in the preceeding commands.
+  // we just burned 21 (23) cycles above, remove 5, (5*4=20)
+  // us is at least 8 so we can substract 5
+  us -= 5; //=2 cycles
+
+#elif F_CPU >= 24000000L
   // zero delay fix
   if (!us) return; //  = 3 cycles, (4 when true)
 
@@ -141,8 +220,6 @@ void delayMicroseconds(unsigned int us)
   us -= 5; //=2 cycles
 
 #elif F_CPU >= 20000000L
-  // for the 20 MHz clock on rare Arduino boards
-
   // for a one-microsecond delay, simply return.  the overhead
   // of the function call takes 18 (20) cycles, which is 1us
   __asm__ __volatile__ (
@@ -162,9 +239,46 @@ void delayMicroseconds(unsigned int us)
   // us is at least 10 so we can substract 7
   us -= 7; // 2 cycles
 
-#elif F_CPU >= 16000000L
-  // for the 16 MHz clock on most Arduino boards
+#elif F_CPU >= 18432000L
+  // for a one-microsecond delay, simply return.  the overhead
+  // of the function call takes 17 (19) cycles, which is aprox. 1us
+  __asm__ __volatile__ (
+    "nop" "\n\t"
+    "nop" "\n\t"
+    "nop" "\n\t"
+    "nop"); //just waiting 4 cycles
 
+  if (us <= 1) //  = 3 cycles, (4 when true)
+    return;
+
+  // the following loop takes nearly 1/5 (0.217%) of a microsecond (4 cycles)
+  // per iteration, so execute it five times for each microsecond of
+  // delay requested.
+  us = (us << 2) + us; // x5 us, = 7 cycles
+
+  // user wants to wait longer than 9us - here we can use approximation with multiplication
+  if (us > 36) // 3 cycles
+  {
+    // Since the loop is not accurately 1/5 of a microsecond we need
+    // to multiply us by 0,9216 (18.432 / 20)
+    us = (us >> 1) + (us >> 2) + (us >> 3) + (us >> 4); // x0.9375 us, = 20 cycles (TODO: the cycle count needs to be validated)
+
+    // account for the time taken in the preceeding commands.
+    // we just burned 45 (47) cycles above, remove 12, (12*4=48) (TODO: calculate real number of cycles burned)
+    // additionaly, since we are not 100% precise (we are slower), subtract a bit more to fit for small values
+    // us is at least 46, so we can substract 18
+    us -= 19; // 2 cycles
+  } 
+  
+  else 
+  { 
+    // account for the time taken in the preceeding commands.
+    // we just burned 30 (32) cycles above, remove 8, (8*4=32)
+    // us is at least 10, so we can substract 8
+    us -= 8; // 2 cycles
+  }
+
+#elif F_CPU >= 16000000L
   // for a one-microsecond delay, simply return.  the overhead
   // of the function call takes 14 (16) cycles, which is 1us
   if (us <= 1) return; //  = 3 cycles, (4 when true)
@@ -178,6 +292,30 @@ void delayMicroseconds(unsigned int us)
   // we just burned 19 (21) cycles above, remove 5, (5*4=20)
   // us is at least 8 so we can substract 5
   us -= 5; // = 2 cycles,
+
+#elif F_CPU >= 14745600L
+  // The overhead of the function call is 14 (16) cycles which is ~1 us
+  if (us <= 2)
+    return;
+
+  else if (us <= 9) 
+  {
+    us -= 2; // The requested microseconds are too small to multiplicate correct, so we do an approximation
+    us = (us << 2); // Subtract microseconds that were wasted in this function
+  }
+  else
+  {
+    // The following loop takes 0.27126 microseconds (4 cycles)
+    // per iteration, so execute it us*3.6864 times
+    // for each microsecond requested
+    us = (us << 2) - (us >> 2) - (us >> 4); // multiply with 3.6875
+    us -= 16; // Subtract microseconds that were wasted in this function
+
+     __asm__ __volatile__ (
+    "nop" "\n\t"
+    "nop" "\n\t"
+    "nop"); // Wait 3 cycles to accomodate imprecisions in approximation
+  } 
 
 #elif F_CPU >= 12000000L
   // for the 12 MHz clock if somebody is working with USB
@@ -196,6 +334,24 @@ void delayMicroseconds(unsigned int us)
   // us is at least 6 so we can substract 5
   us -= 5; //2 cycles
 
+#elif F_CPU >= 11059200L
+  // The overhead of the function call is 14 (16) cycles which is ~2 us
+  if (us <= 2)
+    return;
+
+  else if (us <= 5)
+  {
+    // The requested microseconds are too small to multiplicate correct, so we do an approximation
+    us -= 2; // Subtract microseconds that were wasted in this function
+    us = (us << 1) + (us >> 1) - (us >> 2);
+  }
+
+  else
+  {
+    us = (us << 1) + (us >> 1) + (us >> 2) + (us >> 5); // multiply with 2.78125
+    us -= 14; // Subtract microseconds that were wasted in this function
+  }
+
 #elif F_CPU >= 8000000L
   // for the 8 MHz internal clock
 
@@ -213,8 +369,98 @@ void delayMicroseconds(unsigned int us)
   // us is at least 6 so we can substract 4
   us -= 4; // = 2 cycles
 
+#elif F_CPU >= 7372800L
+  // The overhead of the function call is 14 (16) cycles which is ~2 us
+  if (us <= 2)
+    return;
+
+  else if (us <= 12)
+  {
+    // The requested microseconds are too small to multiplicate correct, so we do an approximation
+    us -= 2; // Subtract microseconds that were wasted in this function
+    us = us + (us >> 1) - (us >> 4);
+  }
+
+  else
+  {
+    // The following loop takes 0.5425 microseconds (4 cycles)
+    // per iteration, so execute it us*1.8432 times
+    // for each microsecond requested
+    us = (us << 1) - (us >> 3) - (us >> 4) + (us >> 5); // Multiply with 1.84375
+    us -= 24;
+  }
+
+#elif F_CPU >= 4000000L
+  // The overhead of the function call is 14 (16) cycles which is 4 us
+  if (us <= 2)
+    return;
+
+  // Subtract microseconds that were wasted in this function
+  us -= 2;
+
+  // We don't need to multiply here because one request microsecond is exactly one loop cycle
+
+#elif F_CPU >= 3686400L
+  // The overhead of the function call is 14 (16) cycles which is ~6 us
+  if (us <= 7)
+    return;
+
+  else if (us <= 30)
+  {
+    // The requested microseconds are too small to multiplicate correct, so we do an approximation
+    us -= 6; // Subtract microseconds that were wasted in this function
+    us = (us >> 1) + (us >> 2) - (us >> 5); // Multiply with 0.71875
+  }
+
+  else
+  {
+    // The following loop takes 1.085 microseconds (4 cycles)
+    // per iteration, so execute it us*0.9216 times
+    // for each microsecond requested
+    us = us - (us >> 4) - (us >> 6); // multiply with 0.9216
+    us -= 16;  // Subtract microseconds that were wasted in this function
+  }
+
+#elif F_CPU >= 2000000L
+  // The overhead of the function call is 14 (16) cycles which is 8.68 us
+  // Plus the if-statement that takes 3 cycles (4 when true): ~11us
+  if (us <= 13)
+    return;
+
+  // Subtract microseconds that were wasted in this function
+  us -= 11; // 2 cycles
+
+  us = (us >> 1); // 3 cycles
+
+#elif F_CPU >= 1843200L
+  // The overhead of the function call is 14 (16) cycles which is 8 us
+  // Plus the if-statement that takes 3 cycles (4 when true): ~10us
+  if (us <= 13)
+    return;
+
+  else if(us <= 49)
+  {
+    // The requested microseconds are too small to multiplicate correct, so we do an approximation
+    // The following loop takes 2.17 microseconds (4 cycles)
+    // per iteration, so execute it actually us/2 times
+    // for each microsecond requested
+    us -= 12;
+    us = (us >> 1);
+  }
+
+  else
+  {
+    // The following loop takes 2.17 microseconds (4 cycles)
+    // per iteration, so execute it actually us/2.17 or in different words us*0.4608 times
+    // for each microsecond requested
+    us = (us >> 1) - (us >> 4) + (us >> 5) - (us >> 7);
+
+    // Subtract microseconds that were wasted in this function
+    us -= 21;
+  }
+
 #else
-  // for the 1 MHz internal clock (default settings for common Atmega microcontrollers)
+  // for the 1 MHz internal clock (default settings for most ATmega microcontrollers)
 
   // the overhead of the function calls is 14 (16) cycles
   if (us <= 16) return; //= 3 cycles, (4 when true)
@@ -226,7 +472,7 @@ void delayMicroseconds(unsigned int us)
   // per iteration, so execute it us/4 times
   // us is at least 4, divided by 4 gives us 1 (no zero delay bug)
   us >>= 2; // us div 4, = 4 cycles
-  
+
 
 #endif
 
@@ -316,6 +562,8 @@ void init()
   sbi(TCCR2, CS22);
 #elif defined(TCCR2B) && defined(CS22)
   sbi(TCCR2B, CS22);
+#elif defined(TCCR2A) && defined(CS22)
+  sbi(TCCR2A, CS22);
 //#else
   // Timer 2 not finished (may not be present on this CPU)
 #endif
