@@ -1,8 +1,6 @@
 # MajorCore
-An Arduino core for large, 8051 pin compatible, breadboard friendly AVRs, all running a [custom version of Optiboot](https://github.com/Optiboot/optiboot). Major libraries such as SD, Servo, and SPI are modified to work with this core. Still, a large amount of third-party libraries often works without any modifications. 
-<br/> <br/>
-This core requires at least Arduino IDE v1.6, where v1.6.11+ is recommended.
-<br/> <br/>
+An Arduino core for large, 8051 pin compatible, breadboard friendly AVRs, all running a [custom version of Optiboot for increased functionality](#write-to-own-flash). This core requires at least Arduino IDE v1.6.2, where v1.8.5+ is recommended.
+<br/>
 If you're into "generic" AVR programming, I'm happy to tell you that all relevant keywords are being highlighted by the IDE through a separate keywords file. Make sure to test the [example files](https://github.com/MCUdude/MajorCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
 <br/> <br/>
 
@@ -31,27 +29,28 @@ If you're into "generic" AVR programming, I'm happy to tell you that all relevan
 
 
 ## Supported clock frequencies
-* 16 MHz external oscillator (default)
-* 20 MHz external oscillator
-* 18.432 MHz external oscillator<b>*</b>
-* 12 MHz external oscillator
-* 8 MHz external oscillator
-* 8 MHz internal oscillator <b>**</b>
-* 1 MHz internal oscillator 
- 
-Select your microcontroller in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses and upload the correct bootloader. <br/>
-Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu. For time critical operations an external oscillator is recommended. 
-</br></br>
+MajorCore supports a variety of different clock frequencies. Select the microcontroller in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses and upload the correct bootloader.  
+Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu. For time critical operations an external crystal/oscillator is recommended.  
 
-<b>*</b> When using the 18.432 MHz option (or any frequency by which 64 cannot be divided evenly), micros() is 4-5 times slower (~110 clocks). It reports the time at the point when it was called, not the end.
-This clock frequency is not recommended if your application relies on accurate timing, but is [superb for UART communication](http://wormfood.net/avrbaudcalc.php?bitrate=300%2C600%2C1200%2C2400%2C4800%2C9600%2C14.4k%2C19.2k%2C28.8k%2C38.4k%2C57.6k%2C76.8k%2C115.2k%2C230.4k%2C250k%2C.5m%2C1m&clock=18.432&databits=8). 
-Millis() is not effected, only micros() and delay(). Micros() executes equally fast at all clock speeds, but returns wrong values with anything that 64 doesn't divide evenly by.
-<br/>
-
-<b>**</b> There might be some issues related to the internal oscillator. It's factory calibrated, but may be a little "off" depending on the calibration, ambient temperature and operating voltage. If uploading failes while using the 8 MHz internal oscillator you have three options:
-* Edit the baudrate line in the [boards.txt](https://github.com/MCUdude/MajorCore/blob/034ddfe8fb9b95178c07c723c98fc90dfdf3c89c/avr/boards.txt#L99) file, and choose either 115200, 57600, 38400 or 19200 baud.
-* Upload the code using a programmer (USBasp, USBtinyISP etc.) and skip the bootloader
+You might experience upload issues when using the internal oscillator. It's factory calibrated but may be a little "off" depending on the calibration, ambient temperature and operating voltage. If uploading failes while using the 8 MHz internal oscillator you have these options:
+* Edit the baudrate line in the boards.txt file, and choose either 115200, 57600, 38400 or 19200 baud.
+* Upload the code using a programmer (USBasp, USBtinyISP etc.) or skip the bootloader by holding down the shift key while clicking the "Upload" button
 * Use the 1 MHz option instead
+
+| Frequency   | Oscillator type             | Comment                                                       |
+|-------------|-----------------------------|---------------------------------------------------------------|
+| 16 MHz      | External crystal/oscillator | Default clock on most AVR based Arduino boards and MiniCore   |
+| 20 MHz      | External crystal/oscillator |                                                               |
+| 18.4320 MHz | External crystal/oscillator | Great clock for UART communication with no error              |
+| 14.7456 MHz | External crystal/oscillator | Great clock for UART communication with no error              |
+| 12 MHz      | External crystal/oscillator | Useful when working with USB 1.1 (12 Mbit/s)                  |
+| 11.0592 MHz | External crystal/oscillator | Great clock for UART communication with no error              |
+| 8 MHz       | External crystal/oscillator | Common clock when working with 3.3V                           |
+| 7.3728 MHz  | External crystal/oscillator | Great clock for UART communication with no error              |
+| 3.6864 MHz  | External crystal/oscillator | Great clock for UART communication with no error              |
+| 1.8432 MHz  | External crystal/oscillator | Great clock for UART communication with no error              |
+| 8 MHz       | Internal oscillator         | Might cause UART upload issues. See comment above this table  |
+| 1 MHz       | Internal oscillator         | Derived from the 8 MHz internal oscillator                    |
 
 
 ## Bootloader option
@@ -73,8 +72,8 @@ Brown out detection, or BOD for short lets the microcontroller sense the input v
 | Disabled  | Disabled   |
 
 ## Link time optimization / LTO
-After Arduino IDE 1.6.11 where released, There have been support for link time optimization or LTO for short. The LTO optimizes the code at link time, making the code (often) significantly smaller without making it slower. In Arduino IDE 1.6.11 and newer LTO is enabled by default. I've chosen to disable this by default to make sure the core keep its backwards compatibility. Enabling LTO in IDE 1.6.10 and older will return an error. 
-Note that you don't need to hit "Burn Bootloader" in order to enable LTO. Simply enable it in the "Tools" menu, and your code is ready for compilation. If you want to read more about LTO and GCC flags in general, head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html)!
+After Arduino IDE 1.6.11 where released, There have been support for link time optimization or LTO for short. The LTO optimizes the code at link time, making the code (often) significantly smaller without making it "slower". In Arduino IDE 1.6.11 and newer LTO is enabled by default. I've chosen to disable this by default to make sure the core keep its backwards compatibility. Enabling LTO in IDE 1.6.10 or older will return an error. 
+I encourage you to try the new LTO option and see how much smaller your code gets! Note that you don't need to hit "Burn Bootloader" in order to enable LTO. Simply enable it in the "Tools" menu, and your code is ready for compilation. If you want to read more about LTO and GCC flags in general, head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html)!
 
 
 ## Printf support
@@ -94,13 +93,23 @@ Please check out the [Optiboot flasher example](https://github.com/MCUdude/Major
 This installation method requires Arduino IDE version 1.6.4 or greater.
 * Open the Arduino IDE.
 * Open the **File > Preferences** menu item.
-* Enter the following URL in **Additional Boards Manager URLs**: `https://mcudude.github.io/MajorCore/package_MCUdude_MajorCore_index.json`
-  * Separate the URLs using a comma ( **,** ) if you have more than one URL
+* Enter the following URL in **Additional Boards Manager URLs**:
+
+    ```
+    https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
+    ``` 
+
 * Open the **Tools > Board > Boards Manager...** menu item.
 * Wait for the platform indexes to finish downloading.
-* Scroll down until you see the **MajorCore** entry and click on it.
+* Scroll down until you see the **MiniCore** entry and click on it.
 * Click **Install**.
 * After installation is complete close the **Boards Manager** window.
+* **Note**: If you plan to use the *PB series, you need the latest version of the Arduino toolchain. This toolchain is available through IDE 1.8.6 or newer. Here's how you install/enable the toolchain:
+  - Open the **Tools > Board > Boards Manager...** menu item.
+  - Wait for the platform indexes to finish downloading.
+  - The top is named **Arduino AVR boards**. Click on this item.
+  - Make sure the latest version is installed and selected
+  - Close the **Boards Manager** window.
 
 #### Manual Installation
 Click on the "Download ZIP" button. Exctract the ZIP file, and move the extracted folder to the location "**~/Documents/Arduino/hardware**". Create the "hardware" folder if it doesn't exist.
