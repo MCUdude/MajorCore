@@ -1,6 +1,6 @@
 # MajorCore
 An Arduino core for large, 8051 pin compatible, breadboard friendly AVRs, all running a [custom version of Optiboot for increased functionality](#write-to-own-flash). This core requires at least Arduino IDE v1.6.2, where v1.8.5+ is recommended.
-<br/>
+<br/> <br/>
 If you're into "generic" AVR programming, I'm happy to tell you that all relevant keywords are being highlighted by the IDE through a separate keywords file. Make sure to test the [example files](https://github.com/MCUdude/MajorCore/tree/master/avr/libraries/AVR_examples/examples) (File > Examples > AVR C code examples).
 <br/> <br/>
 
@@ -104,12 +104,6 @@ This installation method requires Arduino IDE version 1.6.4 or greater.
 * Scroll down until you see the **MiniCore** entry and click on it.
 * Click **Install**.
 * After installation is complete close the **Boards Manager** window.
-* **Note**: If you plan to use the *PB series, you need the latest version of the Arduino toolchain. This toolchain is available through IDE 1.8.6 or newer. Here's how you install/enable the toolchain:
-  - Open the **Tools > Board > Boards Manager...** menu item.
-  - Wait for the platform indexes to finish downloading.
-  - The top is named **Arduino AVR boards**. Click on this item.
-  - Make sure the latest version is installed and selected
-  - Close the **Boards Manager** window.
 
 #### Manual Installation
 Click on the "Download ZIP" button. Exctract the ZIP file, and move the extracted folder to the location "**~/Documents/Arduino/hardware**". Create the "hardware" folder if it doesn't exist.
