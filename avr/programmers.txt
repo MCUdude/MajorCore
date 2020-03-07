@@ -3,13 +3,35 @@
 ## for use with MajorCore
 ## https://github.com/MCUdude/MajorCore	
 ##
-## This is the file will let you burn the
-## boot loader and upload code using an
-## Atmel STK500 development board
 ##########################################
 
 
-stk500.name=STK500 as ISP
+usbtinyisp.name=USBtinyISP (MajorCore)
+usbtinyisp.protocol=usbtiny
+usbtinyisp.program.tool=avrdude
+usbtinyisp.program.extra_params=
+
+usbtinyisp_slow.name=USBtinyISP slow (MajorCore)
+usbtinyisp_slow.protocol=usbtiny
+usbtinyisp_slow.program.tool=avrdude
+usbtinyisp_slow.program.extra_params=-B32
+
+usbasp.name=USBasp (MegaCore)
+usbasp.communication=usb
+usbasp.protocol=usbasp
+usbasp.program.protocol=usbasp
+usbasp.program.tool=avrdude
+usbasp.program.extra_params=-Pusb
+
+usbasp_slow.name=USBasp slow (MajorCore)
+usbasp_slow.communication=usb
+usbasp_slow.protocol=usbasp
+usbasp_slow.program.protocol=usbasp
+usbasp_slow.program.tool=avrdude
+usbasp_slow.program.extra_params=-Pusb -B32
+
+
+stk500.name=STK500 as ISP (MajorCore)
 stk500.communication=serial
 stk500.protocol=stk500
 stk500.program.protocol=stk500
