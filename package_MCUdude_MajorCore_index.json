@@ -68,6 +68,21 @@
             {"name": "ATmega8515"}
           ],
           "toolsDependencies": []
+        },
+        {
+          "name": "MajorCore",
+          "architecture": "avr",
+          "version": "2.0.2",
+          "category": "Contributed",
+          "url": "https://MCUdude.github.io/MajorCore/MajorCore-2.0.2.tar.bz2",
+          "archiveFileName": "MajorCore-2.0.2.tar.bz2",
+          "checksum": "SHA-256:2b4b098f8723939cbeb6da7f5f57a8bc553c8b886bd2c8424ffc0dc88cc7b9cf",
+          "size": "645386",
+          "boards": [
+            {"name": "ATmega162"},
+            {"name": "ATmega8515"}
+          ],
+          "toolsDependencies": []
         }
       ],
       "tools": []
