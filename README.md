@@ -17,6 +17,7 @@ If you're into "generic" AVR programming, I'm happy to tell you that all relevan
 * **[How to install](#how-to-install)**
 	- [Boards Manager Installation](#boards-manager-installation)
 	- [Manual Installation](#manual-installation)
+  - [PlatformIO](#platformio)
 * **[Getting started with MajorCore](#getting-started-with-majorcore)**
 * [Wiring reference](#wiring-reference)
 * **[Development board](#majorcore-development-board)**
@@ -127,6 +128,12 @@ This installation method requires Arduino IDE version 1.6.4 or greater.
 #### Manual Installation
 Click on the "Download ZIP" button. Exctract the ZIP file, and move the extracted folder to the location "**~/Documents/Arduino/hardware**". Create the "hardware" folder if it doesn't exist.
 Open Arduino IDE, and a new category in the boards menu called "MajorCore" will show up.
+
+
+#### PlatformIO
+[PlatformIO](http://platformio.org) is an open source ecosystem for IoT development and supports MajorCore.
+
+**See [PlatformIO.md](https://github.com/MCUdude/MajorCore/blob/master/PlatformIO.md) for more information.**
  
 
 ## Getting started with MajorCore
