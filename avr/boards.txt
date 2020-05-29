@@ -57,6 +57,7 @@ menu.bootloader=Bootloader
 162.menu.bootloader.uart0.upload.maximum_size=15872
 162.menu.bootloader.uart0.upload.protocol=arduino
 162.menu.bootloader.uart0.upload.port=UART0
+162.menu.bootloader.uart0.build.export_merged_output=true
 162.menu.bootloader.uart0.bootloader.high_fuses=0xd4
 162.menu.bootloader.uart0.bootloader.file=optiboot_flash/bootloaders/{build.mcu}/{build.clock_speed}/optiboot_flash_{build.mcu}_{upload.port}_{upload.speed}_{build.clock_speed}_{build.bootloader_led}.hex
 
@@ -64,11 +65,13 @@ menu.bootloader=Bootloader
 162.menu.bootloader.uart1.upload.maximum_size=15872
 162.menu.bootloader.uart1.upload.protocol=arduino
 162.menu.bootloader.uart1.upload.port=UART1
+162.menu.bootloader.uart1.build.export_merged_output=true
 162.menu.bootloader.uart1.bootloader.high_fuses=0xd4
 162.menu.bootloader.uart1.bootloader.file=optiboot_flash/bootloaders/{build.mcu}/{build.clock_speed}/optiboot_flash_{build.mcu}_{upload.port}_{upload.speed}_{build.clock_speed}_{build.bootloader_led}.hex
 
 162.menu.bootloader.no_bootloader=No bootloader
 162.menu.bootloader.no_bootloader.upload.maximum_size=16384
+162.menu.bootloader.no_bootloader.build.export_merged_output=false
 162.menu.bootloader.no_bootloader.bootloader.high_fuses=0xd5
 162.menu.bootloader.no_bootloader.bootloader.file=empty/empty.hex
 
@@ -240,11 +243,13 @@ menu.bootloader=Bootloader
 8515.menu.bootloader.uart0.upload.maximum_size=7680
 8515.menu.bootloader.uart0.upload.protocol=arduino
 8515.menu.bootloader.uart0.upload.port=UART0
+8515.menu.bootloader.uart0.build.export_merged_output=true
 8515.menu.bootloader.uart0.bootloader.bootrst_bit=0
 8515.menu.bootloader.uart0.bootloader.file=optiboot_flash/bootloaders/{build.mcu}/{build.f_cpu}/optiboot_flash_{build.mcu}_{upload.port}_{upload.speed}_{build.f_cpu}_{build.bootloader_led}.hex
 
 8515.menu.bootloader.no_bootloader=No bootloader
 8515.menu.bootloader.no_bootloader.upload.maximum_size=8192
+8515.menu.bootloader.no_bootloader.build.export_merged_output=false
 8515.menu.bootloader.no_bootloader.bootloader.bootrst_bit=1
 8515.menu.bootloader.no_bootloader.bootloader.file=empty/empty.hex
 
