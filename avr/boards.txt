@@ -29,6 +29,7 @@
 # Menu options
 menu.clock=Clock
 menu.BOD=BOD
+menu.eeprom=EEPROM
 menu.LTO=Compiler LTO
 menu.bootloader=Bootloader
 
@@ -51,14 +52,13 @@ menu.bootloader=Bootloader
 162.build.bootloader_led=B0
 162.build.extra_flags={build.clkpr}
 
-
 # Upload port select
 162.menu.bootloader.uart0=Yes (UART0)
 162.menu.bootloader.uart0.upload.maximum_size=15872
 162.menu.bootloader.uart0.upload.protocol=arduino
 162.menu.bootloader.uart0.upload.port=UART0
 162.menu.bootloader.uart0.build.export_merged_output=true
-162.menu.bootloader.uart0.bootloader.high_fuses=0xd4
+162.menu.bootloader.uart0.bootloader.high_fuses=0b1101{bootloader.eesave_bit}100
 162.menu.bootloader.uart0.bootloader.file=optiboot_flash/bootloaders/{build.mcu}/{build.clock_speed}/optiboot_flash_{build.mcu}_{upload.port}_{upload.speed}_{build.clock_speed}_{build.bootloader_led}.hex
 
 162.menu.bootloader.uart1=Yes (UART1)
@@ -66,14 +66,20 @@ menu.bootloader=Bootloader
 162.menu.bootloader.uart1.upload.protocol=arduino
 162.menu.bootloader.uart1.upload.port=UART1
 162.menu.bootloader.uart1.build.export_merged_output=true
-162.menu.bootloader.uart1.bootloader.high_fuses=0xd4
+162.menu.bootloader.uart1.bootloader.high_fuses=0b1101{bootloader.eesave_bit}100
 162.menu.bootloader.uart1.bootloader.file=optiboot_flash/bootloaders/{build.mcu}/{build.clock_speed}/optiboot_flash_{build.mcu}_{upload.port}_{upload.speed}_{build.clock_speed}_{build.bootloader_led}.hex
 
 162.menu.bootloader.no_bootloader=No bootloader
 162.menu.bootloader.no_bootloader.upload.maximum_size=16384
 162.menu.bootloader.no_bootloader.build.export_merged_output=false
-162.menu.bootloader.no_bootloader.bootloader.high_fuses=0xd5
+162.menu.bootloader.no_bootloader.bootloader.high_fuses=0b1101{bootloader.eesave_bit}101
 162.menu.bootloader.no_bootloader.bootloader.file=empty/empty.hex
+
+# EEPROM
+162.menu.eeprom.keep=EEPROM retained
+162.menu.eeprom.keep.bootloader.eesave_bit=0
+162.menu.eeprom.erase=EEPROM not retained
+162.menu.eeprom.erase.bootloader.eesave_bit=1
 
 # Brown out detection
 162.menu.BOD.2v7=BOD 2.7V
@@ -231,7 +237,7 @@ menu.bootloader=Bootloader
 8515.bootloader.unlock_bits=0x3f
 8515.bootloader.lock_bits=0x0f
 8515.bootloader.low_fuses=0b{bootloader.bod_bits}{bootloader.sut_cksel_bits}
-8515.bootloader.high_fuses=0b110{bootloader.ckopt_bit}010{bootloader.bootrst_bit}
+8515.bootloader.high_fuses=0b110{bootloader.ckopt_bit}{bootloader.eesave_bit}10{bootloader.bootrst_bit}
 8515.build.core=MCUdude_corefiles
 8515.build.variant=standard
 8515.build.board=AVR_ATmega8515
@@ -252,6 +258,12 @@ menu.bootloader=Bootloader
 8515.menu.bootloader.no_bootloader.build.export_merged_output=false
 8515.menu.bootloader.no_bootloader.bootloader.bootrst_bit=1
 8515.menu.bootloader.no_bootloader.bootloader.file=empty/empty.hex
+
+# EEPROM
+8515.menu.eeprom.keep=EEPROM retained
+8515.menu.eeprom.keep.bootloader.eesave_bit=0
+8515.menu.eeprom.erase=EEPROM not retained
+8515.menu.eeprom.erase.bootloader.eesave_bit=1
 
 # Brown out detection - This is the first part of the low fuse bit concatenation
 8515.menu.BOD.2v7=BOD 2.7V

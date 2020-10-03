@@ -10,6 +10,7 @@ If you're into "generic" AVR programming, I'm happy to tell you that all relevan
 * [Supported clock frequencies](#supported-clock-frequencies)
 * [Bootloader option](#bootloader-option)
 * [BOD option](#bod-option)
+* [EEPROM retain option](#eeprom-option)
 * [Link time optimization / LTO](#link-time-optimization--lto)
 * [Printf support](#printf-support)
 * [Pin macros](#pin-macros)
@@ -77,6 +78,11 @@ Brown out detection, or BOD for short lets the microcontroller sense the input v
 | 2.7V      | 2.7V       |
 | 1.8V      | -          |
 | Disabled  | Disabled   |
+
+
+## EEPROM option
+If you want the EEPROM to be erased every time you burn the bootloader or upload using a programmer, you can turn off this option. You'll have to connect an ISP programmer and hit "Burn bootloader" to enable or disable EEPROM retain. Note that when uploading using a bootloader, the EEPROM will always be retained.
+
 
 ## Link time optimization / LTO
 After Arduino IDE 1.6.11 where released, There have been support for link time optimization or LTO for short. The LTO optimizes the code at link time, making the code (often) significantly smaller without making it "slower". In Arduino IDE 1.6.11 and newer LTO is enabled by default. I've chosen to disable this by default to make sure the core keep its backwards compatibility. Enabling LTO in IDE 1.6.10 or older will return an error. 
