@@ -198,6 +198,7 @@ This parameter is used to set compiler flags. This is useful if you want to for 
 
 | Flag                        | Default size | Description                                               |
 |-----------------------------|--------------|-----------------------------------------------------------|
+| -lprintf_flt                |              | Lets you print floats with printf (occupies ~1.5 kB)      |
 | -DSERIAL_RX_BUFFER_SIZE=128 | 64 bytes     | Sets the serial RX buffer to 128 bytes                    |
 | -DSERIAL_TX_BUFFER_SIZE=128 | 64 bytes     | Sets the serial TX buffer to 128 bytes                    |
 | -DTWI_BUFFER_SIZE=64        | 32 bytes     | Sets the TWI (i2c) buffer to 64 bytes                     |
@@ -211,10 +212,6 @@ This parameter is used to set compiler flags. This is useful if you want to for 
 Holds the serial port used for uploading. PlatformIO automatically detects the serial port. However, uf you want to ovverride this you can uncomment `upload_port`. Use `/dev/[port]` on Unix compatible systems, and use `COMx` on Windows.
 
 
-### `board_upload.speed`
-Upload baudrate. See [board_build.f_cpu](#board_buildf_cpu) for more details.
-
-
 ### `upload_protocol`
 Used when using a programmer rather than using a USB to serial adapter.  
 Supports all Avrdude compatible programmers such as `usbasp`, `usbtiny` and `stk500v1`.
@@ -222,7 +219,13 @@ Supports all Avrdude compatible programmers such as `usbasp`, `usbtiny` and `stk
 
 ### `upload_flags`
 Used to pass extra flags to Avrdude when uploading using a programmer.  
-Typical parameters are `-PUSB`, `-B[clock divider]` and `-b[baudrate]`
+Typical parameters are `-PUSB`, `-B[clock divider]` and `-b[baudrate]`.  
+**Note that every flag has to be on its own line, and they have to be indented with two spaces:**
+ ```ini
+ upload_flags = -PUSB
+   -B32
+   -v
+ ```
 
 
 ### `monitor_port`
