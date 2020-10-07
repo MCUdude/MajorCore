@@ -19,8 +19,12 @@
           "checksum": "SHA-256:77df4c10b8a5e1d9b754c3d53d902381e0cd72db458ae1ed0d72346331d4efa7",
           "size": "14305116",
           "boards": [
-            {"name": "ATmega162"},
-            {"name": "ATmega8515"}
+            {
+              "name": "ATmega162"
+            },
+            {
+              "name": "ATmega8515"
+            }
           ],
           "toolsDependencies": []
         },
@@ -34,8 +38,12 @@
           "checksum": "SHA-256:9be965b08be7d140d4888f4024a2c3879d5ad5609fc26f2d49795ef6696495d0",
           "size": "211588",
           "boards": [
-            {"name": "ATmega162"},
-            {"name": "ATmega8515"}
+            {
+              "name": "ATmega162"
+            },
+            {
+              "name": "ATmega8515"
+            }
           ],
           "toolsDependencies": []
         },
@@ -49,8 +57,12 @@
           "checksum": "SHA-256:99b069d4c917d776c7dec359cac655ee131cd7873cb60a211698821bff99ab9a",
           "size": "362596",
           "boards": [
-            {"name": "ATmega162"},
-            {"name": "ATmega8515"}
+            {
+              "name": "ATmega162"
+            },
+            {
+              "name": "ATmega8515"
+            }
           ],
           "toolsDependencies": []
         },
@@ -64,8 +76,12 @@
           "checksum": "SHA-256:fa2a21180af11643ec9962e27dd85ddd1882ec32b9f641f099827c50414e0f2f",
           "size": "391103",
           "boards": [
-            {"name": "ATmega162"},
-            {"name": "ATmega8515"}
+            {
+              "name": "ATmega162"
+            },
+            {
+              "name": "ATmega8515"
+            }
           ],
           "toolsDependencies": []
         },
@@ -79,8 +95,31 @@
           "checksum": "SHA-256:2b4b098f8723939cbeb6da7f5f57a8bc553c8b886bd2c8424ffc0dc88cc7b9cf",
           "size": "645386",
           "boards": [
-            {"name": "ATmega162"},
-            {"name": "ATmega8515"}
+            {
+              "name": "ATmega162"
+            },
+            {
+              "name": "ATmega8515"
+            }
+          ],
+          "toolsDependencies": []
+        },
+        {
+          "name": "MajorCore",
+          "architecture": "avr",
+          "version": "2.0.3",
+          "category": "Contributed",
+          "url": "https://MCUdude.github.io/MajorCore/MajorCore-2.0.3.tar.bz2",
+          "archiveFileName": "MajorCore-2.0.3.tar.bz2",
+          "checksum": "SHA-256:2bc9b28794521890095fe66d985a18f9a246471c3ec641acf341609f9f774812",
+          "size": "595281",
+          "boards": [
+            {
+              "name": "ATmega162"
+            },
+            {
+              "name": "ATmega8515"
+            }
           ],
           "toolsDependencies": []
         }
