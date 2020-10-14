@@ -52,10 +52,10 @@ struct pin_map_t {
 #elif defined(__AVR_ATmega8515__) || defined(__AVR_ATmega162__)
 
 // SPI port
-uint8_t const SS_PIN = 4;		
-uint8_t const MOSI_PIN = 5;	
-uint8_t const MISO_PIN = 6;	
-uint8_t const SCK_PIN = 7;	
+uint8_t const SS_PIN = 4;
+uint8_t const MOSI_PIN = 5;
+uint8_t const MISO_PIN = 6;
+uint8_t const SCK_PIN = 7;
 
 static const pin_map_t digitalPinMap[] = {
   {&DDRB, &PINB, &PORTB, 0},  // B0  0
@@ -106,9 +106,9 @@ uint8_t const SCL_PIN = 19;
 
 // SPI port
 uint8_t const SS_PIN = 8;
-uint8_t const SCK_PIN = 9;			
-uint8_t const MOSI_PIN = 10;	
-uint8_t const MISO_PIN = 11;	
+uint8_t const SCK_PIN = 9;
+uint8_t const MOSI_PIN = 10;
+uint8_t const MISO_PIN = 11;
 
 static const pin_map_t digitalPinMap[] = {
   {&DDRE, &PINE, &PORTE, 0},  // E0  0
@@ -181,10 +181,10 @@ uint8_t const SDA_PIN = 17;
 uint8_t const SCL_PIN = 16;
 
 // SPI port
-uint8_t const SS_PIN = 4;		
-uint8_t const MOSI_PIN = 5;	
-uint8_t const MISO_PIN = 6;	
-uint8_t const SCK_PIN = 7;	
+uint8_t const SS_PIN = 4;
+uint8_t const MOSI_PIN = 5;
+uint8_t const MISO_PIN = 6;
+uint8_t const SCK_PIN = 7;
 
 static const pin_map_t digitalPinMap[] = {
   {&DDRB, &PINB, &PORTB, 0},  // B0  0
@@ -687,7 +687,7 @@ uint8_t const MOSI_PIN = 11;
 uint8_t const MISO_PIN = 12;
 uint8_t const SCK_PIN = 13;
 
-#endif	// Arduino ARC
+#endif // Arduino ARC
 
 #else
 #error Architecture or board not supported.

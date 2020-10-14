@@ -18,8 +18,8 @@ If you're into "generic" AVR programming, I'm happy to tell you that all relevan
 * [Pin macros](#pin-macros)
 * [Write to own flash](#write-to-own-flash)
 * **[How to install](#how-to-install)**
-	- [Boards Manager Installation](#boards-manager-installation)
-	- [Manual Installation](#manual-installation)
+  - [Boards Manager Installation](#boards-manager-installation)
+  - [Manual Installation](#manual-installation)
   - [PlatformIO](#platformio)
 * **[Getting started with MajorCore](#getting-started-with-majorcore)**
 * [Wiring reference](#wiring-reference)
@@ -147,15 +147,15 @@ Open Arduino IDE, and a new category in the boards menu called "MajorCore" will 
 ## Getting started with MajorCore
 Ok, so you're downloaded and installed MajorCore, but do I get the wheels spinning? Here's a quick start guide:
 * Hook up your microcontroller as shown in the [pinout diagram](#pinout).
-	- If you're not planning to use the bootloader (uploading code using a USB to serial adapter), the FTDI header and the 100 nF capacitor on the reset pin can be omitted. 
+  - If you're not planning to use the bootloader (uploading code using a USB to serial adapter), the FTDI header and the 100 nF capacitor on the reset pin can be omitted. 
 * Open the **Tools > Board** menu item, and select a MajorCore compatible microcontroller.
 * You can select at what voltage the microcontroller will shut down at by changing the *BOD setting*. Read more about BOD [here](#bod-option).
 * Select your prefered clock frequency. **16 MHz** is standard on most Arduino boards.
 * Select what kind of programmer you're using under the **Programmers** menu.
 * Hit **Burn Bootloader**. If an LED is connected to pin PB0, it should flash twice every second.
 * Now that the correct fuse settings is sat and the bootloader burnt, you can upload your code in two ways:
-	- Disconnect your programmer tool, and connect a USB to serial adapter to the microcontroller, like shown in the [minimal setup circuit](#minimal-setup). Then select the correct serial port under the **Tools** menu, and click the **Upload** button. If you're getting some kind of timeout error, it means your RX and TX pins are swapped, or your auto reset circuity isn't working properly (the 100 nF capacitor on the reset line).
-	- Keep your programmer connected, and hold down the `shift` button while clicking **Upload**. This will erase the bootloader and upload your code using the programmer tool.
+  - Disconnect your programmer tool, and connect a USB to serial adapter to the microcontroller, like shown in the [minimal setup circuit](#minimal-setup). Then select the correct serial port under the **Tools** menu, and click the **Upload** button. If you're getting some kind of timeout error, it means your RX and TX pins are swapped, or your auto reset circuity isn't working properly (the 100 nF capacitor on the reset line).
+  - Keep your programmer connected, and hold down the `shift` button while clicking **Upload**. This will erase the bootloader and upload your code using the programmer tool.
 
 Your code should now be running on your microcontroller! If you experience any issues related to bootloader burning or serial uploading, please create an issue on Github, so I can help you out.
 
@@ -171,7 +171,7 @@ I hope you find this useful, because they really are!
 * sleepMode()
 * sleep()
 * noSleep()
-* enablePower()	
+* enablePower()
 * disablePower()
 
 ### For further information please view the [Wiring reference page](https://github.com/MCUdude/MajorCore/blob/master/Wiring_reference.md)!

@@ -58,8 +58,7 @@ namespace SDLib {
 #define MAX_COMPONENT_LEN 12 // What is max length?
 #define PATH_COMPONENT_BUFFER_LEN MAX_COMPONENT_LEN+1
 
-bool getNextPathComponent(const char *path, unsigned int *p_offset,
-			  char *buffer) {
+bool getNextPathComponent(const char *path, unsigned int *p_offset, char *buffer) {
   /*
 
     Parse individual path components from a path.
@@ -97,8 +96,8 @@ bool getNextPathComponent(const char *path, unsigned int *p_offset,
   
   // Copy the next next path segment
   while (bufferOffset < MAX_COMPONENT_LEN
-	 && (path[offset] != '/')
-	 && (path[offset] != '\0')) {
+   && (path[offset] != '/')
+   && (path[offset] != '\0')) {
     buffer[bufferOffset++] = path[offset++];
   }
 
@@ -118,11 +117,11 @@ bool getNextPathComponent(const char *path, unsigned int *p_offset,
 
 
 boolean walkPath(const char *filepath, SdFile& parentDir,
-		 boolean (*callback)(SdFile& parentDir,
-				     const char *filePathComponent,
-				     boolean isLastComponent,
-				     void *object),
-		 void *object = NULL) {
+     boolean (*callback)(SdFile& parentDir,
+             const char *filePathComponent,
+             boolean isLastComponent,
+             void *object),
+     void *object = NULL) {
   /*
      
      When given a file path (and parent directory--normally root),
@@ -132,7 +131,7 @@ boolean walkPath(const char *filepath, SdFile& parentDir,
 
        e.g. given the path '/foo/bar/baz'
             the callback would be called at the equivalent of
-	    '/foo', '/foo/bar' and '/foo/bar/baz'.
+      '/foo', '/foo/bar' and '/foo/bar/baz'.
 
      The implementation swaps between two different directory/file
      handles as it traverses the directories and does not use recursion
@@ -233,7 +232,7 @@ boolean walkPath(const char *filepath, SdFile& parentDir,
  */
 
 boolean callback_pathExists(SdFile& parentDir, const char *filePathComponent, 
-			    boolean isLastComponent, void *object) {
+          boolean isLastComponent, void *object) {
   /*
 
     Callback used to determine if a file/directory exists in parent
@@ -256,7 +255,7 @@ boolean callback_pathExists(SdFile& parentDir, const char *filePathComponent,
 
 
 boolean callback_makeDirPath(SdFile& parentDir, const char *filePathComponent, 
-			     boolean isLastComponent, void *object) {
+           boolean isLastComponent, void *object) {
   /*
 
     Callback used to create a directory in the parent directory if
@@ -280,7 +279,7 @@ boolean callback_makeDirPath(SdFile& parentDir, const char *filePathComponent,
   /*
 
 boolean callback_openPath(SdFile& parentDir, char *filePathComponent, 
-			  boolean isLastComponent, void *object) {
+        boolean isLastComponent, void *object) {
 
     Callback used to open a file specified by a filepath that may
     specify one or more directories above it.
@@ -311,7 +310,7 @@ boolean callback_openPath(SdFile& parentDir, char *filePathComponent,
 
 
 boolean callback_remove(SdFile& parentDir, const char *filePathComponent, 
-			boolean isLastComponent, void *object) {
+      boolean isLastComponent, void *object) {
   if (isLastComponent) {
     return SdFile::remove(parentDir, filePathComponent);
   }
@@ -319,7 +318,7 @@ boolean callback_remove(SdFile& parentDir, const char *filePathComponent,
 }
 
 boolean callback_rmdir(SdFile& parentDir, const char *filePathComponent, 
-			boolean isLastComponent, void *object) {
+      boolean isLastComponent, void *object) {
   if (isLastComponent) {
     SdFile f;
     if (!f.open(parentDir, filePathComponent, O_READ)) return false;
