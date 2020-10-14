@@ -4,10 +4,6 @@
  A simple web server that shows the value of the analog input pins.
  using an Arduino Wiznet Ethernet shield.
 
- Circuit:
- * Ethernet shield attached to pins 10, 11, 12, 13
- * Analog inputs attached to pins A0 through A5 (optional)
-
  created 18 Dec 2009
  by David A. Mellis
  modified 9 Apr 2012
@@ -15,10 +11,19 @@
  modified 02 Sept 2015
  by Arturo Guadalupi
 
+ Analog inputs attached to pins A0 through A5 (optional)
+
+ MajorCore pinout:
+ Wiznet      AVR
+ SS/CS  ->   D4
+ MOSI   ->   D5
+ MISO   ->   D6
+ SCK    ->   D7
+
  */
 
-#include <SPI.h>
 #include <Ethernet.h>
+#include <SPI.h>
 
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:

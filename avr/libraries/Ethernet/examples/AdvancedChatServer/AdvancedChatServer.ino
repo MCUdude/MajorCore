@@ -7,9 +7,6 @@
  You can see the client's input in the serial monitor as well.
  Using an Arduino Wiznet Ethernet shield.
 
- Circuit:
- * Ethernet shield attached to pins 10, 11, 12, 13
-
  created 18 Dec 2009
  by David A. Mellis
  modified 9 Apr 2012
@@ -17,10 +14,17 @@
  redesigned to make use of operator== 25 Nov 2013
  by Norbert Truchsess
 
+ MajorCore pinout:
+ Wiznet      AVR
+ SS/CS  ->   D4
+ MOSI   ->   D5
+ MISO   ->   D6
+ SCK    ->   D7
+
  */
 
-#include <SPI.h>
 #include <Ethernet.h>
+#include <SPI.h>
 
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network.
@@ -63,7 +67,7 @@ void loop() {
   if (client) {
 
     boolean newClient = true;
-    for (byte i = 0; i < 4; i++) {
+    for (byte i=0; i < 4; i++) {
       //check whether this client refers to the same socket as one of the existing instances:
       if (clients[i] == client) {
         newClient = false;
@@ -73,7 +77,7 @@ void loop() {
 
     if (newClient) {
       //check which of the existing clients can be overridden:
-      for (byte i = 0; i < 4; i++) {
+      for (byte i=0; i < 4; i++) {
         if (!clients[i] && clients[i] != client) {
           clients[i] = client;
           // clear out the input buffer:
@@ -91,7 +95,7 @@ void loop() {
       // read the bytes incoming from the client:
       char thisChar = client.read();
       // echo the bytes back to all other connected clients:
-      for (byte i = 0; i < 4; i++) {
+      for (byte i=0; i < 4; i++) {
         if (clients[i] && (clients[i] != client)) {
           clients[i].write(thisChar);
         }
@@ -100,7 +104,7 @@ void loop() {
       Serial.write(thisChar);
     }
   }
-  for (byte i = 0; i < 4; i++) {
+  for (byte i=0; i < 4 ; i++) {
     if (!(clients[i].connected())) {
       // client.stop() invalidates the internal socket-descriptor, so next use of == will allways return false;
       clients[i].stop();

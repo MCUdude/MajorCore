@@ -9,22 +9,27 @@
  This sketch adapted from Nathan Seidle's SCP1000 example for PIC:
  http://www.sparkfun.com/datasheets/Sensors/SCP1000-Testing.zip
 
- Circuit:
- SCP1000 sensor attached to pins 6,7, and 11 - 13:
- DRDY: pin 6
- CSB: pin 7
- MOSI: pin 11
- MISO: pin 12
- SCK: pin 13
-
  created 31 July 2010
  by Tom Igoe
- */
+
+ MajorCore pinout:
+ Wiznet      AVR
+ SS/CS  ->   D4
+ MOSI   ->   D5
+ MISO   ->   D6
+ SCK    ->   D7
+
+ SCP1000     AVR
+ DRDY   ->   D2
+ SCB    ->   D3
+ MOSI   ->   D5
+ MISO   ->   D6
+ SCK    ->   D7
+
+*/
 
 #include <Ethernet.h>
-// the sensor communicates using SPI, so include the library:
 #include <SPI.h>
-
 
 // assign a MAC address for the Ethernet controller.
 // fill in your address here:
@@ -48,8 +53,8 @@ const int TEMPERATURE = 0x21;   //16 bit temperature reading
 
 // pins used for the connection with the sensor
 // the others you need are controlled by the SPI library):
-const int dataReadyPin = 6;
-const int chipSelectPin = 7;
+const int dataReadyPin = 2;
+const int chipSelectPin = 3;
 
 float temperature = 0.0;
 long pressure = 0;
@@ -63,7 +68,7 @@ void setup() {
   Ethernet.begin(mac, ip);
   server.begin();
 
-  // initalize the  data ready and chip select pins:
+  // initalize the data ready and chip select pins:
   pinMode(dataReadyPin, INPUT);
   pinMode(chipSelectPin, OUTPUT);
 

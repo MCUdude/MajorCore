@@ -9,17 +9,21 @@
  in the Processing application, available at
  http://processing.org/
 
- Circuit:
- * Ethernet shield attached to pins 10, 11, 12, 13
-
  created 14 Sep 2010
  modified 9 Apr 2012
  by Tom Igoe
 
+ MajorCore pinout:
+ Wiznet      AVR
+ SS/CS  ->   D4
+ MOSI   ->   D5
+ MISO   ->   D6
+ SCK    ->   D7
+
  */
 
-#include <SPI.h>
 #include <Ethernet.h>
+#include <SPI.h>
 
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
