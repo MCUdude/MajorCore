@@ -149,7 +149,7 @@ static void initISR(timer16_Sequence_t timer)
     TCCR3A = 0;             // normal counting mode
     TCCR3B = _BV(CS31);     // set prescaler of 8
     TCNT3 = 0;              // clear the timer count
-#if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
+#if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__) || defined(__AVR_ATmega162__)
     TIFR |= _BV(OCF3A);     // clear any pending interrupts;
     ETIMSK |= _BV(OCIE3A);  // enable the output compare interrupt
 #else
