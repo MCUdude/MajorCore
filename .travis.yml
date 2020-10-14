@@ -1,0 +1,192 @@
+# This file is used to configure the Travis CI tests of MajorCore
+
+# Although sudo is no longer required by arduino-ci-script since the 1.0.0 release, for some reason setting "sudo: false" causes the Travis CI build time to significantly increase so this setting is left as "sudo: required"
+sudo: required
+
+
+env:
+  global:
+    # The Arduino IDE will be installed at APPLICATION_FOLDER/arduino
+    - APPLICATION_FOLDER="${HOME}/arduino-ide"
+    - SKETCHBOOK_FOLDER="${HOME}/Arduino"
+
+    # README.md states that LTO should only be used with Arduino IDE 1.6.11 and newer
+    - OLDEST_IDE_VERSION_TO_TEST_WITH_LTO="1.6.11"
+
+    # The oldest version of the Arduino IDE that MajorCore's platform.txt is compatible with is 1.6.2 but that IDE version has a bug that interferes with other installations of the IDE.
+    # Arduino IDE 1.6.3-1.6.5-r5 on Linux don't seem to include the MajorCore bundled library files (this information copied from MegaCore so may not apply to MajorCore).
+    # Arduino IDE 1.6.6 has many function prototype generation failures.
+    # So testing is done with milestone Arduino IDE versions, 1.6.7 and newer.
+    - IDE_VERSIONS_BEFORE_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO='"1.6.7" "1.6.9"'
+    - IDE_VERSIONS_FROM_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO='"'"$OLDEST_IDE_VERSION_TO_TEST_WITH_LTO"'" "1.6.13" "1.8.0" "1.8.5" "newest"'
+    - IDE_VERSION_LIST_LTO='('"$IDE_VERSIONS_FROM_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO"')'
+    - IDE_VERSION_LIST_FULL='('"${IDE_VERSIONS_BEFORE_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO} ${IDE_VERSIONS_FROM_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO}"')'
+
+
+  matrix:
+    # Compile every example sketch for every library included with MajorCore for every MCU, every board option, every installed IDE version
+    # Each line in the matrix will be run as a separate job in the Travis CI build
+
+    # ATmega162
+    # Some library examples use more memory than this microcontroller provides so each library or sketch must be be done in a separate job
+    # AVR_examples
+    # bootloader=uart0, eeprom=keep, BOD=2v7, LTO=Os, clock=16MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/AVR_examples" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # EEPROM
+    # LTO=Os_flto, clock=20MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/EEPROM" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os_flto,clock=20MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+
+    # Ethernet/AdvancedChatServer
+    # bootloader=uart0, eeprom=keep, BOD=4v3, clock=18_432MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/AdvancedChatServer/AdvancedChatServer.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=4v3,LTO=Os,clock=18_432MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/BarometricPressureWebServer
+    # Compiling with LTO=Os errors with "Sketch too big"
+    # bootloader=uart0, BOD=1v8, clock=12MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/BarometricPressureWebServer/BarometricPressureWebServer.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=1v8,LTO=Os_flto,clock=12MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/ChatServer
+    # BOD=disabled, clock=8MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/ChatServer/ChatServer.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=disabled,LTO=Os,clock=8MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/DhcpAddressPrinter
+    # clock=8MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/DhcpAddressPrinter/DhcpAddressPrinter.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=8MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/DhcpChatServer - fails to compile "Sketch too big"
+
+    # Ethernet/TelnetClient
+    # clock=1MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/TelnetClient/TelnetClient.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=1MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/UDPSendReceiveString
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/UDPSendReceiveString/UDPSendReceiveString.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/UdpNtpClient
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/UdpNtpClient/UdpNtpClient.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/WebClient - fails to compile "Sketch too big"
+
+    # Ethernet/WebClientRepeating - fails to compile "Sketch too big"
+
+    # Ethernet/WebServer
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/WebServer/WebServer.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Optiboot_flasher
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Optiboot_flasher" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SD
+    # CardInfo and Files examples fail to compile "not enough memory"
+    # SD/Datalogger
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/SD/examples/Datalogger/Datalogger.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SD/DumpFile
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/SD/examples/DumpFile/DumpFile.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SD/ReadWrite
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/SD/examples/ReadWrite/ReadWrite.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SD/listfiles
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/SD/examples/listfiles/listfiles.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Servo
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Servo" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SPI
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/SPI" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Timer
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Timer" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+
+    # ATmega8515
+    # Some library examples use more memory than this microcontroller provides so each library or sketch must be be done in a separate job
+    # AVR_examples
+    # bootloader=uart0, BOD=2v7, LTO=Os, clock=16MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/AVR_examples" BOARD_ID="MajorCore:avr:8515:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # EEPROM
+    # LTO=Os_flto, clock=20MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/EEPROM" BOARD_ID="MajorCore:avr:8515:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os_flto,clock=20MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+
+    # Ethernet
+    # All Ethernet examples fail to compile "section `.text' will not fit in region `text'"
+
+    # Optiboot_flasher
+    # bootloader=uart0, BOD=disabled, clock=12MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Optiboot_flasher" BOARD_ID="MajorCore:avr:8515:bootloader=uart0,eeprom=keep,BOD=disabled,LTO=Os,clock=12MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SD
+    # All SD library examples fail to compile "section `.text' will not fit in region `text'"
+
+    # Servo
+    # clock=8MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Servo" BOARD_ID="MajorCore:avr:8515:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=8MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SPI
+    # clock=8MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/SPI" BOARD_ID="MajorCore:avr:8515:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os_flto,clock=8MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+
+    # Timer
+    # clock=1MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Timer" BOARD_ID="MajorCore:avr:8515:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=1MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+
+
+before_install:
+  # Check for tabs (excluding subtrees and keywords.txt files)
+  - find . -path './.git' -prune -or -path './avr/bootloaders/optiboot_flash' -prune -or -path './avr/cores/MCUdude_corefiles' -prune -or -path './avr/travis-ci/arduino-ci-script' -prune -or \( -not -name 'keywords.txt' -and -type f \) -exec grep --with-filename --line-number --binary-files=without-match --regexp=$'\t' '{}' \; -exec echo 'Tab found.' \; -exec false '{}' +
+
+  # Check for non-Unix line endings (excluding subtrees)
+  - find . -path './.git' -prune -or -path './avr/bootloaders/optiboot_flash' -prune -or -path './avr/cores/MCUdude_corefiles' -prune -or -path './avr/travis-ci/arduino-ci-script' -prune -or -type f -exec grep --files-with-matches --binary-files=without-match --regexp=$'\r$' '{}' \; -exec echo 'Non-Unix EOL detected.' \; -exec false '{}' +
+
+  # Install the script used to simplify use of Travis CI for testing Arduino projects
+  - source "${TRAVIS_BUILD_DIR}/avr/travis-ci/arduino-ci-script/arduino-ci-script.sh"
+
+  # These functions can be used to get verbose output for debugging the script
+  # set_script_verbosity can be set to values from 0 - 2 (verbosity off - maximum verbosity)
+  #- set_script_verbosity 1
+  # Setting set_verbose_output_during_compilation to true is the same as File > Preferences > Show verbose output during > compilation (check) in the Arduino IDE
+  #- set_verbose_output_during_compilation "true"
+
+  - set_application_folder "$APPLICATION_FOLDER"
+  - set_sketchbook_folder "$SKETCHBOOK_FOLDER"
+
+  # Check for board definition errors that don't affect compilation
+  - set_board_testing "true"
+
+  # Check for library issues that don't affect compilation
+  - set_library_testing "true"
+
+  # Install a version of Arduino IDE with an outdated bundled arduino:avr platform to force installation of latest arduino:avr
+  - install_ide "1.8.12"
+  # Install Arduino AVR Boards to get the AVR toolchain
+  - install_package "arduino:avr"
+  # Install MajorCore from the repository
+  - install_package
+
+  # Install all IDE version required by the job
+  - install_ide "$IDE_VERSIONS"
+
+
+script:
+  # Verify every sketch in SKETCH_PATH using the environment variables set in the matrix
+  - build_sketch "$SKETCH_PATH" "$BOARD_ID" "$ALLOW_FAILURE" "all"
+
+
+after_script:
+  # Determine user name and repository name from TRAVIS_REPO_SLUG so the configuration will automatically adjust to forks
+  - USER_NAME="$(echo "$TRAVIS_REPO_SLUG" | cut -d'/' -f 1)"
+  - REPOSITORY_NAME="$(echo "$TRAVIS_REPO_SLUG" | cut -d'/' -f 2)"
+  # Commit a report of the job results to a folder named with the build number in the MajorCore branch of the CI-reports repository
+  - publish_report_to_repository "$REPORT_GITHUB_TOKEN" "https://github.com/${USER_NAME}/CI-reports.git" "$REPOSITORY_NAME" "build_$(printf "%05d\n" "${TRAVIS_BUILD_NUMBER}")" "false"
+
+  # Print a tab separated report of all sketch verification results to the log
+  - display_report
+
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
