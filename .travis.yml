@@ -37,42 +37,6 @@ env:
     # LTO=Os_flto, clock=20MHz_external
     - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/EEPROM" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os_flto,clock=20MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
 
-    # Ethernet/AdvancedChatServer
-    # bootloader=uart0, eeprom=keep, BOD=4v3, clock=18_432MHz_external
-    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/AdvancedChatServer/AdvancedChatServer.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=4v3,LTO=Os,clock=18_432MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-
-    # Ethernet/BarometricPressureWebServer
-    # Compiling with LTO=Os errors with "Sketch too big"
-    # bootloader=uart0, BOD=1v8, clock=12MHz_external
-    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/BarometricPressureWebServer/BarometricPressureWebServer.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=1v8,LTO=Os_flto,clock=12MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-
-    # Ethernet/ChatServer
-    # BOD=disabled, clock=8MHz_external
-    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/ChatServer/ChatServer.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=disabled,LTO=Os,clock=8MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-
-    # Ethernet/DhcpAddressPrinter
-    # clock=8MHz_internal
-    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/DhcpAddressPrinter/DhcpAddressPrinter.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=8MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-
-    # Ethernet/DhcpChatServer - fails to compile "Sketch too big"
-
-    # Ethernet/TelnetClient
-    # clock=1MHz_internal
-    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/TelnetClient/TelnetClient.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=1MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-
-    # Ethernet/UDPSendReceiveString
-    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/UDPSendReceiveString/UDPSendReceiveString.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-
-    # Ethernet/UdpNtpClient
-    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/UdpNtpClient/UdpNtpClient.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-
-    # Ethernet/WebClient - fails to compile "Sketch too big"
-
-    # Ethernet/WebClientRepeating - fails to compile "Sketch too big"
-
-    # Ethernet/WebServer
-    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Ethernet/examples/WebServer/WebServer.ino" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-
     # Optiboot_flasher
     - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/Optiboot_flasher" BOARD_ID="MajorCore:avr:162:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
 
@@ -109,9 +73,6 @@ env:
     # EEPROM
     # LTO=Os_flto, clock=20MHz_external
     - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MajorCore/avr/libraries/EEPROM" BOARD_ID="MajorCore:avr:8515:bootloader=uart0,eeprom=keep,BOD=2v7,LTO=Os_flto,clock=20MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
-
-    # Ethernet
-    # All Ethernet examples fail to compile "section `.text' will not fit in region `text'"
 
     # Optiboot_flasher
     # bootloader=uart0, BOD=disabled, clock=12MHz_external
