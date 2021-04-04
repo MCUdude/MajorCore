@@ -34,8 +34,8 @@ If you're into "generic" AVR programming, I'm happy to tell you that all relevan
 
 
 ## Supported clock frequencies
-MajorCore supports a variety of different clock frequencies. Select the microcontroller in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses and upload the correct bootloader.  
-Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu. For time critical operations an external crystal/oscillator is recommended.  
+MajorCore supports a variety of different clock frequencies. Select the microcontroller in the boards menu, then select the clock frequency. You'll have to hit "Burn bootloader" in order to set the correct fuses and upload the correct bootloader.
+Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu. For time critical operations an external crystal/oscillator is recommended.
 
 You might experience upload issues when using the internal oscillator. It's factory calibrated but may be a little "off" depending on the calibration, ambient temperature and operating voltage. If uploading failes while using the 8 MHz internal oscillator you have these options:
 * Edit the baudrate line in the boards.txt file, and choose either 115200, 57600, 38400 or 19200 baud.
@@ -44,7 +44,7 @@ You might experience upload issues when using the internal oscillator. It's fact
 
 | Frequency   | Oscillator type             | Comment                                                       |
 |-------------|-----------------------------|---------------------------------------------------------------|
-| 16 MHz      | External crystal/oscillator | Default clock on most AVR based Arduino boards and MiniCore   |
+| 16 MHz      | External crystal/oscillator | Default clock on most AVR based Arduino boards and MajorCore  |
 | 20 MHz      | External crystal/oscillator |                                                               |
 | 18.4320 MHz | External crystal/oscillator | Great clock for UART communication with no error              |
 | 14.7456 MHz | External crystal/oscillator | Great clock for UART communication with no error              |
@@ -87,7 +87,7 @@ If you want the EEPROM to be erased every time you burn the bootloader or upload
 
 
 ## Link time optimization / LTO
-After Arduino IDE 1.6.11 where released, There have been support for link time optimization or LTO for short. The LTO optimizes the code at link time, making the code (often) significantly smaller without making it "slower". In Arduino IDE 1.6.11 and newer LTO is enabled by default. I've chosen to disable this by default to make sure the core keep its backwards compatibility. Enabling LTO in IDE 1.6.10 or older will return an error. 
+After Arduino IDE 1.6.11 where released, There have been support for link time optimization or LTO for short. The LTO optimizes the code at link time, making the code (often) significantly smaller without making it "slower". In Arduino IDE 1.6.11 and newer LTO is enabled by default. I've chosen to disable this by default to make sure the core keep its backwards compatibility. Enabling LTO in IDE 1.6.10 or older will return an error.
 I encourage you to try the new LTO option and see how much smaller your code gets! Note that you don't need to hit "Burn Bootloader" in order to enable LTO. Simply enable it in the "Tools" menu, and your code is ready for compilation. If you want to read more about LTO and GCC flags in general, head over to the [GNU GCC website](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html)!
 
 
@@ -111,9 +111,11 @@ digitalWrite(0, HIGH);
 
 
 ## Write to own flash
-MiniCore implements [@majekw](https://github.com/majekw) fork of Optiboot, which enables flash writing functionality within the running application. This means that content from e.g. a sensor can be stored in the flash memory directly, without the need of external memory. Flash memory is much faster than EEPROM, and can handle about 10 000 write cycles.
-To enable this feature your original bootloader needs to be replaced by the new one. Simply hit "Burn Bootloader", and it's done!  
-Please check out the [Optiboot flasher example](https://github.com/MCUdude/MajorCore/blob/master/avr/libraries/Optiboot_flasher/examples/SerialReadWrite/SerialReadWrite.ino) for more info about how this feature works, and how you can try it on your MajorCore compatible microcontroller.
+MajorCore uses Optiboot Flash, a bootloader that supports flash writing within the running application, thanks to the work of [@majekw](https://github.com/majekw).
+This means that content from e.g. a sensor can be stored in the flash memory directly without the need of external memory. Flash memory is much faster than EEPROM, and can handle at least 10 000 write cycles before wear becomes an issue.
+For more information on how it works and how you can use this in you own application, check out the [Serial_read_write](https://github.com/MCUdude/MajorCore/blob/master/avr/libraries/Optiboot_flasher/examples/Serial_read_write/Serial_read_write.ino) for a simple proof-of-concept demo, and
+[Flash_put_get](https://github.com/MCUdude/MajorCore/blob/master/avr/libraries/Optiboot_flasher/examples/Flash_put_get/Flash_put_get.ino) + [Flash_iterate](https://github.com/MCUdude/MajorCore/blob/master/avr/libraries/Optiboot_flasher/examples/Flash_iterate/Flash_iterate.ino) for useful examples on how you can store strings, structs and variables to flash and retrieve then afterwards.
+The [Read_write_without_buffer](https://github.com/MCUdude/MajorCore/blob/master/avr/libraries/Optiboot_flasher/examples/Read_write_without_buffer/Read_write_without_buffer.ino) example demonstrate how you can read and write to the flash memory on a lower level without using a RAM buffer.
 
 
 ## How to install
@@ -125,11 +127,11 @@ This installation method requires Arduino IDE version 1.6.4 or greater.
 
     ```
     https://mcudude.github.io/MajorCore/package_MCUdude_MajorCore_index.json
-    ``` 
+    ```
 
 * Open the **Tools > Board > Boards Manager...** menu item.
 * Wait for the platform indexes to finish downloading.
-* Scroll down until you see the **MiniCore** entry and click on it.
+* Scroll down until you see the **MajorCore** entry and click on it.
 * Click **Install**.
 * After installation is complete close the **Boards Manager** window.
 
@@ -142,12 +144,12 @@ Open Arduino IDE, and a new category in the boards menu called "MajorCore" will 
 [PlatformIO](http://platformio.org) is an open source ecosystem for IoT development and supports MajorCore.
 
 **See [PlatformIO.md](https://github.com/MCUdude/MajorCore/blob/master/PlatformIO.md) for more information.**
- 
+
 
 ## Getting started with MajorCore
 Ok, so you're downloaded and installed MajorCore, but do I get the wheels spinning? Here's a quick start guide:
 * Hook up your microcontroller as shown in the [pinout diagram](#pinout).
-  - If you're not planning to use the bootloader (uploading code using a USB to serial adapter), the FTDI header and the 100 nF capacitor on the reset pin can be omitted. 
+  - If you're not planning to use the bootloader (uploading code using a USB to serial adapter), the FTDI header and the 100 nF capacitor on the reset pin can be omitted.
 * Open the **Tools > Board** menu item, and select a MajorCore compatible microcontroller.
 * You can select at what voltage the microcontroller will shut down at by changing the *BOD setting*. Read more about BOD [here](#bod-option).
 * Select your prefered clock frequency. **16 MHz** is standard on most Arduino boards.
@@ -185,8 +187,8 @@ If you're interested, you should have a look at the *MajorCore development guide
 
 
 ## Pinout
-Since there are no standarized Arduino pinout for the ATmega8515 and ATmega162, I had to create my own. You can find the current pinout below. 
-<b>Click to enlarge:</b> 
+Since there are no standarized Arduino pinout for the ATmega8515 and ATmega162, I had to create my own. You can find the current pinout below.
+<b>Click to enlarge:</b>
 </br> </br>
 <img src="http://i.imgur.com/Idvb1BI.jpg" width="800">
 
