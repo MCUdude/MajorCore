@@ -3,6 +3,9 @@
 
 #include <avr/pgmspace.h>
 
+#define MAJORCORE
+#define MCUDUDE_MAJORCORE
+
 // Current pinout
 #define STANDARD_PINOUT
 
