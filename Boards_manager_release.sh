@@ -80,9 +80,9 @@ jq -r                                   \
       "version": "7.3.0-atmel3.6.1-arduino7"
     },
     {
-      "packager": "arduino",
+      "packager": "MajorCore",
       "name": "avrdude",
-      "version": "6.3.0-arduino18"
+      "version": "7.1-arduino.1"
     },
     {
       "packager": "arduino",
