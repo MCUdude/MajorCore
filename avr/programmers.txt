@@ -1,49 +1,28 @@
-stk500.name=STK500 as ISP (MajorCore)
-stk500.communication=serial
-stk500.protocol=stk500
-stk500.program.protocol=stk500
-stk500.program.tool=avrdude
-stk500.program.extra_params= -P {serial.port}
-
-avrisp.name=AVR ISP (MajorCore)
-avrisp.communication=serial
-avrisp.protocol=stk500v1
-avrisp.program.protocol=stk500v1
-avrisp.program.tool=avrdude
-avrisp.program.extra_params=-P{serial.port}
-
-avrispmkii.name=AVRISP mkII (MajorCore)
-avrispmkii.communication=usb
-avrispmkii.protocol=stk500v2
-avrispmkii.program.protocol=stk500v2
-avrispmkii.program.tool=avrdude
-avrispmkii.program.extra_params=-Pusb
-
-usbtinyisp.name=USBtinyISP (MajorCore)
-usbtinyisp.protocol=usbtiny
-usbtinyisp.program.tool=avrdude
-usbtinyisp.program.extra_params=
-
-usbtinyisp_slow.name=USBtinyISP slow (MajorCore)
-usbtinyisp_slow.protocol=usbtiny
-usbtinyisp_slow.program.tool=avrdude
-usbtinyisp_slow.program.extra_params=-B32
-
-usbasp.name=USBasp (MajorCore)
+usbasp.name=USBasp
 usbasp.communication=usb
 usbasp.protocol=usbasp
 usbasp.program.protocol=usbasp
 usbasp.program.tool=avrdude
-usbasp.program.extra_params=-Pusb
+usbasp.program.extra_params=
 
-usbasp_slow.name=USBasp slow (MajorCore)
+usbasp_slow.name=USBasp slow
 usbasp_slow.communication=usb
 usbasp_slow.protocol=usbasp
 usbasp_slow.program.protocol=usbasp
 usbasp_slow.program.tool=avrdude
-usbasp_slow.program.extra_params=-Pusb -B32
+usbasp_slow.program.extra_params= -B32
 
-arduinoasisp.name=Arduino as ISP (MajorCore)
+usbtinyisp.name=USBtinyISP
+usbtinyisp.protocol=usbtiny
+usbtinyisp.program.tool=avrdude
+usbtinyisp.program.extra_params=
+
+usbtinyisp_slow.name=USBtinyISP slow
+usbtinyisp_slow.protocol=usbtiny
+usbtinyisp_slow.program.tool=avrdude
+usbtinyisp_slow.program.extra_params=-B32
+
+arduinoasisp.name=Arduino as ISP
 arduinoasisp.communication=serial
 arduinoasisp.protocol=stk500v1
 arduinoasisp.speed=19200
@@ -52,40 +31,46 @@ arduinoasisp.program.speed=19200
 arduinoasisp.program.tool=avrdude
 arduinoasisp.program.extra_params=-P{serial.port} -b{program.speed}
 
-atmel_ice.name=Atmel-ICE (AVR) (MajorCore)
+arduinoasispatmega32u4.name=Arduino Leonardo/Pro Micro as ISP
+arduinoasispatmega32u4.communication=serial
+arduinoasispatmega32u4.protocol=arduino
+arduinoasispatmega32u4.speed=19200
+arduinoasispatmega32u4.program.protocol=arduino
+arduinoasispatmega32u4.program.speed=19200
+arduinoasispatmega32u4.program.tool=avrdude
+arduinoasispatmega32u4.program.extra_params=-P{serial.port} -b{program.speed}
+
+atmel_ice.name=Atmel-ICE ISP
 atmel_ice.communication=usb
 atmel_ice.protocol=atmelice_isp
 atmel_ice.program.protocol=atmelice_isp
 atmel_ice.program.tool=avrdude
-atmel_ice.program.extra_params=-Pusb
+atmel_ice.program.extra_params=
 
-jtag3isp.name=Atmel JTAGICE3 (ISP mode) (MajorCore)
-jtag3isp.communication=usb
-jtag3isp.protocol=jtag3isp
-jtag3isp.program.protocol=jtag3isp
-jtag3isp.program.tool=avrdude
-jtag3isp.program.extra_params=
-
-jtag3.name=Atmel JTAGICE3 (JTAG mode) (MajorCore)
-jtag3.communication=usb
-jtag3.protocol=jtag3
-jtag3.program.protocol=jtag3
-jtag3.program.tool=avrdude
-# Set a bitclock of 0.1us (the fastest supported value). This should
-# work regardless of the crystal used, since JTAG doesn't use the MCU
-# clock but dictates its own clock.
-jtag3.program.extra_params=-B0.1
-
-pickit4_isp.name=PICkit4 (ISP mode) (MajorCore)
+pickit4_isp.name=PICkit4 ISP
 pickit4_isp.communication=usb
 pickit4_isp.protocol=pickit4_isp
 pickit4_isp.program.protocol=pickit4_isp
 pickit4_isp.program.tool=avrdude
-pickit4_isp.program.extra_params=-Pusb
+pickit4_isp.program.extra_params=
 
-snap_isp.name=MPLAB SNAP (ISP mode) (MajorCore)
+snap_isp.name=MPLAB SNAP ISP
 snap_isp.communication=usb
 snap_isp.protocol=snap_isp
 snap_isp.program.protocol=snap_isp
 snap_isp.program.tool=avrdude
-snap_isp.program.extra_params=-Pusb
+snap_isp.program.extra_params=
+
+avrispmkii.name=AVRISP mkII
+avrispmkii.communication=usb
+avrispmkii.protocol=stk500v2
+avrispmkii.program.protocol=stk500v2
+avrispmkii.program.tool=avrdude
+avrispmkii.program.extra_params=
+
+stk500.name=STK500 as ISP
+stk500.communication=serial
+stk500.protocol=stk500
+stk500.program.protocol=stk500
+stk500.program.tool=avrdude
+stk500.program.extra_params= -P {serial.port}
