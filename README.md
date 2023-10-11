@@ -39,25 +39,26 @@ MajorCore supports a variety of different clock frequencies. Select the microcon
 
 Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu. For time-critical operations, an external crystal/oscillator is recommended. The Urboot bootloader has automatic baud rate detection, so UART uploads should work fine even though the oscillator is a little too fast or too slow.
 
-| Frequency   | Oscillator type             | Comment                                                       |
-|-------------|-----------------------------|---------------------------------------------------------------|
-| 16 MHz      | External crystal/oscillator | Default clock on most AVR-based Arduino boards and MajorCore  |
-| 20 MHz      | External crystal/oscillator |                                                               |
-| 18.4320 MHz | External crystal/oscillator | Great clock for UART communication with no error              |
-| 14.7456 MHz | External crystal/oscillator | Great clock for UART communication with no error              |
-| 12 MHz      | External crystal/oscillator |                                                               |
-| 11.0592 MHz | External crystal/oscillator | Great clock for UART communication with no error              |
-| 8 MHz       | External crystal/oscillator | Common clock when working with 3.3V                           |
-| 7.3728 MHz  | External crystal/oscillator | Great clock for UART communication with no error              |
-| 4 MHz       | External crystal/oscillator |                                                               |
-| 3.6864 MHz  | External crystal/oscillator | Great clock for UART communication with no error              |
-| 1 MHz       | External crystal/oscillator |                                                               |
-| 1.8432 MHz  | External crystal/oscillator | Great clock for UART communication with no error              |
-| 1 MHz       | External crystal/oscillator |                                                               |
-| 8 MHz       | Internal oscillator         |                                                               |
-| 4 MHz       | Internal oscillator         | Derived from the 8 MHz internal oscillator                    |
-| 2 MHz       | Internal oscillator         | Derived from the 8 MHz internal oscillator                    |
-| 1 MHz       | Internal oscillator         | Derived from the 8 MHz internal oscillator                    |
+| Frequency   | Oscillator type             | Speed  | Comment                                           |
+|-------------|-----------------------------|--------|---------------------------------------------------|
+| 16 MHz      | External crystal/oscillator | 115200 | Default clock on most AVR-based Arduino boards    |
+| 20 MHz      | External crystal/oscillator | 115200 |                                                   |
+| 18.4320 MHz | External crystal/oscillator | 115200 | Great clock for UART communication with no error  |
+| 14.7456 MHz | External crystal/oscillator | 115200 | Great clock for UART communication with no error  |
+| 12 MHz      | External crystal/oscillator | 57600  |                                                   |
+| 11.0592 MHz | External crystal/oscillator | 115200 | Great clock for UART communication with no error  |
+| 8 MHz       | External crystal/oscillator | 57600  | Common clock when working with 3.3V               |
+| 7.3728 MHz  | External crystal/oscillator | 115200 | Great clock for UART communication with no error  |
+| 6 MHz       | External crystal/oscillator | 57600  |                                                   |
+| 4 MHz       | External crystal/oscillator | 9600   |                                                   |
+| 3.6864 MHz  | External crystal/oscillator | 115200 | Great clock for UART communication with no error  |
+| 2 MHz       | External crystal/oscillator | 9600   |                                                   |
+| 1.8432 MHz  | External crystal/oscillator | 115200 | Great clock for UART communication with no error  |
+| 1 MHz       | External crystal/oscillator | 9600   |                                                   |
+| 8 MHz       | Internal oscillator         | 38400  |                                                   |
+| 4 MHz       | Internal oscillator         | 9600   | Derived from the 8 MHz internal oscillator        |
+| 2 MHz       | Internal oscillator         | 9600   | Derived from the 8 MHz internal oscillator        |
+| 1 MHz       | Internal oscillator         | 9600   | Derived from the 8 MHz internal oscillator        |
 
 
 ## Bootloader option

@@ -131,6 +131,12 @@ menu.bootloader=Bootloader
 162.menu.clock.7_3728MHz_external.build.clkpr=
 162.menu.clock.7_3728MHz_external.build.f_cpu=7372800L
 
+162.menu.clock.6MHz_external=External 6 MHz
+162.menu.clock.6MHz_external.upload.speed=57600
+162.menu.clock.6MHz_external.bootloader.low_fuses=0xff
+162.menu.clock.6MHz_external.build.clkpr=
+162.menu.clock.6MHz_external.build.f_cpu=6000000L
+
 162.menu.clock.4MHz_external=External 4 MHz
 162.menu.clock.4MHz_external.upload.speed=9600
 162.menu.clock.4MHz_external.bootloader.low_fuses=0xff
@@ -293,6 +299,12 @@ menu.bootloader=Bootloader
 8515.menu.clock.7_3728MHz_external.bootloader.sut_cksel_bits=111111
 8515.menu.clock.7_3728MHz_external.bootloader.ckopt_bit=0
 8515.menu.clock.7_3728MHz_external.build.f_cpu=7372800L
+
+8515.menu.clock.6MHz_external=External 6 MHz
+8515.menu.clock.6MHz_external.upload.speed=57600
+8515.menu.clock.6MHz_external.bootloader.sut_cksel_bits=111111
+8515.menu.clock.6MHz_external.bootloader.ckopt_bit=0
+8515.menu.clock.6MHz_external.build.f_cpu=6000000L
 
 8515.menu.clock.4MHz_external=External 4 MHz
 8515.menu.clock.4MHz_external.upload.speed=9600
