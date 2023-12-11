@@ -4,7 +4,7 @@
 An Arduino core for large, 8051 pin compatible, breadboard friendly AVRs, all running the [Urboot](#write-to-own-flash) bootloader.
 This core requires at least Arduino IDE v1.8, where v1.8.9 or newer is recommended. IDE 2.x should also work.
 
-*From MajorCore version 3 and onwards, the Optiboot bootloader has been replaced by the superior [Urboot bootloader](https://github.com/stefanrueger/urboot/). It's smaller, faster, and has automatic baud rate detection, and can read and write to EEPROM. Other cool features the bootloader provides but are not utilized by MightyCore are user program metadata stored in flash (that can easily be viewed by Avrdude -xshowall) and chip-erase functionality.
+*From MajorCore version 3 and onwards, the Optiboot bootloader has been replaced by the superior [Urboot bootloader](https://github.com/stefanrueger/urboot/). It's smaller, faster, and has automatic baud rate detection, and can read and write to EEPROM. Other cool features the bootloader provides but are not utilized by MajorCore are user program metadata stored in flash (that can easily be viewed by Avrdude -xshowall) and chip-erase functionality.
 If you already have Optiboot installed and don't want to replace it with Urboot, you can still upload programs without any compatibility issues. However, if you're burning a bootloader to a new chip, Urboot is the way to go.*
 
 
@@ -12,6 +12,7 @@ If you already have Optiboot installed and don't want to replace it with Urboot,
 * [Supported microcontrollers](#supported-microcontrollers)
 * [Supported clock frequencies](#supported-clock-frequencies)
 * [Bootloader option](#bootloader-option)
+* [Baud rate option](#baud-rate-option)
 * [BOD option](#bod-option)
 * [EEPROM retain option](#eeprom-option)
 * [Link time optimization / LTO](#link-time-optimization--lto)
@@ -40,26 +41,26 @@ MajorCore supports a variety of different clock frequencies. Select the microcon
 
 Make sure you connect an ISP programmer, and select the correct one in the "Programmers" menu. For time-critical operations, an external crystal/oscillator is recommended. The Urboot bootloader has automatic baud rate detection, so UART uploads should work fine even though the oscillator is a little too fast or too slow.
 
-| Frequency   | Oscillator type             | Speed  | Comment                                           |
-|-------------|-----------------------------|--------|---------------------------------------------------|
-| 16 MHz      | External crystal/oscillator | 115200 | Default clock on most AVR-based Arduino boards    |
-| 20 MHz      | External crystal/oscillator | 115200 |                                                   |
-| 18.4320 MHz | External crystal/oscillator | 115200 | Great clock for UART communication with no error  |
-| 14.7456 MHz | External crystal/oscillator | 115200 | Great clock for UART communication with no error  |
-| 12 MHz      | External crystal/oscillator | 57600  |                                                   |
-| 11.0592 MHz | External crystal/oscillator | 115200 | Great clock for UART communication with no error  |
-| 8 MHz       | External crystal/oscillator | 57600  | Common clock when working with 3.3V               |
-| 7.3728 MHz  | External crystal/oscillator | 115200 | Great clock for UART communication with no error  |
-| 6 MHz       | External crystal/oscillator | 57600  |                                                   |
-| 4 MHz       | External crystal/oscillator | 9600   |                                                   |
-| 3.6864 MHz  | External crystal/oscillator | 115200 | Great clock for UART communication with no error  |
-| 2 MHz       | External crystal/oscillator | 9600   |                                                   |
-| 1.8432 MHz  | External crystal/oscillator | 115200 | Great clock for UART communication with no error  |
-| 1 MHz       | External crystal/oscillator | 9600   |                                                   |
-| 8 MHz       | Internal oscillator         | 38400  |                                                   |
-| 4 MHz       | Internal oscillator         | 9600   | Derived from the 8 MHz internal oscillator        |
-| 2 MHz       | Internal oscillator         | 9600   | Derived from the 8 MHz internal oscillator        |
-| 1 MHz       | Internal oscillator         | 9600   | Derived from the 8 MHz internal oscillator        |
+| Frequency   | Oscillator type             | Default upload speed <br/>(bootloader has auto-baud)  | Comment                                           |
+|-------------|-----------------------------|-------------------------------------------------------|---------------------------------------------------|
+| 16 MHz      | External crystal/oscillator | 115200                                                | Default clock on most AVR based Arduino boards    |
+| 20 MHz      | External crystal/oscillator | 115200                                                |                                                   |
+| 18.4320 MHz | External crystal/oscillator | 115200                                                | Great clock for UART communication with no error  |
+| 14.7456 MHz | External crystal/oscillator | 115200                                                | Great clock for UART communication with no error  |
+| 12 MHz      | External crystal/oscillator | 57600                                                 |                                                   |
+| 11.0592 MHz | External crystal/oscillator | 115200                                                | Great clock for UART communication with no error  |
+| 8 MHz       | External crystal/oscillator | 57600                                                 | Common clock when working with 3.3V               |
+| 7.3728 MHz  | External crystal/oscillator | 115200                                                | Great clock for UART communication with no error  |
+| 6 MHz       | External crystal/oscillator | 57600                                                 |                                                   |
+| 4 MHz       | External crystal/oscillator | 9600                                                  |                                                   |
+| 3.6864 MHz  | External crystal/oscillator | 115200                                                | Great clock for UART communication with no error  |
+| 2 MHz       | External crystal/oscillator | 9600                                                  |                                                   |
+| 1.8432 MHz  | External crystal/oscillator | 115200                                                | Great clock for UART communication with no error  |
+| 1 MHz       | External crystal/oscillator | 9600                                                  |                                                   |
+| 8 MHz       | Internal oscillator         | 38400                                                 | Might cause UART upload issues. See comment above |
+| 4 MHz       | Internal oscillator         | 9600                                                  | Derived from the 8 MHz internal oscillator        |
+| 2 MHz       | Internal oscillator         | 9600                                                  | Derived from the 8 MHz internal oscillator        |
+| 1 MHz       | Internal oscillator         | 9600                                                  | Derived from the 8 MHz internal oscillator        |
 
 
 ## Bootloader option
@@ -68,6 +69,12 @@ If your application doesn't need or require a bootloader for uploading you can a
 This frees 384 bytes of flash memory on ATmega8/88/168/328 and 320 bytes on the ATmega48.
 
 Note that you need to connect a programmer and hit **Burn bootloader** if you want to change any of the *Bootloader settings*.
+
+
+# Baud rate option
+Since Urboot has automatic baud rate detection, the upload baud rate can be changed without having to re-flash the bootloader. The default baud rate setting will pick a suited baud rate that also works with the legacy Optiboot bootloader used in earlier MajorCore versions.
+The other baud rate options may or may not work, depending on the clock frequency and accuracy of the clock source. A rule of thumb is that "non-round" baud rates like 230400 works best with "non-round" clock speeds like 18.4320 MHz,
+while "round" ones like 16 MHz work best with "round" baud rates like 250000.
 
 
 ## BOD option
