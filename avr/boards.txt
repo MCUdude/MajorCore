@@ -148,6 +148,12 @@ menu.baudrate=Baud rate
 162.menu.clock.11_0592MHz_external.build.clkpr=
 162.menu.clock.11_0592MHz_external.build.f_cpu=11059200L
 
+162.menu.clock.9_216MHz_external=External 9.216 MHz
+162.menu.clock.9_216MHz_external.upload.default_speed=115200
+162.menu.clock.9_216MHz_external.bootloader.low_fuses=0xff
+162.menu.clock.9_216MHz_external.build.clkpr=
+162.menu.clock.9_216MHz_external.build.f_cpu=9216000L
+
 162.menu.clock.8MHz_external=External 8 MHz
 162.menu.clock.8MHz_external.upload.default_speed=57600
 162.menu.clock.8MHz_external.bootloader.low_fuses=0xff
@@ -344,6 +350,12 @@ menu.baudrate=Baud rate
 8515.menu.clock.11_0592MHz_external.bootloader.sut_cksel_bits=111111
 8515.menu.clock.11_0592MHz_external.bootloader.ckopt_bit=0
 8515.menu.clock.11_0592MHz_external.build.f_cpu=11059200L
+
+8515.menu.clock.9_216MHz_external=External 9.216 MHz
+8515.menu.clock.9_216MHz_external.upload.default_speed=115200
+8515.menu.clock.9_216MHz_external.bootloader.sut_cksel_bits=111111
+8515.menu.clock.9_216MHz_external.bootloader.ckopt_bit=0
+8515.menu.clock.9_216MHz_external.build.f_cpu=9216000L
 
 8515.menu.clock.8MHz_external=External 8 MHz
 8515.menu.clock.8MHz_external.upload.default_speed=57600
