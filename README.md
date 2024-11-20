@@ -1,5 +1,4 @@
 # MajorCore
-[![Build Status](https://travis-ci.com/MCUdude/MajorCore.svg?branch=master)](https://travis-ci.com/MCUdude/MajorCore)
 
 An Arduino core for large, 8051 pin compatible, breadboard friendly AVRs, all running the [Urboot](#write-to-own-flash) bootloader.
 This core requires at least Arduino IDE v1.8, where v1.8.9 or newer is recommended. IDE 2.x should also work.
