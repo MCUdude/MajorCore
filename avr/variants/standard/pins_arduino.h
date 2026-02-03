@@ -17,6 +17,8 @@
 #define digitalPinHasPWM(p)         ((p) == 0 || (p) == 13 || (p) == 34)
 #elif defined(__AVR_ATmega162__)
 #define digitalPinHasPWM(p)         ((p) == 0 || (p) == 1 || (p) == 4 || (p) == 12 || (p) == 13 || (p) == 34)
+#elif defined(__AVR_ATmega161__)
+#define digitalPinHasPWM(p)         ((p) == 0 || (p) == 1 || (p) == 13 || (p) == 34)
 #endif
 
 // Builtin LED
@@ -44,7 +46,7 @@ static const uint8_t SCK  = PIN_SPI_SCK;
 #define EXTERNAL_NUM_INTERRUPTS     3
 #define digitalPinToInterrupt(p)    ((p) == 10 ? 0 : ((p) == 11 ? 1 : ((p) == 32 ? 2 : NOT_AN_INTERRUPT)))
 
-// PCINT
+// PCINT (Atmega161 has no PCINT, Atmega162 does)
 #if defined(__AVR_ATmega162__)
 #define digitalPinToPCICR(p)    (0)
 #define digitalPinToPCICRbit(p) (0)
@@ -287,6 +289,47 @@ const uint8_t PROGMEM digital_pin_to_timer_PGM[] =
   NOT_ON_TIMER,   /* D33 - PE1 */
   TIMER1B         /* D34 - PE2 */
 };
+
+#elif defined(__AVR_ATmega161__)
+const uint8_t PROGMEM digital_pin_to_timer_PGM[] =
+{
+  TIMER0,         /* D0  - PB0 */
+  TIMER2,         /* D1  - PB1 */
+  NOT_ON_TIMER,   /* D2  - PB2 */
+  NOT_ON_TIMER,   /* D3  - PB3 */
+  NOT_ON_TIMER,   /* D4  - PB4 */
+  NOT_ON_TIMER,   /* D5  - PB5 */
+  NOT_ON_TIMER,   /* D6  - PB6 */
+  NOT_ON_TIMER,   /* D7  - PB7 */
+  NOT_ON_TIMER,   /* D8  - PD0 */
+  NOT_ON_TIMER,   /* D9  - PD1 */
+  NOT_ON_TIMER,   /* D10 - PD2 */
+  NOT_ON_TIMER,   /* D11 - PD3 */
+  NOT_ON_TIMER,   /* D12 - PD4 */
+  TIMER1A,        /* D13 - PD5 */
+  NOT_ON_TIMER,   /* D14 - PD6 */
+  NOT_ON_TIMER,   /* D15 - PD7 */
+  NOT_ON_TIMER,   /* D16 - PC0 */
+  NOT_ON_TIMER,   /* D17 - PC1 */
+  NOT_ON_TIMER,   /* D18 - PC2 */
+  NOT_ON_TIMER,   /* D19 - PC3 */
+  NOT_ON_TIMER,   /* D20 - PC4 */
+  NOT_ON_TIMER,   /* D21 - PC5 */
+  NOT_ON_TIMER,   /* D22 - PC6 */
+  NOT_ON_TIMER,   /* D23 - PC7 */
+  NOT_ON_TIMER,   /* D24 - PA0 */
+  NOT_ON_TIMER,   /* D25 - PA1 */
+  NOT_ON_TIMER,   /* D26 - PA2 */
+  NOT_ON_TIMER,   /* D27 - PA3 */
+  NOT_ON_TIMER,   /* D28 - PA4 */
+  NOT_ON_TIMER,   /* D29 - PA5 */
+  NOT_ON_TIMER,   /* D30 - PA6 */
+  NOT_ON_TIMER,   /* D31 - PA7 */
+  NOT_ON_TIMER,   /* D32 - PE0 */
+  NOT_ON_TIMER,   /* D33 - PE1 */
+  TIMER1B         /* D34 - PE2 */
+};
+
 
 #endif // Timer defs
 
