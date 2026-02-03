@@ -132,7 +132,17 @@ void HardwareSerial::begin(unsigned long baud, byte config)
   }
 
   // assign the baud_setting, a.k.a. ubrr (USART Baud Rate Register)
+#if defined(__AVR_ATmega161__) 
+// on atmega161, UBRR is a 12 bit register with bit 7..4 for UART 1 and 4...0 for UART0. A bit inconvienient
+if(_ucsrb == &UCSR0B){ // test which UART it is (this is a bit of a workaround...)
+  *_ubrrh = 0x0F & (baud_setting >> 8); // for uart0, use bits 3..0 
+} 
+else{
+	*_ubrrh = 0xF0 & (baud_setting >> 4); // for UART1, use bits 7..4 
+}
+#else
   *_ubrrh = baud_setting >> 8;
+#endif
   *_ubrrl = baud_setting;
 
   _written = false;

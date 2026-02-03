@@ -68,10 +68,10 @@ ISR(USART0_UDRE_vect)
   Serial._tx_udr_empty_irq();
 }
 
-#if defined(UBRRH) && defined(UBRRL)
+#if defined(__AVR_ATmega161__) 
+HardwareSerial Serial(&UBRRH, &UBRR0, &UCSR0A, &UCSR0B, NULL, &UDR0); // on atmega161 UBBRH is defined, for both uarts shared. UBRRL is for each one appart, so UBRRL0 and UBRRL1. There is no UCSRC on m161
+#elif defined(UBRRH) && defined(UBRRL)
   HardwareSerial Serial(&UBRRH, &UBRRL, &UCSRA, &UCSRB, &UCSRC, &UDR);
-#elif defined(UBRRH) && !defined(UBRRL)  // on atmega161 UBBRH is defined, for both uarts shared. UBRRL is for each one appar, so UBRRL0 and UBRRL1
-  HardwareSerial Serial(&UBRRH, UBRR0, &UCSR0A, &UCSR0B, NULL, &UDR0); // only using UBRR0, so only usart0. There is no UCSRC, as it is an UART, not an USART
 #else
   HardwareSerial Serial(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0);
 #endif

@@ -143,7 +143,8 @@ class HardwareSerial : public Stream
   extern HardwareSerial Serial;
   #define HAVE_HWSERIAL0
 #endif
-#if defined(UBRR1H)
+#if defined(UBRR1H) || defined (UBRR1L)
+//Atmega161 has no UBRR1H, but HAS a 2nd UART with a 2nd UBRR1L
   extern HardwareSerial Serial1;
   #define HAVE_HWSERIAL1
 #endif
