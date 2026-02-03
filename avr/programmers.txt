@@ -96,7 +96,6 @@ atmel_jtagice3.program.protocol=jtag3isp
 atmel_jtagice3.program.tool=avrdude
 atmel_jtagice3.program.extra_params=
 
-
 atmel_jtagice3_jtag.name=JTAGICE3 JTAG
 atmel_jtagice3_jtag.communication=usb
 atmel_jtagice3_jtag.protocol=jtag3
@@ -135,3 +134,11 @@ simavr.upload.protocol=This_is_not_a_programmer_but_only_a_flag_to_use_the_simul
 simavr.program.protocol=This_is_not_a_programmer_but_only_a_flag_to_use_the_simulator_when_debugging
 simavr.program.tool=avrdude
 simavr.program.extra_params=
+
+atmel_dragon.name=AVR dragon (AVR)
+atmel_dragon.communication=usb
+atmel_dragon.protocol=dragon_isp
+atmel_dragon.program.protocol=dragon_isp
+atmel_dragon.program.tool=avrdude
+atmel_dragon.program.tool.default=avrdude
+atmel_dragon.program.extra_params=-Pusb
