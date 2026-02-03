@@ -143,7 +143,11 @@ void HardwareSerial::begin(unsigned long baud, byte config)
 || defined(__AVR_ATmega162__)
   config |= 0x80; // select UCSRC register (shared with UBRRH)
 #endif
+
+#if !defined(__AVR_ATmega161__)  // atmega161 has no ucsrc!
   *_ucsrc = config;
+#endif
+
   
   *_ucsrb |= _BV(RXEN0) | _BV(TXEN0) | _BV(RXCIE0);
   *_ucsrb &= ~_BV(UDRIE0);
@@ -216,7 +220,7 @@ void HardwareSerial::flush()
         _tx_udr_empty_irq();
   }
   // If we get here, nothing is queued anymore (DRIE is disabled) and
-  // the hardware finished tranmission (TXC is set).
+  // the hardware finished transmission (TXC is set).
 }
 
 size_t HardwareSerial::write(uint8_t c)

@@ -46,7 +46,9 @@
 #define RXCIE0 RXCIE
 #define UDRIE0 UDRIE
 #define U2X0 U2X
+#if defined UPE // because on atmega161 it does not exist
 #define UPE0 UPE
+#endif
 #define UDRE0 UDRE
 #elif defined(TXC1)
 // Some devices have uart1 but no uart0
@@ -56,7 +58,9 @@
 #define RXCIE0 RXCIE1
 #define UDRIE0 UDRIE1
 #define U2X0 U2X1
+#if defined UPE1 // because on atmega161 it does not exist
 #define UPE0 UPE1
+#endif
 #define UDRE0 UDRE1
 #else
 #error No UART found in HardwareSerial.cpp
@@ -97,7 +101,11 @@ HardwareSerial::HardwareSerial(
 
 void HardwareSerial::_rx_complete_irq(void)
 {
+#if defined UPE || defined UPE0 // Atmega161 has no Parity Error flagbit, so don't check it if it is not defined
   if (bit_is_clear(*_ucsra, UPE0)) {
+#else
+	if(1){
+#endif
     // No Parity error, read byte and store it in the buffer if there is
     // room
     unsigned char c = *_udr;

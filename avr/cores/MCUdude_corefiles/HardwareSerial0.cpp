@@ -26,7 +26,7 @@
 #include "HardwareSerial.h"
 #include "HardwareSerial_private.h"
 
-// Each HardwareSerial is defined in its own file, sine the linker pulls
+// Each HardwareSerial is defined in its own file, since the linker pulls
 // in the entire file when any element inside is used. --gc-sections can
 // additionally cause unused symbols to be dropped, but ISRs have the
 // "used" attribute so are never dropped and they keep the
@@ -44,8 +44,10 @@
   ISR(USART0_RX_vect)
 #elif defined(USART_RX_vect)
   ISR(USART_RX_vect)
+#elif defined(UART0_RX_vect)
+  ISR(UART0_RX_vect)
 #else
-  #error "Don't know what the Data Received vector is called for Serial"
+ #error "Don't know what the Data Received vector is called for Serial"
 #endif
   {
     Serial._rx_complete_irq();
@@ -53,6 +55,8 @@
 
 #if defined(UART0_UDRE_vect)
 ISR(UART0_UDRE_vect)
+#elif defined(UART_UDRE_vect)
+ISR(UART_UDRE_vect)
 #elif defined(USART_UDRE_vect)
 ISR(USART_UDRE_vect)
 #elif defined(USART0_UDRE_vect)
@@ -66,6 +70,8 @@ ISR(USART0_UDRE_vect)
 
 #if defined(UBRRH) && defined(UBRRL)
   HardwareSerial Serial(&UBRRH, &UBRRL, &UCSRA, &UCSRB, &UCSRC, &UDR);
+#elif defined(UBRRH) && !defined(UBRRL)  // on atmega161 UBBRH is defined, for both uarts shared. UBRRL is for each one appar, so UBRRL0 and UBRRL1
+  HardwareSerial Serial(&UBRRH, UBRR0, &UCSR0A, &UCSR0B, NULL, &UDR0); // only using UBRR0, so only usart0. There is no UCSRC, as it is an UART, not an USART
 #else
   HardwareSerial Serial(&UBRR0H, &UBRR0L, &UCSR0A, &UCSR0B, &UCSR0C, &UDR0);
 #endif

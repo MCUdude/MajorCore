@@ -42,6 +42,8 @@ ISR(UART1_RX_vect)
 ISR(USART1_RX_vect)
 #elif defined(USART1_RXC_vect)
 ISR(USART1_RXC_vect)
+#elif defined(UART1_RX_vect)
+  ISR(UART1_RX_vect)
 #else
 #error "Don't know what the Data Register Empty vector is called for Serial1"
 #endif
@@ -59,9 +61,11 @@ ISR(USART1_UDRE_vect)
 {
   Serial1._tx_udr_empty_irq();
 }
-
+#if !defined(__AVR_ATmega161__) 
 HardwareSerial Serial1(&UBRR1H, &UBRR1L, &UCSR1A, &UCSR1B, &UCSR1C, &UDR1);
-
+#else
+HardwareSerial Serial(&UBRRH, UBRR1, &UCSR1A, &UCSR1B, NULL, &UDR1); // on ATMEGA161, UBBRH is shared... Inconvinient indeed.
+#endif
 // Function that can be weakly referenced by serialEventRun to prevent
 // pulling in this file if it's not otherwise used.
 bool Serial1_available() {

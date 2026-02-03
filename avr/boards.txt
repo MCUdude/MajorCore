@@ -240,7 +240,7 @@ menu.JTAG=JTAG pins
 # General
 161.name=ATmega161
 161.upload.tool=avrdude
-161.upload.maximum_data_size=512
+161.upload.maximum_data_size=1024
 161.bootloader.tool=avrdude
 161.bootloader.unlock_bits=0x3f
 161.bootloader.lock_bits=0x0f
