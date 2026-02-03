@@ -342,6 +342,9 @@ const uint8_t PROGMEM digital_pin_to_timer_PGM[] =
 
 #define SERIAL_PORT_MONITOR         Serial
 #define SERIAL_PORT_HARDWARE        Serial
+#if defined(__AVR_ATmega161__)
+#define SERIAL_PORT_HARDWARE1       Serial1
+#endif
 
 #if defined(__AVR_ATmega162__)
 #define SERIAL_PORT_HARDWARE_OPEN   Serial1
