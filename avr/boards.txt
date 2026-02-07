@@ -14,7 +14,7 @@ menu.eeprom=EEPROM
 menu.LTO=Compiler LTO
 menu.bootloader=Bootloader
 menu.baudrate=Baud rate
-menu.jtag=JTAG pins
+menu.JTAG=JTAG pins
 
 
 ###################
