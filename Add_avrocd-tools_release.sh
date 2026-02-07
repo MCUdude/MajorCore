@@ -2,7 +2,7 @@
 
 OWNER=felias-fogg  # Github username
 AUTHOR=MCUdude
-REPOSITORY=MightyCore
+REPOSITORY=MajorCore
 
 AVROCD_TOOLS_VERSION=$(curl -s https://api.github.com/repos/$OWNER/PyAvrOCD/releases/latest | grep "tag_name" |  awk -F\" '{print $4}' | awk -Fv '{print $2}')
 

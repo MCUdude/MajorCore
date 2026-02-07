@@ -1,5 +1,5 @@
 #!/bin/bash
-
+ 
 ##########################################################
 ##                                                      ##
 ## Shell script for generating a boards manager release ##
@@ -22,6 +22,9 @@ AVRDUDE_VERSION="8.0-arduino.1"
 
 # Get the download URL for the latest release from Github
 DOWNLOAD_URL=$(curl -s https://api.github.com/repos/$AUTHOR/$REPOSITORY/releases/latest | grep "tarball_url" | awk -F\" '{print $4}')
+
+# Get filename
+DOWNLOADED_FILE=$(echo $DOWNLOAD_URL | awk -F/ '{print $8}')
 
 # Check whether most recent board file is already in the index
 if grep -q ${REPOSITORY}-${DOWNLOADED_FILE#"v"} package_${REALAUTHOR}_${REPOSITORY}_index.json; then
