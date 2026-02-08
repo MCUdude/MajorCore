@@ -10,7 +10,7 @@
 
 # Change these to match your repo
 REALAUTHOR=MCUdude   # Author name for file
-AUTHOR=felias-fogg   # GitHub Owner (usually the same as above)
+AUTHOR=MCUdude       # GitHub Owner (usually the same as above)
 REPOSITORY=MajorCore # Github repo name
 PAOOWNER=felias-fogg # Github owner of PyAvrOCD  
 
