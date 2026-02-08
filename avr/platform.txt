@@ -5,14 +5,14 @@
 # https://arduino.github.io/arduino-cli/latest/platform-specification/
 
 name=MajorCore
-version=3.1.0-pre2
+version=3.1.0
 
 # AVR compile variables
 # ---------------------
 
 # Optimization flags for debugging
-compiler.optimization_flags=-Os -ggdb3 -DNDBEUG
-compiler.optimization_flags.release=-Os -ggdb3 -DNDBEUG
+compiler.optimization_flags=-Os -ggdb3 -DNDEBUG
+compiler.optimization_flags.release=-Os -ggdb3 -DNDEBUG
 compiler.optimization_flags.debug=-Og -ggdb3 -DDEBUG
 
 compiler.warning_flags=
@@ -174,7 +174,7 @@ debug.cortex-debug.custom.serverArgs.4=--manage
 debug.cortex-debug.custom.serverArgs.5=all
 debug.cortex-debug.custom.serverArgs.6=--F_CPU
 debug.cortex-debug.custom.serverArgs.7={build.f_cpu}
-debug.cortex-debug.custom.serverArgs.8=--progclk
+debug.cortex-debug.custom.serverArgs.8=--prog-clock
 debug.cortex-debug.custom.serverArgs.9=2000
 debug.cortex-debug.custom.runToEntryPoint=main
 debug.svd_file={debug.toolchain.path}/pyavrocd-util/svd/{build.mcu}.svd
