@@ -14,6 +14,7 @@ menu.eeprom=EEPROM
 menu.LTO=Compiler LTO
 menu.bootloader=Bootloader
 menu.baudrate=Baud rate
+menu.JTAG=JTAG pins
 
 
 ###################
@@ -33,6 +34,12 @@ menu.baudrate=Baud rate
 162.build.mcu=atmega162
 162.build.bootloader_led=led+b0
 162.build.extra_flags={build.clkpr}
+
+# JTAG pins
+162.menu.JTAG.disabled=JTAG disabled
+162.menu.JTAG.disabled.bootloader.jtag_nibble=d
+162.menu.JTAG.enabled=JTAG enabled
+162.menu.JTAG.enabled.bootloader.jtag_nibble=9
 
 # Upload port select
 162.menu.bootloader.uart0=Yes (UART0)
@@ -56,9 +63,9 @@ menu.baudrate=Baud rate
 
 # EEPROM
 162.menu.eeprom.keep=EEPROM retained
-162.menu.eeprom.keep.bootloader.high_fuses=0xd7
+162.menu.eeprom.keep.bootloader.high_fuses=0x{bootloader.jtag_nibble}7
 162.menu.eeprom.erase=EEPROM not retained
-162.menu.eeprom.erase.bootloader.high_fuses=0xdf
+162.menu.eeprom.erase.bootloader.high_fuses=0x{bootloader.jtag_nibble}f
 
 # Baud rate
 162.menu.baudrate.default=Default
@@ -245,6 +252,7 @@ menu.baudrate=Baud rate
 8515.build.board=AVR_ATmega8515
 8515.build.mcu=atmega8515
 8515.build.bootloader_led=led+b0
+8515.debug.executable=
 
 # Upload port select
 8515.menu.bootloader.uart0=Yes (UART0)
