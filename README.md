@@ -1,7 +1,7 @@
 # MajorCore
 
 An Arduino core for large, 8051 pin compatible, breadboard friendly AVRs, all running the [Urboot](#write-to-own-flash) bootloader.
-This core requires at least Arduino IDE v1.8, where v1.8.9 or newer is recommended. IDE 2.x.y also works.
+This core requires at least Arduino IDE v1.8, where v1.8.9 or newer is recommended, but if you want to debug using a hardware debugger, you'll need Arduino IDE 2.x.
 
 *From version 3.1.0 onwards, debugging in the Arduino IDE 2 is supported. You can use any of Microchip's EDBG-based hardware debuggers. For documentation, see [https://pyavrocd.io](https://pyavrocd.io).*
 
