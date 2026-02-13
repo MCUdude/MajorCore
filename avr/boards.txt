@@ -257,14 +257,14 @@ menu.JTAG=JTAG pins
 161.menu.bootloader.uart0.upload.protocol=urclock
 161.menu.bootloader.uart0.upload.uartpins=uart0_rxd0_txd1
 161.menu.bootloader.uart0.build.export_merged_output=true
-161.menu.bootloader.uart0.bootloader.file=urboot/{build.mcu}/watchdog_1_s/autobaud/{upload.uartpins}/{build.bootloader_led}/urboot_{build.mcu}_pr_ee_ce.hex
+161.menu.bootloader.uart0.bootloader.file=urboot/{build.mcu}/watchdog_2_s/autobaud/urboot_m161_2s_autobaud_uart0_rxd0_txd1_no-led_pr_ee_ce
 
 161.menu.bootloader.uart1=Yes (UART1)
 161.menu.bootloader.uart1.upload.maximum_size=16000
 161.menu.bootloader.uart1.upload.protocol=urclock
 161.menu.bootloader.uart1.upload.uartpins=uart1_rxb2_txb3
 161.menu.bootloader.uart1.build.export_merged_output=true
-161.menu.bootloader.uart1.bootloader.file=urboot/{build.mcu}/watchdog_1_s/autobaud/{upload.uartpins}/{build.bootloader_led}/urboot_{build.mcu}_pr_ee_ce.hex
+161.menu.bootloader.uart1.bootloader.file=urboot/{build.mcu}/watchdog_2_s/autobaud/urboot_m161_2s_autobaud_uart1_rxb2_txb3_no-led_pr_ee_ce.hex
 
 161.menu.bootloader.no_bootloader=No bootloader
 161.menu.bootloader.no_bootloader.upload.maximum_size=16384
@@ -274,10 +274,7 @@ menu.JTAG=JTAG pins
 
 # EEPROM
 # Atmega161 has no EESAVE fuse. No high fuses at all.
-#161.menu.eeprom.keep=EEPROM retained
-#161.menu.eeprom.keep.bootloader.high_fuses=0xd7
-#161.menu.eeprom.erase=EEPROM not retained
-#161.menu.eeprom.erase.bootloader.high_fuses=0xdf
+
 
 # Baud rate
 161.menu.baudrate.default=Default
@@ -309,14 +306,6 @@ menu.JTAG=JTAG pins
 
 # Brown out detection
 #Atmega161 has no efuse / no BOD
-#161.menu.BOD.2v7=BOD 2.7V
-#161.menu.BOD.2v7.bootloader.extended_fuses=0xfb
-#161.menu.BOD.4v3=BOD 4.3V
-#161.menu.BOD.4v3.bootloader.extended_fuses=0xf9
-#161.menu.BOD.1v8=BOD 1.8V
-#161.menu.BOD.1v8.bootloader.extended_fuses=0xfd
-#161.menu.BOD.disabled=BOD disabled
-#161.menu.BOD.disabled.bootloader.extended_fuses=0xff
 
 # Compiler link time optimization
 161.menu.LTO.Os_flto=LTO enabled
@@ -336,49 +325,49 @@ menu.JTAG=JTAG pins
 
 161.menu.clock.8MHz_external=External 8 MHz
 161.menu.clock.8MHz_external.upload.default_speed=57600
-161.menu.clock.8MHz_external.bootloader.low_fuses=0x80
+161.menu.clock.8MHz_external.bootloader.low_fuses=0xCA
 161.menu.clock.8MHz_external.build.clkpr=
 161.menu.clock.8MHz_external.build.f_cpu=8000000L
 
 161.menu.clock.7_3728MHz_external=External 7.3728 MHz
 161.menu.clock.7_3728MHz_external.upload.default_speed=115200
-161.menu.clock.7_3728MHz_external.bootloader.low_fuses=0x80
+161.menu.clock.7_3728MHz_external.bootloader.low_fuses=0xCA
 161.menu.clock.7_3728MHz_external.build.clkpr=
 161.menu.clock.7_3728MHz_external.build.f_cpu=7372800L
 
 161.menu.clock.6MHz_external=External 6 MHz
 161.menu.clock.6MHz_external.upload.default_speed=57600
-161.menu.clock.6MHz_external.bootloader.low_fuses=0x80
+161.menu.clock.6MHz_external.bootloader.low_fuses=0xCA
 161.menu.clock.6MHz_external.build.clkpr=
 161.menu.clock.6MHz_external.build.f_cpu=6000000L
 
 161.menu.clock.4MHz_external=External 4 MHz
 161.menu.clock.4MHz_external.upload.default_speed=9600
-161.menu.clock.4MHz_external.bootloader.low_fuses=0x80
+161.menu.clock.4MHz_external.bootloader.low_fuses=0xCA
 161.menu.clock.4MHz_external.build.clkpr=
 161.menu.clock.4MHz_external.build.f_cpu=4000000L
 
 161.menu.clock.3_6864MHz_external=External 3.6864 MHz
 161.menu.clock.3_6864MHz_external.upload.default_speed=115200
-161.menu.clock.3_6864MHz_external.bootloader.low_fuses=0x80
+161.menu.clock.3_6864MHz_external.bootloader.low_fuses=0xCA
 161.menu.clock.3_6864MHz_external.build.clkpr=
 161.menu.clock.3_6864MHz_external.build.f_cpu=3686400L
 
 161.menu.clock.2MHz_external=External 2 MHz
 161.menu.clock.2MHz_external.upload.default_speed=9600
-161.menu.clock.2MHz_external.bootloader.low_fuses=0x80
+161.menu.clock.2MHz_external.bootloader.low_fuses=0xCA
 161.menu.clock.2MHz_external.build.clkpr=
 161.menu.clock.2MHz_external.build.f_cpu=2000000L
 
 161.menu.clock.1_8432MHz_external=External 1.8432 MHz
 161.menu.clock.1_8432MHz_external.upload.default_speed=115200
-161.menu.clock.1_8432MHz_external.bootloader.low_fuses=0x80
+161.menu.clock.1_8432MHz_external.bootloader.low_fuses=0xCA
 161.menu.clock.1_8432MHz_external.build.clkpr=
 161.menu.clock.1_8432MHz_external.build.f_cpu=1843200L
 
 161.menu.clock.1MHz_external=External 1 MHz
 161.menu.clock.1MHz_external.upload.default_speed=9600
-161.menu.clock.1MHz_external.bootloader.low_fuses=0x80
+161.menu.clock.1MHz_external.bootloader.low_fuses=0xCA
 161.menu.clock.1MHz_external.build.clkpr=
 161.menu.clock.1MHz_external.build.f_cpu=1000000L
 
