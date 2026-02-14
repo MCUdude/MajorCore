@@ -257,7 +257,7 @@ menu.JTAG=JTAG pins
 161.menu.bootloader.uart0.upload.protocol=urclock
 161.menu.bootloader.uart0.upload.uartpins=uart0_rxd0_txd1
 161.menu.bootloader.uart0.build.export_merged_output=true
-161.menu.bootloader.uart0.bootloader.file=urboot/{build.mcu}/watchdog_2_s/autobaud/urboot_m161_2s_autobaud_uart0_rxd0_txd1_no-led_pr_ee_ce
+161.menu.bootloader.uart0.bootloader.file=urboot/{build.mcu}/watchdog_2_s/autobaud/urboot_m161_2s_autobaud_uart0_rxd0_txd1_no-led_pr_ee_ce.hex
 
 161.menu.bootloader.uart1=Yes (UART1)
 161.menu.bootloader.uart1.upload.maximum_size=16000
