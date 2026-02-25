@@ -1020,6 +1020,9 @@ void init()
   TCCR2 |= _BV(WGM20);
 #elif defined(TCCR2A) && defined(WGM20)
   TCCR2A |= _BV(WGM20);
+#elif defined(__AVR_ATmega161__)
+//atmega161 has TCCR2, but no WGM20 as it has no phase correct PWM. It has PWM though:
+	TCCR2 |= _BV(PWM2);
 //#else
   // Timer 2 not finished (may not be present on this CPU)
 #endif
