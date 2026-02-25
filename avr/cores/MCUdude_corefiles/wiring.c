@@ -1004,6 +1004,8 @@ void init()
 #endif
 #if defined(TCCR1A) && defined(WGM10)
   TCCR1A |= _BV(WGM10); // Put timer 1 in 8-bit phase correct pwm mode
+#elif defined(__AVR_ATmega161__) 
+  TCCR1A |= _BV(PWM10); // Put timer 1 in 8-bit phase correct pwm mode
 #endif
 
 // Set timer 2 prescale factor to 64
