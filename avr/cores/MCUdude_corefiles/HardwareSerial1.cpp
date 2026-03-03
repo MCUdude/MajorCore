@@ -59,9 +59,11 @@ ISR(USART1_UDRE_vect)
 {
   Serial1._tx_udr_empty_irq();
 }
-
+#if !defined(__AVR_ATmega161__) 
 HardwareSerial Serial1(&UBRR1H, &UBRR1L, &UCSR1A, &UCSR1B, &UCSR1C, &UDR1);
-
+#else
+HardwareSerial Serial1(&UBRRH, &UBRR1, &UCSR1A, &UCSR1B, NULL, &UDR1); // on ATMEGA161, UBBRH is shared... Inconvinient indeed.
+#endif
 // Function that can be weakly referenced by serialEventRun to prevent
 // pulling in this file if it's not otherwise used.
 bool Serial1_available() {

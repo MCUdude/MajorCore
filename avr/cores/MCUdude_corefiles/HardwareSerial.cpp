@@ -132,7 +132,17 @@ void HardwareSerial::begin(unsigned long baud, byte config)
   }
 
   // assign the baud_setting, a.k.a. ubrr (USART Baud Rate Register)
+#if defined(__AVR_ATmega161__) 
+// on atmega161, UBRR is a 12 bit register with bit 7..4 for UART 1 and 4...0 for UART0. A bit inconvienient
+if(_ucsrb == &UCSR0B){ // test which UART it is (this is a bit of a workaround...)
+  *_ubrrh = 0x0F & (baud_setting >> 8); // for uart0, use bits 3..0 
+} 
+else{
+	*_ubrrh = 0xF0 & (baud_setting >> 4); // for UART1, use bits 7..4 
+}
+#else
   *_ubrrh = baud_setting >> 8;
+#endif
   *_ubrrl = baud_setting;
 
   _written = false;
@@ -143,7 +153,11 @@ void HardwareSerial::begin(unsigned long baud, byte config)
 || defined(__AVR_ATmega162__)
   config |= 0x80; // select UCSRC register (shared with UBRRH)
 #endif
+
+#if !defined(__AVR_ATmega161__)  // atmega161 has no ucsrc!
   *_ucsrc = config;
+#endif
+
   
   *_ucsrb |= _BV(RXEN0) | _BV(TXEN0) | _BV(RXCIE0);
   *_ucsrb &= ~_BV(UDRIE0);
@@ -216,7 +230,7 @@ void HardwareSerial::flush()
         _tx_udr_empty_irq();
   }
   // If we get here, nothing is queued anymore (DRIE is disabled) and
-  // the hardware finished tranmission (TXC is set).
+  // the hardware finished transmission (TXC is set).
 }
 
 size_t HardwareSerial::write(uint8_t c)

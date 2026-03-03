@@ -233,6 +233,144 @@ menu.JTAG=JTAG pins
 162.menu.clock.1MHz_internal.build.clkpr=
 162.menu.clock.1MHz_internal.build.f_cpu=1000000L
 
+###################
+#### ATmega161 ####
+###################
+
+# General
+161.name=ATmega161
+161.upload.tool=avrdude
+161.upload.maximum_data_size=1024
+161.bootloader.tool=avrdude
+161.bootloader.unlock_bits=0x3f
+161.bootloader.lock_bits=0x0f
+161.build.core=MCUdude_corefiles
+161.build.variant=standard
+161.build.board=AVR_ATmega161
+161.build.mcu=atmega161
+161.build.bootloader_led=led+b0
+161.build.extra_flags={build.clkpr}
+
+# Upload port select
+161.menu.bootloader.uart0=Yes (UART0)
+161.menu.bootloader.uart0.upload.maximum_size=16000
+161.menu.bootloader.uart0.upload.protocol=urclock
+161.menu.bootloader.uart0.upload.uartpins=uart0_rxd0_txd1
+161.menu.bootloader.uart0.build.export_merged_output=true
+161.menu.bootloader.uart0.bootloader.file=urboot/{build.mcu}/watchdog_2_s/autobaud/urboot_m161_2s_autobaud_uart0_rxd0_txd1_no-led_pr_ee_ce.hex
+
+161.menu.bootloader.uart1=Yes (UART1)
+161.menu.bootloader.uart1.upload.maximum_size=16000
+161.menu.bootloader.uart1.upload.protocol=urclock
+161.menu.bootloader.uart1.upload.uartpins=uart1_rxb2_txb3
+161.menu.bootloader.uart1.build.export_merged_output=true
+161.menu.bootloader.uart1.bootloader.file=urboot/{build.mcu}/watchdog_2_s/autobaud/urboot_m161_2s_autobaud_uart1_rxb2_txb3_no-led_pr_ee_ce.hex
+
+161.menu.bootloader.no_bootloader=No bootloader
+161.menu.bootloader.no_bootloader.upload.maximum_size=16384
+#16k flash is 2^14=16384
+161.menu.bootloader.no_bootloader.build.export_merged_output=false
+161.menu.bootloader.no_bootloader.bootloader.file=empty/empty.hex
+
+# EEPROM
+# Atmega161 has no EESAVE fuse. No high fuses at all.
+
+
+# Baud rate
+161.menu.baudrate.default=Default
+161.menu.baudrate.default.upload.speed={upload.default_speed}
+161.menu.baudrate.1000000=1000000
+161.menu.baudrate.1000000.upload.speed=1000000
+161.menu.baudrate.500000=500000
+161.menu.baudrate.500000.upload.speed=500000
+161.menu.baudrate.460800=460800
+161.menu.baudrate.460800.upload.speed=460800
+161.menu.baudrate.250000=250000
+161.menu.baudrate.250000.upload.speed=250000
+161.menu.baudrate.230400=230400
+161.menu.baudrate.230400.upload.speed=230400
+161.menu.baudrate.125000=125000
+161.menu.baudrate.125000.upload.speed=125000
+161.menu.baudrate.115200=115200
+161.menu.baudrate.115200.upload.speed=115200
+161.menu.baudrate.57600=57600
+161.menu.baudrate.57600.upload.speed=57600
+161.menu.baudrate.38400=38400
+161.menu.baudrate.38400.upload.speed=38400
+161.menu.baudrate.19200=19200
+161.menu.baudrate.19200.upload.speed=19200
+161.menu.baudrate.9600=9600
+161.menu.baudrate.9600.upload.speed=9600
+161.menu.baudrate.4800=4800
+161.menu.baudrate.4800.upload.speed=4800
+
+# Brown out detection
+#Atmega161 has no efuse / no BOD
+
+# Compiler link time optimization
+161.menu.LTO.Os_flto=LTO enabled
+161.menu.LTO.Os_flto.compiler.c.extra_flags=-Wextra -flto -g
+161.menu.LTO.Os_flto.compiler.c.elf.extra_flags=-w -flto -g
+161.menu.LTO.Os_flto.compiler.cpp.extra_flags=-Wextra -flto -g
+161.menu.LTO.Os_flto.ltoarcmd=avr-gcc-ar
+
+161.menu.LTO.Os=LTO disabled
+161.menu.LTO.Os.compiler.c.extra_flags=
+161.menu.LTO.Os.compiler.c.elf.extra_flags=
+161.menu.LTO.Os.compiler.cpp.extra_flags=
+161.menu.LTO.Os.ltoarcmd=avr-ar
+
+
+# Clock frequencies. Atmega161 can run at maximum 8 MHz and has no internal clock
+
+161.menu.clock.8MHz_external=External 8 MHz
+161.menu.clock.8MHz_external.upload.default_speed=57600
+161.menu.clock.8MHz_external.bootloader.low_fuses=0xCA
+161.menu.clock.8MHz_external.build.clkpr=
+161.menu.clock.8MHz_external.build.f_cpu=8000000L
+
+161.menu.clock.7_3728MHz_external=External 7.3728 MHz
+161.menu.clock.7_3728MHz_external.upload.default_speed=115200
+161.menu.clock.7_3728MHz_external.bootloader.low_fuses=0xCA
+161.menu.clock.7_3728MHz_external.build.clkpr=
+161.menu.clock.7_3728MHz_external.build.f_cpu=7372800L
+
+161.menu.clock.6MHz_external=External 6 MHz
+161.menu.clock.6MHz_external.upload.default_speed=57600
+161.menu.clock.6MHz_external.bootloader.low_fuses=0xCA
+161.menu.clock.6MHz_external.build.clkpr=
+161.menu.clock.6MHz_external.build.f_cpu=6000000L
+
+161.menu.clock.4MHz_external=External 4 MHz
+161.menu.clock.4MHz_external.upload.default_speed=9600
+161.menu.clock.4MHz_external.bootloader.low_fuses=0xCA
+161.menu.clock.4MHz_external.build.clkpr=
+161.menu.clock.4MHz_external.build.f_cpu=4000000L
+
+161.menu.clock.3_6864MHz_external=External 3.6864 MHz
+161.menu.clock.3_6864MHz_external.upload.default_speed=115200
+161.menu.clock.3_6864MHz_external.bootloader.low_fuses=0xCA
+161.menu.clock.3_6864MHz_external.build.clkpr=
+161.menu.clock.3_6864MHz_external.build.f_cpu=3686400L
+
+161.menu.clock.2MHz_external=External 2 MHz
+161.menu.clock.2MHz_external.upload.default_speed=9600
+161.menu.clock.2MHz_external.bootloader.low_fuses=0xCA
+161.menu.clock.2MHz_external.build.clkpr=
+161.menu.clock.2MHz_external.build.f_cpu=2000000L
+
+161.menu.clock.1_8432MHz_external=External 1.8432 MHz
+161.menu.clock.1_8432MHz_external.upload.default_speed=115200
+161.menu.clock.1_8432MHz_external.bootloader.low_fuses=0xCA
+161.menu.clock.1_8432MHz_external.build.clkpr=
+161.menu.clock.1_8432MHz_external.build.f_cpu=1843200L
+
+161.menu.clock.1MHz_external=External 1 MHz
+161.menu.clock.1MHz_external.upload.default_speed=9600
+161.menu.clock.1MHz_external.bootloader.low_fuses=0xCA
+161.menu.clock.1MHz_external.build.clkpr=
+161.menu.clock.1MHz_external.build.f_cpu=1000000L
+
 
 ####################
 #### ATmega8515 ####

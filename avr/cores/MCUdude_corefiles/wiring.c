@@ -962,10 +962,14 @@ void init()
   // CPU specific: different values for the ATmega64/128
   TCCR0 |= _BV(WGM01) | _BV(WGM00) | _BV(CS02);
 #elif defined(TCCR0) && defined(CS01) && defined(CS00)
-  // This combination is for the ATmega8535, ATmega8, ATmega16, ATmega32, ATmega8515, ATmega162
+  // This combination is for the ATmega8535, ATmega8, ATmega16, ATmega32, ATmega8515, ATmega162, ATmega161
   TCCR0 |= _BV(CS01) | _BV(CS00);
   #if defined(WGM00) && defined(WGM01) // The ATmega8 doesn't have WGM00 and WGM01
     TCCR0 |= _BV(WGM01) | _BV(WGM00);
+  #endif
+  #if defined(__AVR_ATmega161__)
+    TCCR0 |= _BV(PWM0)|_BV(CTC0); // Atmega161 has no WGM00 and WGM01, it has PWM0 and CTC. see datasheet, as function might differ.
+	//setting only PWM0 breaks millis(); as the counter then counts up and back down. Setting CTC also makes it count up only.
   #endif
 #elif defined(TCCR0B) && defined(CS01) && defined(CS00)
   // This combination is for the standard 168/328/640/1280/1281/2560/2561
@@ -1004,6 +1008,8 @@ void init()
 #endif
 #if defined(TCCR1A) && defined(WGM10)
   TCCR1A |= _BV(WGM10); // Put timer 1 in 8-bit phase correct pwm mode
+#elif defined(__AVR_ATmega161__) 
+  TCCR1A |= _BV(PWM10); // Put timer 1 in 8-bit phase correct pwm mode
 #endif
 
 // Set timer 2 prescale factor to 64
@@ -1020,6 +1026,9 @@ void init()
   TCCR2 |= _BV(WGM20);
 #elif defined(TCCR2A) && defined(WGM20)
   TCCR2A |= _BV(WGM20);
+#elif defined(__AVR_ATmega161__)
+//atmega161 has TCCR2, but no WGM20 as it has no phase correct PWM. It has PWM though:
+	TCCR2 |= _BV(PWM2);
 //#else
   // Timer 2 not finished (may not be present on this CPU)
 #endif

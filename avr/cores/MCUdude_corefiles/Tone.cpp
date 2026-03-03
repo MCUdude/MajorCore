@@ -95,7 +95,7 @@ volatile uint8_t timer2_pin_mask;
 
 
 
-#if defined(__AVR_ATmega8515__) || defined(__AVR_ATmega162__)
+#if defined(__AVR_ATmega8515__) || defined(__AVR_ATmega162__) || defined(__AVR_ATmega161__)
   #define AVAILABLE_TONE_PINS 1
   #define USE_TIMER1
   const uint8_t PROGMEM tone_pin_to_timer_PGM[] = { 1 /*, 0 */ };
@@ -202,12 +202,35 @@ static int8_t toneBegin(uint8_t _pin)
         break;
       #endif
 
+	 #if defined(TCCR0) && defined(CTC0) // atmega161
+      case 0:
+        // 8 bit timer
+        TCCR0 = 0;
+        bitWrite(TCCR0, CTC0, 1);
+        bitWrite(TCCR0, CS00, 1);
+        timer0_pin_port = portOutputRegister(digitalPinToPort(_pin));
+        timer0_pin_mask = digitalPinToBitMask(_pin);
+        break;
+      #endif
+
       #if defined(TCCR1A) && defined(TCCR1B) && defined(WGM12)
       case 1:
         // 16 bit timer
         TCCR1A = 0;
         TCCR1B = 0;
         bitWrite(TCCR1B, WGM12, 1);
+        bitWrite(TCCR1B, CS10, 1);
+        timer1_pin_port = portOutputRegister(digitalPinToPort(_pin));
+        timer1_pin_mask = digitalPinToBitMask(_pin);
+        break;
+      #endif
+
+      #if defined(TCCR1A) && defined(TCCR1B) && defined(CTC1) // atmega161
+      case 1:
+        // 16 bit timer
+        TCCR1A = 0;
+        TCCR1B = 0;
+        bitWrite(TCCR1B, CTC1, 1);
         bitWrite(TCCR1B, CS10, 1);
         timer1_pin_port = portOutputRegister(digitalPinToPort(_pin));
         timer1_pin_mask = digitalPinToBitMask(_pin);
@@ -223,6 +246,17 @@ static int8_t toneBegin(uint8_t _pin)
         bitWrite(TCCR2B, CS20, 1);
         timer2_pin_port = portOutputRegister(digitalPinToPort(_pin));
         timer2_pin_mask = digitalPinToBitMask(_pin);
+        break;
+      #endif
+
+	 #if defined(TCCR2) && defined(CTC2) // atmega161
+      case 2:
+        // 8 bit timer
+        TCCR2 = 0;
+        bitWrite(TCCR0, CTC2, 1);
+        bitWrite(TCCR2, CS20, 1);
+        timer0_pin_port = portOutputRegister(digitalPinToPort(_pin));
+        timer0_pin_mask = digitalPinToBitMask(_pin);
         break;
       #endif
 

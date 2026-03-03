@@ -35,6 +35,7 @@ If you already have Optiboot installed and don't want to replace it with Urboot,
 ## Supported microcontrollers
 * ATmega162
 * ATmega8515
+* ATmega161
 
 
 ## Supported clock frequencies
